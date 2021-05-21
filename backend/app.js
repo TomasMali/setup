@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 // connection route
 const db = require('./api/routes/queries')
 const tab = require('./api/routes/descriptionTables')
-
+const event = require('./api/routes/event')
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 // just go to the ather file if you pass me ...
 app.use('/', db)
 app.use('/tab', tab)
+app.use('/event', event)
 
 
 // if the user requires a path that doesnt exsists, i throw an error
