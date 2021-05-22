@@ -9,7 +9,7 @@
         <i class="fas fa-bars"></i>
       </label>
       <label class="logo">
-        <router-link to="/"> Auth</router-link>
+        <router-link to="/"> Boh</router-link>
       </label>
 
       <ul>
@@ -17,7 +17,7 @@
           <router-link @click="clickSubmit" to="/public">Public</router-link>
         </li>
         <li v-if="isLoggedIn">
-          <router-link @click="clickSubmit" to="/private">Private</router-link>
+          <router-link @click="clickSubmit" to="/private">Events</router-link>
         </li>
         <li v-else>
           <router-link @click="clickSubmit" to="/login">Login</router-link>

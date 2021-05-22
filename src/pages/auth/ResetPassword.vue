@@ -15,32 +15,31 @@
       <div class="w3-third w3-container"></div>
       <div class="w3-third w3-container">
         <div class="w3-margin w3-card-4">
-          <div class="w3-container w3-blue w3-center">
+          <div class="w3-container w3-blue w3-center p-4">
             <h3>Forgot Password</h3>
           </div>
 
-          <form class="w3-container" @submit.prevent="submitForm">
-            <p>
-              <label for="email">Enter your email</label>
-              <input
-                class="w3-input"
-                type="mail"
-                id="email"
-                v-model.trim="email"
-                @blur="validateEmail"
-              />
-            </p>
+          <form class="w3-container p-10" @submit.prevent="submitForm">
+            <label for="email">Enter your email:</label>
+            <input
+              class="w3-input text-blue-600"
+              type="mail"
+              id="email"
+              v-model.trim="email"
+              @blur="validateEmail"
+            />
+
             <p v-if="!isValid" class="w3-text-red">
               Please enter a valid email
             </p>
-            <p><button class="w3-button w3-block w3-blue">Confirm</button></p>
+            <p>
+              <button class="w3-button w3-block w3-blue mt-10">Confirm</button>
+            </p>
           </form>
         </div>
       </div>
       <div class="w3-third w3-container"></div>
     </div>
-
-    
   </div>
 </template>
 
@@ -54,7 +53,6 @@ export default {
       isValid: true,
       isLoading: false,
       error: null,
-  
     };
   },
   methods: {
@@ -92,10 +90,10 @@ export default {
       this.error = null;
     },
   },
-  
-  created(){
-    this.email=  this.$route.query.email
-  }
+
+  created() {
+    this.email = this.$route.query.email;
+  },
 };
 </script>
 

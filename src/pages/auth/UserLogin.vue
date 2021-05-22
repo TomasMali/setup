@@ -11,19 +11,17 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-
-
     <div class="w3-row margin-all">
       <div class="w3-quarter w3-container"></div>
       <div class="w3-half w3-container">
         <div class="w3-margin w3-card-4">
-          <div class="w3-container w3-blue w3-center">
+          <div class="w3-container w3-blue w3-center w3-padding-16">
             <h3>Login</h3>
           </div>
 
           <form class="w3-container w3-margin" @submit.prevent="formSubmit">
             <p>
-              <label for="email">Login</label>
+              <label for="email">E-mail</label>
               <input
                 class="w3-input"
                 type="text"
@@ -53,8 +51,12 @@
               Password is required!!
             </p>
 
-            <p class="w3-padding but"> <button class="w3-button w3-block w3-blue ">Login</button></p>
-            <h6 class=" w3-padding">
+            <p class="w3-padding but">
+              <button class="w3-button w3-block w3-blue w3-round-xlarge">
+                Login
+              </button>
+            </p>
+            <h6 class="w3-padding">
               If not yet,
               <router-link class="w3-text-blue" to="/register"
                 >Register</router-link
@@ -72,8 +74,7 @@
       </div>
       <div class="w3-quarter w3-container"></div>
     </div>
-    </div>
-
+  </div>
 </template>
 
 
@@ -163,23 +164,19 @@ export default {
 
 
 <style scoped>
-
 .error {
   border-color: red;
 }
 
-.login{
+.login {
   padding: 10px 154px;
 }
 
-.but{
+.but {
   margin-top: 40px;
 }
 
-.margin-all{
+.margin-all {
   margin-top: 20px;
 }
-
-
-
 </style>

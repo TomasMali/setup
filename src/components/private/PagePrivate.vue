@@ -1,60 +1,92 @@
 <template>
   <div>
+    <base-dialog
+      :show="!!error"
+      title="An error occurred!"
+      @close="handleError"
+      >{{ error }}</base-dialog
+    >
+
+    <base-dialog :show="isLoading" fixed title="Authenticating...">
+      <base-spinner></base-spinner>
+    </base-dialog>
+
     <!--   grid -->
-    <div class="mt-8 grid lg:grid-cols-2 gap-10 mx-8">
+    <div class="mt-8 grid lg:grid-cols-2 gap-10 mx-4">
       <div class="card">
         <div class="col-span-1 lg:col-span-6">
-          <h4 class="text-3xl text-gray-700 mb-5">Create Event</h4>
-          <div class="p-10 rounded-md shadow-md bg-white">
-            <div class="mb-6">
-              <label class="block mb-3 text-gray-600" for="">Event name</label>
+          <h3 class="text-3xl text-gray-700 mb-5">Create Event</h3>
+
+          <form @submit.prevent="formSubmit" class="w3-container p-3">
+            <div class="mx-4 md:mt-10">
+              <label class="text-gray-600" for="name">Event name</label>
               <input
                 type="text"
-                class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider"
+                class="w3-input text-gray-600 tracking-wider"
+                id="name"
+                v-model.trim="name.value"
+                @blur="nameValidation"
+                :class="{ error: !name.isValid }"
               />
+              <p class="alert" v-if="!name.isValid">Please enter your name</p>
             </div>
-            <div class="mb-6">
-              <label class="block mb-3 text-gray-600" for=""
-                >Creation Date</label
-              >
+            <div class="mx-4 mb-4 md:mb-10">
               <input
                 type="date"
-                id="start"
-                name="trip-start"
-                class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-widest"
+                id="date"
+                name="date"
+                class="w3-input text-gray-600 tracking-widest"
+                v-model.trim="date.value"
+                @blur="dateValidation"
+                :class="{ error: !date.isValid }"
               />
+              <p class="alert" v-if="!date.isValid">
+                Please enter a valid date
+              </p>
             </div>
+            <button
+              @click="loadEvents"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-4 py-1 px-2"
+            >
+              Create Event
+            </button>
+          </form>
+        </div>
+      </div>
 
-            <div>
-              <button
-                @click="printw"
-                class="w-full text-ceenter px-4 py-3 bg-blue-500 rounded-md shadow-md text-white font-semibold"
-              >
-                Confirm payment
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="col-span-1 lg:col-span-6 p-6">
-          <table class="w3-table-all">
-            <thead>
-              <tr class="w3-blue">
-                <th>Id</th>
-                <th>Name</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tr class="w3-hover-grey" v-for="item in events" :key="item.id">
-              <td > {{item.id}} </td>
-              <td>{{item.name}} </td>
-              <td>{{item.date}}</td>
-            </tr>
-      
-          </table>
-        </div>
-      </div>
+      <table class="w3-table-all w3-small mb-4">
+        <thead>
+          <tr class="w3-blue">
+            <th>Name</th>
+            <th>Date</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="w3-hover-grey" v-for="item in events" :key="item.id">
+            <td>{{ item.name }}</td>
+            <td>{{ dateConverter(item.date) }}</td>
+            <td>
+              <div class="px-4 cursor-pointer" @click="deleteItem(item.name)">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!--   Grid -->
@@ -63,25 +95,110 @@
 
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
-      events: null
+      events: null,
+      name: {
+        value: "",
+        isValid: true,
+      },
+      date: {
+        value: "",
+        isValid: true,
+      },
+      isFormValid: true,
+      isLoading: false,
+      error: null,
     };
   },
   methods: {
-    async printw() {
+    async deleteItem(eventParam) {
+      if (
+        confirm("Are you sure you want to delete this event from database?")
+      ) {
+        console.log(eventParam);
+        //  this.delete(eventParam);
+        // do the delete
+        try {
+          const actionPayload = {
+            name: eventParam,
+          };
+          await this.$store.dispatch("deleteEvent", actionPayload);
+
+          this.loadEvents();
+        } catch (error) {
+          this.error = error.message || "Failed to authenticate";
+        }
+        this.isLoading = false;
+      }
+    },
+
+    dateConverter(value) {
+      if (value) {
+        return moment(String(value)).format("DD/MM/YYYY");
+      }
+    },
+
+    async formSubmit() {
+      this.nameValidation();
+
+      if (!this.isFormValid) {
+        return;
+      }
+
+      this.isLoading = true;
+      const actionPayload = {
+        name: this.name.value,
+        date: this.date.value,
+      };
+
+      // do the post
+      try {
+        await this.$store.dispatch("addEvent", actionPayload);
+        this.isFormValid = true;
+        this.name.isValid = true;
+        this.date.isValid = true;
+        this.name.value = "";
+        this.date.value = "";
+        this.loadEvents();
+      } catch (error) {
+        this.error = error.message || "Failed to authenticate";
+      }
+      this.isLoading = false;
+    },
+    nameValidation() {
+      this.isFormValid = true;
+      this.name.isValid = true;
+      if (this.name.value === "") {
+        this.isFormValid = false;
+        this.name.isValid = false;
+      }
+    },
+    dateValidation() {
+      this.isFormValid = true;
+      this.date.isValid = true;
+      if (this.date.value === "") {
+        this.isFormValid = false;
+        this.date.isValid = false;
+      }
+    },
+
+    async loadEvents() {
       try {
         await this.$store.dispatch("getEvents");
-         this.events = this.$store.getters.getEvents;
+        this.events = this.$store.getters.getEvents;
       } catch (error) {
         console.log(error);
       }
     },
+    handleError() {
+      this.error = null;
+    },
   },
-    created() {
-    this.printw();
-     
+  created() {
+    this.loadEvents();
   },
 };
 </script>
@@ -90,8 +207,19 @@ export default {
 
 
 
-<style>
-</style>
+<style scoped>
+.error {
+  border-color: red;
+}
 
+.alert {
+  color: red;
+  font-size: 13px;
+}
+
+.but {
+  margin: 40px 0px;
+}
+</style>
 
 
