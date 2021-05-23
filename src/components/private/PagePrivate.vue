@@ -143,7 +143,7 @@ export default {
 
     async formSubmit() {
       this.nameValidation();
-
+      this.dateValidation();
       if (!this.isFormValid) {
         return;
       }
