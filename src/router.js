@@ -12,6 +12,7 @@ import store from './store/index.js'
 
 const router = createRouter({
     history: createWebHistory(),
+    base: '/tomi/',
     routes: [
         { path: '/', redirect: '/public' },
         { path: '/public', component: PagePubblic },
