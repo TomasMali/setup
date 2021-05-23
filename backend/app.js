@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const db = require('./api/routes/queries')
 const tab = require('./api/routes/descriptionTables')
 const event = require('./api/routes/event')
+const relation = require('./api/routes/relations')
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 app.use('/', db)
 app.use('/tab', tab)
 app.use('/event', event)
+app.use('/relation', relation)
 
 
 // if the user requires a path that doesnt exsists, i throw an error

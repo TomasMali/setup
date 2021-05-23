@@ -66,10 +66,7 @@ export default {
 
 
     async getEvents(context) {
-
         let url = cred.prod.url_event_get
-
-
         const response = await fetch(url, {
             method: 'GET',
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -91,15 +88,43 @@ export default {
                 throw new Error("Request failed with error code: " + response.status)
 
         }
-
         //  console.log(responseData)
-
         context.commit('setEvent', {
             eventObj: responseData
         })
-
-
     },
+
+
+
+    async getCompetitions(context) {
+        let url = cred.prod.url_competition_get
+        const response = await fetch(url, {
+            method: 'GET',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+            enctype: 'mutipart/form-data'
+        });
+
+        const responseData = await response.json()
+
+        if (!response.ok) {
+            if (responseData.code === 409) {
+                throw new Error(responseData.message)
+            } else
+                throw new Error("Request failed with error code: " + response.status)
+
+        }
+        //  console.log(responseData)
+        context.commit('setCompetitions', {
+            competitionObj: responseData
+        })
+    },
+
 
     async addEvent(_, payload) {
 
@@ -166,6 +191,17 @@ export default {
 
 
     },
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -19,7 +19,12 @@
         <li v-if="isLoggedIn">
           <router-link @click="clickSubmit" to="/events">Events</router-link>
         </li>
-        <li v-else>
+        <li v-if="isLoggedIn">
+          <router-link @click="clickSubmit" to="/competitions"
+            >Competitions</router-link
+          >
+        </li>
+        <li v-if="!isLoggedIn">
           <router-link @click="clickSubmit" to="/login">Login</router-link>
         </li>
         <li v-if="isLoggedIn">

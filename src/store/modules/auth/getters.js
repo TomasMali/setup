@@ -11,7 +11,10 @@ export default {
     didAutoLogout(state) {
         return state.didAutoLogout
     },
-    getEvents(state){
+    getEvents(state) {
         return state.events
+    },
+    getCompetitions(state) {
+        return state.competitions
     }
 }

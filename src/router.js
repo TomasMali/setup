@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import PagePubblic from './components/pubblic/PagePubblic.vue'
 import CreateEvents from './components/private/CreateEvents.vue'
+import CreateCompetitions from './components/private/CreateCompetitions.vue'
 import UserRegister from './pages/auth/UserRegister.vue'
 import UserLogin from './pages/auth/UserLogin.vue'
 import NotFound from './pages/NotFound.vue'
@@ -17,6 +18,7 @@ const router = createRouter({
         { path: '/', redirect: '/public' },
         { path: '/public', component: PagePubblic },
         { path: '/events', component: CreateEvents, meta: { privateProtection: true } },
+        { path: '/competitions', component: CreateCompetitions, meta: { privateProtection: true } },
 
         { path: '/register', component: UserRegister, meta: { registerProtection: true } },
         { path: "/login", component: UserLogin, meta: { loginProtection: true } },
@@ -40,19 +42,23 @@ router.beforeEach(function(to, _, next) {
     if (to.meta.loginProtection && store.getters.isAuthenticated) {
         next('/events')
     }
+    // se sono loggato e voglio fare il login
+    if (to.meta.loginProtection && store.getters.isAuthenticated) {
+        next('/competitions')
+    }
     // se sono loggato e voglio fare la registrazione
     if (to.meta.registerProtection && store.getters.isAuthenticated) {
-        next('/private')
+        next('/events')
     }
 
     // se sono loggato non posso resettare la password
     if (to.meta.resetProtection && store.getters.isAuthenticated) {
-        next('/private')
+        next('/events')
     }
 
     // se sono loggato non posso cambiare la password
     if (to.meta.changeProtection && store.getters.isAuthenticated) {
-        next('/private')
+        next('/events')
     }
 
 

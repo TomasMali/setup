@@ -10,7 +10,8 @@ export default {
             token: null,
             didAutoLogout: false,
             //
-            events: null
+            events: null,
+            competitions: null
 
         }
     },

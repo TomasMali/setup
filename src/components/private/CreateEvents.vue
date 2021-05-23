@@ -105,7 +105,7 @@ export default {
         isValid: true,
       },
       date: {
-        value: "",
+        value: this.dateConverter(new Date().toISOString()),
         isValid: true,
       },
       isFormValid: true,
@@ -137,7 +137,7 @@ export default {
 
     dateConverter(value) {
       if (value) {
-        return moment(String(value)).format("DD/MM/YYYY");
+        return moment(String(value)).format("YYYY-MM-DD");
       }
     },
 

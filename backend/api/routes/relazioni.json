@@ -1,6 +1,7 @@
 {
     "count": 2772,
-    "data": [{
+    "data": [
+        {
             "disciplineID": 20,
             "ageGroup": "8/9",
             "class": "C",
