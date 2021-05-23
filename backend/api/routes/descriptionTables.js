@@ -6,7 +6,7 @@ const pool = require('./connection')
 /**
  * Gets all the dances
  */
-router.get('/dances', (req, res, next) => {
+router.get('/dances_3', (req, res, next) => {
     pool.query('SELECT * FROM tab_dances ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
