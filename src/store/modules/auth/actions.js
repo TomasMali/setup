@@ -67,7 +67,7 @@ export default {
 
     async getEvents(context) {
 
-        let url = "http://localhost:3000/event/getEvent"
+        let url = cred.prod.url_event_get
 
 
         const response = await fetch(url, {
@@ -103,7 +103,7 @@ export default {
 
     async addEvent(_, payload) {
 
-        let url = "http://localhost:3000/event/addEvent"
+        let url = cred.prod.url_event_add
         console.log(payload)
 
         const response = await fetch(url, {
@@ -136,7 +136,7 @@ export default {
     },
     async deleteEvent(_, payload) {
 
-        let url = "http://localhost:3000/event/deleteEvent"
+        let url = cred.prod.url_event_delete
         console.log(payload)
 
         const response = await fetch(url, {

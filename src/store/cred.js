@@ -4,11 +4,17 @@ export default {
         url_register: 'https://tomasmali.it/serve/auth/register',
         url_reset_password: 'https://tomasmali.it/serve/auth/resetPassword',
         url_change_password: 'https://tomasmali.it/serve/auth/changePassword',
+        url_event_delete: 'http://tomasmali.it:3100/event/deleteEvent',
+        url_event_get: 'http://tomasmali.it:3100/event/getEvent',
+        url_event_add: 'http://tomasmali.it:3100/event/addEvent',
     },
     dev: {
         url_login: 'http://localhost:3000/login',
         url_register: 'http://localhost:3000/register',
         url_reset_password: 'http://localhost:3000/resetPassword',
         url_change_password: 'http://localhost:3000/changePassword',
+        url_event_delete: 'http://tomasmali.it:3100/event/deleteEvent',
+        url_event_get: 'http://tomasmali.it:3100/event/getEvent',
+        url_event_add: 'http://tomasmali.it:3100/event/addEvent',
     }
 }
