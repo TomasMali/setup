@@ -13,7 +13,7 @@
 
     <!--   grid -->
     <div class="mt-8 grid lg:grid-cols-2 gap-10 mx-4">
-      <div class="card">
+      <div class="mycard">
         <div class="col-span-1 lg:col-span-6">
           <h3 class="text-3xl text-gray-700 mb-5">Create Event</h3>
 
@@ -208,6 +208,14 @@ export default {
 
 
 <style scoped>
+.mycard {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+
+  max-width: 40rem;
+}
+
 .error {
   border-color: red;
 }

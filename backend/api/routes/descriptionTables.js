@@ -81,8 +81,8 @@ router.get('/officials_roles', (req, res, next) => {
 /**
  * Gets all the disciplines
  */
-router.get('/settori_discipline', (req, res, next) => {
-    pool.query('SELECT * FROM tab_settori_discipline ORDER BY id ASC', (error, results) => {
+router.get('/sectors_discipline', (req, res, next) => {
+    pool.query('SELECT * FROM tab_sectors_discipline ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }
@@ -108,8 +108,8 @@ router.get('/unit_type', (req, res, next) => {
 /**
  * Gets all the disciplines   sdfsdfsdfsdfsdf
  */
-router.get('/categorie_eta', (req, res, next) => {
-    pool.query('SELECT * FROM tab_categorie_età ORDER BY id ASC', (error, results) => {
+router.get('/age_category', (req, res, next) => {
+    pool.query('SELECT * FROM tab_age_category ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }
@@ -146,8 +146,8 @@ router.get('/competition_type', (req, res, next) => {
 /**
  * Gets all the disciplines   sdfsdfsdfsdfsdf
  */
-router.get('/judgingsy_stems', (req, res, next) => {
-    pool.query('SELECT * FROM tab_judgingsy_stems ORDER BY id ASC', (error, results) => {
+router.get('/judging_systems', (req, res, next) => {
+    pool.query('SELECT * FROM tab_judging_systems ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }

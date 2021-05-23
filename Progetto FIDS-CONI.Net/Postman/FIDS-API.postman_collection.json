@@ -1,0 +1,1208 @@
+{
+	"info": {
+		"_postman_id": "a1ef12a1-8aa9-4e11-95fa-975ffb48de7c",
+		"name": "FIDS-API",
+		"description": "api fids",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registrations",
+			"item": [
+				{
+					"name": "Manifestazioni",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/manifestazioni?stagione=2020&dataDa=2020-01-01",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"manifestazioni"
+							],
+							"query": [
+								{
+									"key": "stagione",
+									"value": "2020"
+								},
+								{
+									"key": "dataDa",
+									"value": "2020-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eventi",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/eventi?ManifestazioneID=2020-0010",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"eventi"
+							],
+							"query": [
+								{
+									"key": "ManifestazioneID",
+									"value": "2020-0010"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Competizioni",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/Competizioni?ManifestazioneID=2020-0014",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"Competizioni"
+							],
+							"query": [
+								{
+									"key": "ManifestazioneID",
+									"value": "2020-0014"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Iscrizioni",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/Iscrizioni?ManifestazioneID=2020-0014",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"Iscrizioni"
+							],
+							"query": [
+								{
+									"key": "ManifestazioneID",
+									"value": "2020-0014"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FIDSDB",
+			"item": [
+				{
+					"name": "giudiciLicenze",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/giudiciLicenze",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"giudiciLicenze"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "giudici",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/giudici",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"giudici"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ufficiali",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "limit",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/ufficiali",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"ufficiali"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "societa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "limit",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/societa",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"societa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "competitori",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idPeriodo",
+									"value": "2020",
+									"type": "text"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/competitori",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"competitori"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unitaCompetitive",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "idPeriodo",
+									"value": "2020",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/unitaCompetitive",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unitaCompetitive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unitaCompetitiveDiscipline",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/unitaCompetitiveDiscipline",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unitaCompetitiveDiscipline"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tabelle di decodifica",
+			"item": [
+				{
+					"name": "unitType",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/unitType",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"unitType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "competitiontype",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/competitiontype",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"competitiontype"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "disciplines",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/disciplines",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"disciplines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "disciplinesDettagli",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/disciplines",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"disciplines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "relazioni",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/relazioni",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"relazioni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rounds",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/rounds",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"rounds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "judgesdisciplines",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/judgesdisciplines",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"judgesdisciplines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "judgeslicenses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/judgeslicenses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"judgeslicenses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "officialslicenses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/officialslicenses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"officialslicenses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "judgingsystems",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/judgingsystems",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"judgingsystems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "officialsroles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/officialsroles",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"officialsroles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "settoriDiscipline",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/settoriDiscipline",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"settoriDiscipline"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "categorieEta",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/categorieEta",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"categorieEta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "classi",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{URL}}/classi",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"classi"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Results",
+			"item": [
+				{
+					"name": "importRisultati",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ManifestazioneID\": \"2020-0014\",\n    \"CompetizioneID\": \"11625\",\n    \"Staff\": [\n        {\n        \"OfficialID\" : \"600283883\",\n        \"Name\": \"\",\n        \"Role\": \"SP\"   \n        },\n        {\n        \"OfficialID\" : \"600254280\",\n        \"Name\": \"\",\n        \"Role\": \"DG\"   \n        }\n    ],\n    \"Judges\" : [{\n        \"JudgeID\": \"600220694\",\n        \"Name\": \"\",\n        \"Identifier\": \"GF\"\n    },\n    {\n        \"JudgeID\": \"600254098\",\n        \"Name\": \"\",\n        \"Identifier\": \"GF\"\n    }\n    ],\n    \"Rounds\" : {\n        \"Round\": \"1\",\n        \"Units\": 4,\n        \"Sorting\": 1,\n        \"Startlist\": {\n            \"RankingFrom\": 1,\n            \"RankingTo\" : 1,\n            \"UnitID\": 10\n        }\n    },\n    \"Startlist\": [\n        {\n            \"RankingFrom\" : \"1\",\n            \"RankingTo\": \"\",\n            \"UnitID\": \"6\",\n            \"Competitors\": \"\",\n            \"CompetitorName\": \"\",   \n            \"ClubID\": \"\",   \n            \"ClubName\": \"\",   \n            \"Province\": \"\",   \n            \"Startnumber\": \"\"\n        },\n        {\n            \"RankingFrom\" : \"2\",\n            \"RankingTo\": \"\",\n            \"UnitID\": \"10\",\n            \"Competitors\": \"\",\n            \"CompetitorName\": \"\",   \n            \"ClubID\": \"\",   \n            \"ClubName\": \"\",   \n            \"Province\": \"\",   \n            \"Startnumber\": \"\"\n        },\n        {\n            \"RankingFrom\" : \"3\",\n            \"RankingTo\": \"\",\n            \"UnitID\": \"8\",\n            \"Competitors\": \"\",\n            \"CompetitorName\": \"\",   \n            \"ClubID\": \"\",   \n            \"ClubName\": \"\",   \n            \"Province\": \"\",   \n            \"Startnumber\": \"\"\n        }\n    ]    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/importRisultati",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"importRisultati"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\" : \"user_api_ws_gare\", \"password\" : \"jty6rt53\" }"
+				},
+				"url": {
+					"raw": "{{URL}}/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
