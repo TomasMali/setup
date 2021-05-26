@@ -114,7 +114,7 @@ export default {
       };
 
       try {
-        await this.$store.dispatch("login", actionPayload);
+        await this.$store.dispatch("auth/login", actionPayload);
         // this.$route.query.redirect serve per prendere la query ?redirect=login
         const redirecturl = "/" + (this.$route.query.redirect || "public");
         this.$router.replace(redirecturl);

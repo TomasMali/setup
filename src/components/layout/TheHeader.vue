@@ -50,13 +50,13 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return this.$store.getters.isAuthenticated;
+      return this.$store.getters["auth/isAuthenticated"];
     },
   },
   methods: {
     logout() {
       this.clicked = false;
-      this.$store.dispatch("logout");
+      this.$store.dispatch("auth/logout");
       this.$router.replace("/public");
       // chiudi il menu se aperto
       this.clickSubmit();

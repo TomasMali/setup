@@ -183,8 +183,8 @@ export default {
     async loadCompetitions() {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("getCompetitions");
-        this.competitions = this.$store.getters.getCompetitions;
+        await this.$store.dispatch("competition/getCompetitions");
+        this.competitions = this.$store.getters["competition/getCompetitions"];
       } catch (error) {
         console.log(error);
       }

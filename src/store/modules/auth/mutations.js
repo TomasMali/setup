@@ -8,11 +8,6 @@ export default {
     setAutoLogout(state) {
         state.didAutoLogout = true
     },
-    setEvent(state, payload) {
-        state.events = payload.eventObj
-    },
-    setCompetitions(state, payload) {
-        state.competitions = payload.competitionObj
-    }
+
 
 };

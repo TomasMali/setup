@@ -7,11 +7,7 @@ export default {
     // root global state
     state() {
         return {
-            userId: null,
-            token: null,
-            didAutoLogout: false,
-            competitions: null
-
+            competitions: null,
         }
     },
     mutations,

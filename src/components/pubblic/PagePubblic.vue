@@ -15,6 +15,8 @@
         />
         <h2>Empty Notebook Found</h2>
         <div class="w3-justify">
+          <base-button @click="loadTable('Rounds')">Tab Dances</base-button>
+
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -94,9 +96,22 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      tab: null,
+    };
   },
-  methods: {},
+  methods: {
+    async loadTable(tabName) {
+      try {
+        await this.$store.dispatch("tab/getTabs", tabName);
+        this.tab = this.$store.getters["tab/get" + tabName];
+
+        console.log(this.tab[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 

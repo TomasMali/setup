@@ -35,24 +35,24 @@ const router = createRouter({
  */
 router.beforeEach(function(to, _, next) {
     // se è  rischiesta la protezione e non siamo autenticati, blocco l'utente
-    if (to.meta.privateProtection && !store.getters.isAuthenticated) {
+    if (to.meta.privateProtection && !store.getters["auth/isAuthenticated"]) {
         next('/login')
     }
     // se sono loggato e voglio fare il login
-    if (to.meta.loginProtection && store.getters.isAuthenticated) {
+    if (to.meta.loginProtection && store.getters["auth/isAuthenticated"]) {
         next('/events')
     }
     // se sono loggato e voglio fare il login
-    if (to.meta.loginProtection && store.getters.isAuthenticated) {
+    if (to.meta.loginProtection && store.getters["auth/isAuthenticated"]) {
         next('/competitions')
     }
     // se sono loggato e voglio fare la registrazione
-    if (to.meta.registerProtection && store.getters.isAuthenticated) {
+    if (to.meta.registerProtection && store.getters["auth/isAuthenticated"]) {
         next('/events')
     }
 
     // se sono loggato non posso resettare la password
-    if (to.meta.resetProtection && store.getters.isAuthenticated) {
+    if (to.meta.resetProtection && store.getters["auth/isAuthenticated"]) {
         next('/events')
     }
 

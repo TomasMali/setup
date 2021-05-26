@@ -125,7 +125,7 @@ export default {
           const actionPayload = {
             name: eventParam,
           };
-          await this.$store.dispatch("deleteEvent", actionPayload);
+          await this.$store.dispatch("event/deleteEvent", actionPayload);
 
           this.loadEvents();
         } catch (error) {
@@ -156,7 +156,7 @@ export default {
 
       // do the post
       try {
-        await this.$store.dispatch("addEvent", actionPayload);
+        await this.$store.dispatch("event/addEvent", actionPayload);
         this.isFormValid = true;
         this.name.isValid = true;
         this.date.isValid = true;
@@ -187,8 +187,8 @@ export default {
 
     async loadEvents() {
       try {
-        await this.$store.dispatch("getEvents");
-        this.events = this.$store.getters.getEvents;
+        await this.$store.dispatch("event/getEvents");
+        this.events = this.$store.getters["event/getEvents"];
       } catch (error) {
         console.log(error);
       }

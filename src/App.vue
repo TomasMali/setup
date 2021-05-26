@@ -21,11 +21,11 @@ export default {
     TheHeader,
   },
   created() {
-    this.$store.dispatch("tryLogin");
+    this.$store.dispatch("auth/tryLogin");
   },
   computed: {
     didAutoLogout() {
-      return this.$store.getters.didAutoLogout;
+      return this.$store.getters["auth/didAutoLogout"];
     },
   },
   watch: {
