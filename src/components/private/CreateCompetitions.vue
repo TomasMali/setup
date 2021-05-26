@@ -17,119 +17,129 @@
       <div class="col-span-1 mycard mb-4">
         <!--  -->
         <form class="w-full">
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-first-name"
+          <h1 class="my-8 w3-wide">Create your competition</h1>
+
+          <div class="w3-row-padding w3-card w3-blue p-8">
+            <div class="w3-third">
+              <label>Dances</label>
+              <select
+                class="w3-select w3-border text-black"
+                name="option"
+                @click="loadTable('Dances')"
               >
-                License
-              </label>
-              <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                id="grid-first-name"
-                type="text"
-                placeholder="FIDS"
-              />
-              <p class="text-red-500 text-xs italic">
-                Please fill out this field.
-              </p>
+                <option value="" disabled selected>Choose the dance</option>
+                <option v-for="item in dances" :key="item.id" :value="item.id">
+                  {{ item.id }} - {{ item.description }}
+                </option>
+              </select>
             </div>
-            <div class="w-full md:w-1/2 px-3">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-last-name"
+            <div class="w3-third">
+              <label>Disciplines</label>
+              <select
+                class="w3-select w3-border text-black"
+                name="option"
+                @click="loadTable('Disciplines')"
               >
-                Discipline
-              </label>
-              <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-last-name"
-                type="text"
-                placeholder="Boogie Woogie"
-              />
-            </div>
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-password"
-              >
-                Age group
-              </label>
-              <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-password"
-                type="text"
-                placeholder="8/9"
-              />
-              <p class="text-gray-600 text-xs italic">
-                Make it as long and as crazy as you'd like
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-city"
-              >
-                Class
-              </label>
-              <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-city"
-                type="text"
-                placeholder="B3"
-              />
-            </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-state"
-              >
-                Unit type
-              </label>
-              <div class="relative">
-                <select
-                  class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  id="grid-state"
+                <option value="" disabled selected>
+                  Choose the disciplines
+                </option>
+                <option
+                  v-for="item in disciplines"
+                  :key="item.id"
+                  :value="item.id"
                 >
-                  <option>Coppie</option>
-                  <option>Formazione</option>
-                  <option>Single</option>
-                </select>
-                <div
-                  class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-                >
-                  <svg
-                    class="fill-current h-4 w-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                    />
-                  </svg>
-                </div>
-              </div>
+                  {{ item.sector }} - {{ item.description }}
+                </option>
+              </select>
             </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <label
-                class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                for="grid-zip"
+            <div class="w3-third">
+              <label>Select judges disciplines</label>
+              <select
+                class="w3-select w3-border text-black"
+                name="option"
+                @click="loadTable('Judges_disciplines')"
               >
-                Boh
-              </label>
-              <input
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                id="grid-zip"
-                type="text"
-                placeholder="boh"
-              />
+                <option value="" disabled selected>
+                  Choose judges disciplines
+                </option>
+                <option
+                  v-for="item in judges_disciplines"
+                  :key="item.id"
+                  :value="item.id"
+                >
+                  {{ item.description }}
+                </option>
+              </select>
             </div>
           </div>
+
+          <div class="w3-row-padding w3-card w3-blue p-8 my-8">
+            <div class="w3-third">
+              <label>Judges licenses</label>
+              <select
+                class="w3-select w3-border text-black"
+                name="option"
+                @click="loadTable('Judges_licenses')"
+              >
+                <option value="" disabled selected>
+                  Choose the judges licenses
+                </option>
+                <option
+                  v-for="item in judges_licenses"
+                  :key="item.id"
+                  :value="item.id"
+                >
+                  {{ item.id }}
+                </option>
+              </select>
+            </div>
+            <div class="w3-third">
+              <label>Official licenses</label>
+              <select
+                class="w3-select w3-border text-black"
+                name="option"
+                @click="loadTable('Officials_licenses')"
+              >
+                <option value="" disabled selected>
+                  Choose the official licenses
+                </option>
+                <option
+                  v-for="item in officials_licenses"
+                  :key="item.id"
+                  :value="item.id"
+                >
+                  {{ item.id }}
+                </option>
+              </select>
+            </div>
+            <div class="w3-third">
+              <label>Choose official roles</label>
+              <select
+                class="w3-select w3-border text-black"
+                name="option"
+                @click="loadTable('Officials_roles')"
+              >
+                <option value="" disabled selected>
+                  Choose Officials_roles
+                </option>
+                <option
+                  v-for="item in officials_roles"
+                  :key="item.id"
+                  :value="item.id"
+                >
+                  {{ item.id }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <p>
+            <button
+              class="w3-btn w3-blue w3-round-large w3-large px-32 ml-3 mt-20"
+            >
+              Create
+            </button>
+          </p>
         </form>
         <!--  -->
       </div>
@@ -177,6 +187,19 @@ export default {
       isFormValid: true,
       isLoading: false,
       error: null,
+      tab: null,
+      dances: null,
+      disciplines: null,
+      judges_disciplines: null,
+      judges_licenses: null,
+      officials_licenses: null,
+      officials_roles: null,
+      sectors_discipline: null,
+      unit_type: null,
+      classe: null,
+      competition_type: null,
+      judging_systems: null,
+      rounds: null,
     };
   },
   methods: {
@@ -190,11 +213,54 @@ export default {
       }
       this.isLoading = false;
     },
+    async loadTable(tabName) {
+      try {
+        switch (tabName) {
+          case "Dances":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.dances = this.$store.getters["tab/get" + tabName];
+            break;
+          case "Disciplines":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.disciplines = this.$store.getters["tab/get" + tabName];
+            break;
+
+          case "Judges_disciplines":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.judges_disciplines = this.$store.getters["tab/get" + tabName];
+            break;
+
+          case "Judges_licenses":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.judges_licenses = this.$store.getters["tab/get" + tabName];
+            break;
+
+          case "Officials_licenses":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.officials_licenses = this.$store.getters["tab/get" + tabName];
+            break;
+
+          case "Officials_roles":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.officials_roles = this.$store.getters["tab/get" + tabName];
+            break;
+
+          default:
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.tab = this.$store.getters["tab/get" + tabName];
+        }
+
+        console.log(this.tab[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     handleError() {
       this.error = null;
     },
   },
   created() {
+    // this.loadTable("Judges_licenses");
     this.loadCompetitions();
   },
 };

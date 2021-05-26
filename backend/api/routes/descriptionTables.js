@@ -16,6 +16,8 @@ router.get('/dances', (req, res, next) => {
 })
 
 
+
+
 /**
  * Gets all the disciplines
  */
