@@ -13,7 +13,7 @@
 
     <div class="w3-row">
       <div class="w3-quarter w3-container"></div>
-      <div class="w3-half w3-container">
+      <div class="w3-half w3-container sm:px-40">
         <div class="w3-margin w3-card-4">
           <div class="w3-container w3-blue w3-center w3-padding-16">
             <h3>Register</h3>
@@ -84,7 +84,9 @@
             </p>
 
             <p class="but">
-              <button class="w3-button w3-block w3-blue w3-round-xlarge">Register</button>
+              <button class="w3-button w3-block w3-blue w3-round-xlarge">
+                Register
+              </button>
             </p>
           </form>
         </div>

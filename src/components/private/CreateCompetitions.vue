@@ -48,7 +48,7 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.sector }} - {{ item.description }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
@@ -67,7 +67,7 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.description }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
@@ -89,7 +89,7 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.id }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
@@ -108,7 +108,7 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.id }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
@@ -127,12 +127,12 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.id }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
           </div>
-
+          . . . . . . . load other fields here
           <p>
             <button
               class="w3-btn w3-blue w3-round-large w3-large px-32 ml-3 mt-20"
