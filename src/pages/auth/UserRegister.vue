@@ -149,7 +149,7 @@ export default {
 
       // do the post
       try {
-        await this.$store.dispatch("register", actionPayload);
+        await this.$store.dispatch("auth/register", actionPayload);
         alert(
           "User " +
             actionPayload.name +

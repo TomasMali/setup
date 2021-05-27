@@ -53,7 +53,6 @@
             </p>
             <p><button class="w3-button w3-block w3-blue">Change</button></p>
           </form>
-          
         </div>
       </div>
       <div class="w3-third w3-container"></div>
@@ -87,7 +86,7 @@ export default {
 
       // do the post
       try {
-        await this.$store.dispatch("changePassword", {
+        await this.$store.dispatch("auth/changePassword", {
           email: this.$route.query.email,
           password: this.password,
         });

@@ -65,7 +65,7 @@ export default {
       this.isLoading = true;
       // do the post
       try {
-        await this.$store.dispatch("resetPassword", { email: this.email });
+        await this.$store.dispatch("auth/resetPassword", { email: this.email });
         this.isLoading = false;
         alert(
           "We have sent you an email to '" +
