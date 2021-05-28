@@ -12,10 +12,8 @@
           alt="Notebook"
           style="width: 100%"
         />
-        <h2>Empty Notebook Found</h2>
-        <div class="w3-justify">
-          <base-button @click="loadTable('Rounds')">Tab Dances</base-button>
 
+        <div class="w3-justify">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -88,21 +86,37 @@
     </div>
 
     <div class="w3-bar w3-black">
-      <button class="w3-bar-item w3-button" @click="trigerToggle('mine')">
+      <button
+        class="w3-bar-item w3-button"
+        :class="{ selected: mine }"
+        @click="trigerToggle('mine')"
+      >
         Competitions
       </button>
-      <button class="w3-bar-item w3-button" @click="trigerToggle('fids')">
+      <button
+        class="w3-bar-item w3-button"
+        :class="{ selected: !mine }"
+        @click="trigerToggle('fids')"
+      >
         From FIDS
       </button>
     </div>
 
-    <div id="London" class="w3-container w3-display-container" v-show="mine">
+    <div
+      id="London"
+      class="w3-container w3-display-container w3-animate-zoom"
+      v-show="mine"
+    >
       <span class="w3-button w3-large w3-display-topright">&times;</span>
       <h2>London</h2>
       <p>London is the capital city of England.</p>
     </div>
 
-    <div id="Paris" class="w3-container w3-display-container" v-show="!mine">
+    <div
+      id="Paris"
+      class="w3-container w3-display-container w3-animate-zoom"
+      v-show="!mine"
+    >
       <span class="w3-button w3-large w3-display-topright">&times;</span>
       <h2>Paris</h2>
       <p>Paris is the capital of France.</p>
@@ -117,21 +131,10 @@
 export default {
   data() {
     return {
-      tab: null,
       mine: true,
     };
   },
   methods: {
-    async loadTable(tabName) {
-      try {
-        await this.$store.dispatch("tab/getTabs", tabName);
-        this.tab = this.$store.getters["tab/get" + tabName];
-
-        console.log(this.tab[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    },
     trigerToggle(mine) {
       if (mine === "mine") {
         this.mine = true;
@@ -144,4 +147,7 @@ export default {
 </script>
 
 <style scoped>
+.selected {
+  background-color: brown;
+}
 </style>
