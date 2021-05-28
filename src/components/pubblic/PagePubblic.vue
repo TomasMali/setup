@@ -1,6 +1,5 @@
 
 
-
  <template>
   <div>
     <div class="w3-light-grey w3-padding-64 w3-margin-bottom w3-center">
@@ -87,6 +86,27 @@
         </div>
       </div>
     </div>
+
+    <div class="w3-bar w3-black">
+      <button class="w3-bar-item w3-button" @click="trigerToggle('mine')">
+        Competitions
+      </button>
+      <button class="w3-bar-item w3-button" @click="trigerToggle('fids')">
+        From FIDS
+      </button>
+    </div>
+
+    <div id="London" class="w3-container w3-display-container" v-show="mine">
+      <span class="w3-button w3-large w3-display-topright">&times;</span>
+      <h2>London</h2>
+      <p>London is the capital city of England.</p>
+    </div>
+
+    <div id="Paris" class="w3-container w3-display-container" v-show="!mine">
+      <span class="w3-button w3-large w3-display-topright">&times;</span>
+      <h2>Paris</h2>
+      <p>Paris is the capital of France.</p>
+    </div>
   </div>
 </template>
 
@@ -98,6 +118,7 @@ export default {
   data() {
     return {
       tab: null,
+      mine: true,
     };
   },
   methods: {
@@ -109,6 +130,13 @@ export default {
         console.log(this.tab[0]);
       } catch (error) {
         console.log(error);
+      }
+    },
+    trigerToggle(mine) {
+      if (mine === "mine") {
+        this.mine = true;
+      } else {
+        this.mine = false;
       }
     },
   },
