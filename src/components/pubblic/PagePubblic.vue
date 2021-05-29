@@ -84,43 +84,6 @@
         </div>
       </div>
     </div>
-
-    <div class="w3-bar w3-black">
-      <button
-        class="w3-bar-item w3-button"
-        :class="{ selected: mine }"
-        @click="trigerToggle('mine')"
-      >
-        Competitions
-      </button>
-      <button
-        class="w3-bar-item w3-button"
-        :class="{ selected: !mine }"
-        @click="trigerToggle('fids')"
-      >
-        From FIDS
-      </button>
-    </div>
-
-    <div
-      id="London"
-      class="w3-container w3-display-container w3-animate-zoom"
-      v-show="mine"
-    >
-      <span class="w3-button w3-large w3-display-topright">&times;</span>
-      <h2>London</h2>
-      <p>London is the capital city of England.</p>
-    </div>
-
-    <div
-      id="Paris"
-      class="w3-container w3-display-container w3-animate-zoom"
-      v-show="!mine"
-    >
-      <span class="w3-button w3-large w3-display-topright">&times;</span>
-      <h2>Paris</h2>
-      <p>Paris is the capital of France.</p>
-    </div>
   </div>
 </template>
 
@@ -130,19 +93,9 @@
 <script>
 export default {
   data() {
-    return {
-      mine: true,
-    };
+    return {};
   },
-  methods: {
-    trigerToggle(mine) {
-      if (mine === "mine") {
-        this.mine = true;
-      } else {
-        this.mine = false;
-      }
-    },
-  },
+  methods: {},
 };
 </script>
 
