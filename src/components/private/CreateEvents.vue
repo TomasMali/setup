@@ -118,7 +118,7 @@ export default {
       if (
         confirm("Are you sure you want to delete this event from database?")
       ) {
-        console.log(eventParam);
+        // console.log(eventParam);
         //  this.delete(eventParam);
         // do the delete
         try {
@@ -190,7 +190,7 @@ export default {
         await this.$store.dispatch("event/getEvents");
         this.events = this.$store.getters["event/getEvents"];
       } catch (error) {
-        console.log(error);
+        //  console.log(error);
       }
     },
     handleError() {

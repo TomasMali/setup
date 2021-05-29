@@ -9,7 +9,7 @@
         <i class="fas fa-bars"></i>
       </label>
       <label class="logo">
-        <router-link to="/"> Muevelo</router-link>
+        <router-link to="/" class="text-white"> Muevelo</router-link>
       </label>
 
       <ul>

@@ -9,6 +9,9 @@ import BaseButton from './components/ui/BaseButton.vue'
 import BaseBadge from './components/ui/BaseBadge.vue'
 import BaseSpinner from './components/ui/BaseSpinner.vue'
 
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap"
+
 
 import Dialog from 'primevue/dialog';
 

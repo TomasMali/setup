@@ -8,7 +8,10 @@ export default {
         url_event_get: 'https://tomasmali.it/myapi/event/getEvent',
         url_event_add: 'https://tomasmali.it/myapi/event/addEvent',
         url_competition_get: 'https://tomasmali.it/myapi/relation/getRelations',
+        url_myCompetition_get: 'https://tomasmali.it/myapi/relation/getMyRelations/?license=FREE',
         url_tabs: 'https://tomasmali.it/myapi/tab/',
+        url_relation_add: 'https://tomasmali.it/myapi/relation/addRelation',
+        url_relation_delete: 'https://tomasmali.it/myapi/relation/deleteRelation',
 
     },
     dev: {
@@ -20,6 +23,9 @@ export default {
         url_event_get: 'https://tomasmali.it/myapi/event/getEvent',
         url_event_add: 'https://tomasmali.it/myapi/event/addEvent',
         url_competition_get: 'https://tomasmali.it/myapi/relation/getRelations',
+        url_myCompetition_get: 'http://localhost:3100/relation/getMyRelations/?license=FREE',
         url_tabs: 'https://tomasmali.it/myapi/tab/',
+        url_relation_add: 'http://localhost:3100/relation/addRelation',
+        url_relation_delete: 'http://localhost:3100/relation/deleteRelation',
     }
 }

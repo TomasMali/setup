@@ -10,6 +10,7 @@
         "build-css": "tailwindcss build ./src/styles.css -o ./public/styles.css"
     },
     "dependencies": {
+        "bootstrap": "^5.0.1",
         "core-js": "^3.6.5",
         "moment": "^2.29.1",
         "primeicons": "^4.1.0",

@@ -7,23 +7,41 @@ var fs = require('fs');
 router.get('/getRelations', (req, res, next) => {
     // select exists(select 1 from contact where id=12)
 
-    pool.query('SELECT * FROM relations ORDER BY id ASC', (error, results) => {
+    pool.query('SELECT * FROM relations WHERE license = $1  ORDER BY id ASC', ["FIDS"], (error, results) => {
         if (error) {
             throw error
         }
         res.status(200).json(results.rows)
     })
 
+})
 
+router.get('/getMyRelations', (req, res, next) => {
+    // select exists(select 1 from contact where id=12)
+    const license = req.query.license
 
+    pool.query('SELECT * FROM relations WHERE license <> $1', ["FIDS"], (error, results) => {
+        if (error) {
+            throw error
+        }
+        res.status(200).json(results.rows)
+    })
 
 })
+
 
 //  pool.query('SELECT EXISTS(SELECT 1 FROM relations WHERE )', (error, results) => {
 
 router.post("/addRelation", (req, res, next) => {
+
+
+
+
+
+
+
     const license = req.body.license
-    const discipline = req.body.discipline
+    const discipline = req.body.disciplines
     const age_group = req.body.age_group
     const classe = req.body.classe
     const unit_type = req.body.unit_type
@@ -173,6 +191,32 @@ router.get("/insertRelationFromAPI", (req, res, next) => {
 
 
 
+})
+
+
+
+
+
+/**
+ * Gets all the events
+ */
+router.delete('/deleteRelation', (req, res, next) => {
+    console.log(req.body)
+    const relation = req.body
+    pool.query('DELETE FROM relations WHERE id = $1 AND license = $2', [relation.id, relation.license], (error, results) => {
+        if (error) {
+            console.log(error)
+            let errorNumber = 500
+            if (error.routine === '_bt_check_unique')
+                errorNumber = 409
+
+            return res.status(errorNumber).json({
+                code: errorNumber,
+                message: errorNumber === 409 ? "Relation " + relation.id + " doesn't exsists" : "Generic network error!"
+            })
+        }
+        res.status(200).json(results.rows)
+    })
 })
 
 

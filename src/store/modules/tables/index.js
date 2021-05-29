@@ -15,6 +15,7 @@ export default {
             officials_roles: null,
             sectors_discipline: null,
             unit_type: null,
+            age_category: null,
             classe: null,
             competition_type: null,
             judging_systems: null,

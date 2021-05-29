@@ -8,7 +8,7 @@ export default {
     async getTabs(context, tabname) {
         let url = cred.prod.url_tabs + tabname
 
-        console.log(tabname)
+        // console.log(tabname)
 
         const response = await fetch(url, {
             method: 'GET',
@@ -36,5 +36,7 @@ export default {
             obj: responseData
         })
     },
+
+
 
 }
