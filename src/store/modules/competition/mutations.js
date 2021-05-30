@@ -1,7 +1,7 @@
 export default {
 
-    setCompetitions(state, payload) {
-        state.competitions = payload.competitionObj
+    setFidsCompetitions(state, payload) {
+        state.fidsCompetitions = payload.fidsCompetitionObj
     },
 
     setMyCompetitions(state, payload) {

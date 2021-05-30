@@ -387,10 +387,11 @@
                 Load the table
               </button>
             </p>
+
             <table class="w3-table-all w3-small mb-4">
               <thead>
                 <tr class="w3-blue">
-                  <th>License</th>
+                  <th>Insert</th>
                   <th>Discipline</th>
                   <th>Age group</th>
                   <th>Class</th>
@@ -400,10 +401,20 @@
               <tbody>
                 <tr
                   class="w3-hover-grey"
-                  v-for="item in competitions"
+                  v-for="item in fidsCompetitions"
                   :key="item.id"
                 >
-                  <td>{{ item.license }}</td>
+                  <td>
+                    <div class="form-check">
+                      <input
+                        v-model="checkItems"
+                        :value="item.id"
+                        type="checkbox"
+                        class="form-check-input"
+                        id="exampleCheck1"
+                      />
+                    </div>
+                  </td>
                   <td>{{ item.discipline }}</td>
                   <td>{{ item.age_group }}</td>
                   <td>{{ item.classe }}</td>
@@ -426,6 +437,7 @@
 export default {
   data() {
     return {
+      checkItems: [],
       form: {
         dances: { value: null, isValid: true },
         disciplines: { value: null, isValid: true },
@@ -442,7 +454,7 @@ export default {
         rounds: { value: null, isValid: true },
       },
       //
-      competitions: null,
+      fidsCompetitions: null,
       myCompetitions: null,
       isFormValid: true,
       isLoading: false,
@@ -465,6 +477,9 @@ export default {
     };
   },
   methods: {
+    checkSubmited() {
+      console.log(this.checkItem);
+    },
     async deleteItem(id, license) {
       if (
         confirm(
@@ -478,7 +493,7 @@ export default {
             license: license,
           };
           await this.$store.dispatch(
-            "competition/deleteCompetition",
+            "competition/deleteMyCompetition",
             actionPayload
           );
 
@@ -500,8 +515,10 @@ export default {
     async loadCompetitions() {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("competition/getCompetitions");
-        this.competitions = this.$store.getters["competition/getCompetitions"];
+        await this.$store.dispatch("competition/getFidsCompetitions");
+        this.fidsCompetitions = this.$store.getters[
+          "competition/getFidsCompetitions"
+        ];
       } catch (error) {
         //console.log(error);
       }
@@ -620,7 +637,10 @@ export default {
       // console.log(this.form);
       // do the post
       try {
-        await this.$store.dispatch("competition/addCompetition", actionPayload);
+        await this.$store.dispatch(
+          "competition/addMyCompetition",
+          actionPayload
+        );
 
         this.loadMyCompetitions();
       } catch (error) {

@@ -118,8 +118,6 @@ export default {
       if (
         confirm("Are you sure you want to delete this event from database?")
       ) {
-        // console.log(eventParam);
-        //  this.delete(eventParam);
         // do the delete
         try {
           const actionPayload = {

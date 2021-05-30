@@ -4,10 +4,12 @@ const pool = require('./connection')
 var fs = require('fs');
 
 
-router.get('/getRelations', (req, res, next) => {
-    // select exists(select 1 from contact where id=12)
+/**
+ * get all the FIDS loaded relations
+ */
+router.get('/getRelationsFIDS', (req, res, next) => {
 
-    pool.query('SELECT * FROM relations WHERE license = $1  ORDER BY id ASC', ["FIDS"], (error, results) => {
+    pool.query('SELECT * FROM relations_fids ORDER BY id ASC', (error, results) => {
         if (error) {
             throw error
         }
@@ -16,11 +18,30 @@ router.get('/getRelations', (req, res, next) => {
 
 })
 
+
+
+/**
+ * get all the FIDS loaded relations
+ */
+router.get('/getSelectedRelations', (req, res, next) => {
+    x = ["1", "4"]
+    pool.query('SELECT * FROM relations_fids WHERE id in (' + x + ')', (error, results) => {
+        if (error) {
+            throw error
+        }
+        res.status(200).json(results.rows)
+    })
+
+})
+
+
+/**
+ * Get all my created relations 
+ */
 router.get('/getMyRelations', (req, res, next) => {
-    // select exists(select 1 from contact where id=12)
     const license = req.query.license
 
-    pool.query('SELECT * FROM relations WHERE license <> $1', ["FIDS"], (error, results) => {
+    pool.query('SELECT * FROM relations', (error, results) => {
         if (error) {
             throw error
         }
@@ -30,14 +51,9 @@ router.get('/getMyRelations', (req, res, next) => {
 })
 
 
-//  pool.query('SELECT EXISTS(SELECT 1 FROM relations WHERE )', (error, results) => {
-
-router.post("/addRelation", (req, res, next) => {
 
 
-
-
-
+router.post("/addMyRelation", (req, res, next) => {
 
 
     const license = req.body.license
@@ -105,17 +121,19 @@ router.post("/addRelation", (req, res, next) => {
 
 
 
+/**
+ * Util API for loading the FIDS relation table
+ */
 router.get("/insertRelationFromAPI", (req, res, next) => {
     const license = "FIDS"
-        // cancello tutto prima se sono FIDS
-    pool.query('DELETE FROM relations WHERE license = $1', [license], (error, results_) => {
+    // Delete all rows if it's there any
+    pool.query('DELETE FROM relations_fids WHERE license = $1', [license], (error, results_) => {
         if (error) {
             throw error
         }
     })
 
     // var data = JSON.parse(fs.readFileSync('/src/assets/data.json', 'utf8'));
-
 
     var data_array = JSON.parse(fs.readFileSync('/Users/tomas/Desktop/setup/backend/api/routes/relazioni.json', 'utf8'));
     //data_array = JSON.parse(data);
@@ -146,9 +164,7 @@ router.get("/insertRelationFromAPI", (req, res, next) => {
         const dances = "TS, WCS" //el.Dances
 
 
-
-
-        pool.query('SELECT MAX(id) FROM relations WHERE license = $1', [license], (error, results) => {
+        pool.query('SELECT MAX(id) FROM relations_fids WHERE license = $1', [license], (error, results) => {
             if (error) {
                 return res.status(500).json({
                     code: 500,
@@ -159,9 +175,7 @@ router.get("/insertRelationFromAPI", (req, res, next) => {
             //     if (results.rows[0].max !== null) {
             //       maxId_local = (Number(results.rows[0].max)) + 1
 
-
-
-            pool.query('INSERT INTO relations (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group,perc_fq_age,perc_fq_class,members_min,members_max,exclusive_gender,music_required,alias,dances) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)', [(i + 1), license, discipline, age_group, classe, unit_type, judging_system_preliminary, judging_system_final, calculation_type, first_age_min, first_age_max, second_age_min, second_age_max, alternative_age_group, perc_fq_age, perc_fq_class, members_min, members_max, exclusive_gender, music_required, alias, dances], (error, results_2) => {
+            pool.query('INSERT INTO relations_fids (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group,perc_fq_age,perc_fq_class,members_min,members_max,exclusive_gender,music_required,alias,dances) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)', [(i + 1), license, discipline, age_group, classe, unit_type, judging_system_preliminary, judging_system_final, calculation_type, first_age_min, first_age_max, second_age_min, second_age_max, alternative_age_group, perc_fq_age, perc_fq_class, members_min, members_max, exclusive_gender, music_required, alias, dances], (error, results_2) => {
                 if (error) {
                     console.log(error)
                     let errorNumber = 500
@@ -200,7 +214,7 @@ router.get("/insertRelationFromAPI", (req, res, next) => {
 /**
  * Gets all the events
  */
-router.delete('/deleteRelation', (req, res, next) => {
+router.delete('/deleteMyRelation', (req, res, next) => {
     console.log(req.body)
     const relation = req.body
     pool.query('DELETE FROM relations WHERE id = $1 AND license = $2', [relation.id, relation.license], (error, results) => {

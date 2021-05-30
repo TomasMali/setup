@@ -1,11 +1,11 @@
 import cred from '../../cred.js'
 
-
+const status = cred.dev
 
 export default {
 
     async getEvents(context) {
-        let url = cred.prod.url_event_get
+        let url = status.url_event_get
         const response = await fetch(url, {
             method: 'GET',
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -36,7 +36,7 @@ export default {
 
     async addEvent(_, payload) {
 
-        let url = cred.prod.url_event_add
+        let url = status.url_event_add
         console.log(payload)
 
         const response = await fetch(url, {
@@ -70,7 +70,7 @@ export default {
 
     async deleteEvent(_, payload) {
 
-        let url = cred.prod.url_event_delete
+        let url = status.url_event_delete
         console.log(payload)
 
         const response = await fetch(url, {

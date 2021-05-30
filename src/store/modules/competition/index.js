@@ -7,7 +7,7 @@ export default {
     // root global state
     state() {
         return {
-            competitions: null,
+            fidsCompetitions: null,
             myCompetitions: null,
         }
     },

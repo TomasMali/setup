@@ -1,12 +1,13 @@
 import cred from '../../cred.js'
 
-
+const status = cred.dev
 
 export default {
 
 
-    async getCompetitions(context) {
-        let url = cred.prod.url_competition_get
+
+    async getFidsCompetitions(context) {
+        let url = status.url_fids_competition_get
         const response = await fetch(url, {
             method: 'GET',
             cache: 'no-cache',
@@ -29,15 +30,15 @@ export default {
 
         }
         //  console.log(responseData)
-        context.commit('setCompetitions', {
-            competitionObj: responseData
+        context.commit('setFidsCompetitions', {
+            fidsCompetitionObj: responseData
         })
     },
 
 
 
     async getMyCompetitions(context) {
-        let url = cred.prod.url_myCompetition_get
+        let url = status.url_myCompetition_get
         const response = await fetch(url, {
             method: 'GET',
             cache: 'no-cache',
@@ -67,9 +68,9 @@ export default {
 
 
 
-    async addCompetition(_, payload) {
+    async addMyCompetition(_, payload) {
 
-        let url = cred.prod.url_relation_add
+        let url = status.url_my_competition_add
 
         //  console.log(payload)
 
@@ -126,7 +127,7 @@ export default {
             if (responseData.code === 409) {
                 throw new Error(responseData.message)
             } else
-            //   throw new Error("Request failed with error code: " + response.status)
+                //   throw new Error("Request failed with error code: " + response.status)
                 throw new Error("Work in progress..... Please submit all the fields ")
 
         }
@@ -136,10 +137,10 @@ export default {
 
 
 
-    async deleteCompetition(_, payload) {
+    async deleteMyCompetition(_, payload) {
 
-        let url = cred.prod.url_relation_delete
-            //  console.log(payload)
+        let url = status.url_my_competition_delete
+        //  console.log(payload)
 
         const response = await fetch(url, {
             method: 'DELETE',
