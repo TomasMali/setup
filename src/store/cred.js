@@ -11,7 +11,7 @@ export default {
         url_myCompetition_get: 'https://tomasmali.it/myapi/relation/getMyRelations',
         url_tabs: 'https://tomasmali.it/myapi/tab/',
         url_my_competition_add: 'https://tomasmali.it/myapi/relation/addMyRelation',
-        url_my_competition_delete: 'https://tomasmali.it/myapi/relation/deleteRelation',
+        url_my_competition_delete: 'https://tomasmali.it/myapi/relation/deleteMyRelation',
         url_insert_from_fids_competitions: 'https://tomasmali.it/myapi/relation/insertFromFidsCompetitions',
 
     },
