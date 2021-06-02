@@ -382,9 +382,17 @@
             <p class="py-4">
               <button
                 class="w3-button w3-small w3-white w3-border w3-border-blue w3-wide"
-                @click="loadCompetitionsMethod"
+                @click="loadFidsCompetitionsMethod"
               >
                 Load the table
+              </button>
+
+              <button
+                :disabled="checkItems.length <= 0"
+                class="w3-button w3-small w3-blue w3-border w3-border-blue w3-wide ml-3"
+                @click="checkCompetitionsSubmit"
+              >
+                Insert
               </button>
             </p>
 
@@ -477,8 +485,22 @@ export default {
     };
   },
   methods: {
-    checkSubmited() {
-      console.log(this.checkItem);
+    async checkCompetitionsSubmit() {
+      console.log(this.checkItems);
+
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("competition/insertFromFidsCompetitions", {
+          competitionsIdArray: this.checkItems,
+        });
+        this.loadMyCompetitions();
+        this.trigerToggle("mine");
+        this.checkItems = [];
+      } catch (error) {
+        this.error = error.message || "Failed to authenticate";
+      }
+
+      this.isLoading = false;
     },
     async deleteItem(id, license) {
       if (
@@ -512,7 +534,7 @@ export default {
         this.mine = false;
       }
     },
-    async loadCompetitions() {
+    async loadFidsCompetitions() {
       this.isLoading = true;
       try {
         await this.$store.dispatch("competition/getFidsCompetitions");
@@ -643,22 +665,37 @@ export default {
         );
 
         this.loadMyCompetitions();
+        //
       } catch (error) {
         this.error = error.message || "Failed to authenticate";
       }
       this.isLoading = false;
+      // clean the fields
+      this.form.dances.value = null;
+      this.form.disciplines.value = null;
+      this.form.judges_disciplines.value = null;
+      this.form.judges_licenses.value = null;
+      this.form.officials_licenses.value = null;
+      this.form.officials_roles.value = null;
+      this.form.sectors_discipline.value = null;
+      this.form.unit_type.value = null;
+      this.form.classe.value = null;
+      this.form.age_category.value = null;
+      this.form.competition_type.value = null;
+      this.form.judging_systems.value = null;
+      this.form.rounds.value = null;
     },
 
     handleError() {
       this.error = null;
     },
-    loadCompetitionsMethod() {
-      this.loadCompetitions();
+    loadFidsCompetitionsMethod() {
+      this.loadFidsCompetitions();
     },
   },
   created() {
     // this.loadTable("Judges_licenses");
-    // this.loadCompetitions();
+    // this.loadFidsCompetitions();
     this.loadMyCompetitions();
   },
 };

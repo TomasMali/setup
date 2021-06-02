@@ -1,6 +1,6 @@
 import cred from '../../cred.js'
 
-const status = cred.dev
+const status = cred.prod
 
 export default {
 

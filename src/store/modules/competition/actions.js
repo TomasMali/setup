@@ -1,6 +1,6 @@
 import cred from '../../cred.js'
 
-const status = cred.dev
+const status = cred.prod
 
 export default {
 
@@ -60,7 +60,7 @@ export default {
                 throw new Error("Request failed with error code: " + response.status)
 
         }
-        //  console.log(responseData)
+        // console.log("Ciao")
         context.commit('setMyCompetitions', {
             myCompetitionObj: responseData
         })
@@ -127,7 +127,7 @@ export default {
             if (responseData.code === 409) {
                 throw new Error(responseData.message)
             } else
-                //   throw new Error("Request failed with error code: " + response.status)
+            //   throw new Error("Request failed with error code: " + response.status)
                 throw new Error("Work in progress..... Please submit all the fields ")
 
         }
@@ -140,7 +140,7 @@ export default {
     async deleteMyCompetition(_, payload) {
 
         let url = status.url_my_competition_delete
-        //  console.log(payload)
+            //  console.log(payload)
 
         const response = await fetch(url, {
             method: 'DELETE',
@@ -167,6 +167,45 @@ export default {
                 throw new Error("Request failed with error code: " + response.status)
 
         }
+
+
+    },
+
+
+
+    async insertFromFidsCompetitions(_, payload) {
+
+        let url = status.url_insert_from_fids_competitions
+
+        //  console.log(payload)
+
+        const response = await fetch(url, {
+            method: 'POST',
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer',
+            enctype: 'mutipart/form-data',
+            body: JSON.stringify({
+                competitionsIdArray: payload.competitionsIdArray,
+            })
+        });
+
+        const responseData = await response.json()
+
+        if (!response.ok) {
+            if (responseData.code === 409) {
+                throw new Error(responseData.message)
+            } else
+            //   throw new Error("Request failed with error code: " + response.status)
+                throw new Error("Work in progress..... Please submit all the fields ")
+
+        }
+
+
 
 
     },

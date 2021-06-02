@@ -34,6 +34,42 @@ router.get('/getSelectedRelations', (req, res, next) => {
 
 })
 
+// insertFromFidsCompetitions
+
+router.post("/insertFromFidsCompetitions", (req, res, next) => {
+
+
+    const competitionsIdArray = req.body.competitionsIdArray
+
+    console.log(competitionsIdArray)
+
+    pool.query("INSERT INTO relations (SELECT * FROM relations_fids WHERE id IN (" + competitionsIdArray + "))", (error, results) => {
+        if (error) {
+            console.log(error)
+            let errorNumber = 500
+            if (error.routine === '_bt_check_unique')
+                errorNumber = 409
+            return res.status(errorNumber).json({
+                code: errorNumber,
+                message: errorNumber === 409 ? "At least one relation " + " already exsists, please choose another one " : "Generic network error!"
+            })
+
+        }
+
+
+        // qui ritorna che tutto è andato ok 
+        return res.status(201).json({
+            message: "Relation created successfully",
+            result: results.rowCount
+        })
+
+    })
+
+
+
+
+})
+
 
 /**
  * Get all my created relations 
@@ -126,7 +162,7 @@ router.post("/addMyRelation", (req, res, next) => {
  */
 router.get("/insertRelationFromAPI", (req, res, next) => {
     const license = "FIDS"
-    // Delete all rows if it's there any
+        // Delete all rows if it's there any
     pool.query('DELETE FROM relations_fids WHERE license = $1', [license], (error, results_) => {
         if (error) {
             throw error
