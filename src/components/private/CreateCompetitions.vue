@@ -488,7 +488,7 @@ export default {
     async checkCompetitionsSubmit() {
       console.log(this.checkItems);
 
-      this.isLoading = true;
+      // this.isLoading = true;
       try {
         await this.$store.dispatch("competition/insertFromFidsCompetitions", {
           competitionsIdArray: this.checkItems,
@@ -500,7 +500,7 @@ export default {
         this.error = error.message || "Failed to authenticate";
       }
 
-      this.isLoading = false;
+      //   this.isLoading = false;
     },
     async deleteItem(id, license) {
       if (
