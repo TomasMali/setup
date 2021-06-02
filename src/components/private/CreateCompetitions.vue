@@ -493,7 +493,16 @@ export default {
         await this.$store.dispatch("competition/insertFromFidsCompetitions", {
           competitionsIdArray: this.checkItems,
         });
-        this.loadMyCompetitions();
+
+        try {
+          await this.$store.dispatch("competition/getMyCompetitions");
+          this.myCompetitions = this.$store.getters[
+            "competition/getMyCompetitions"
+          ];
+        } catch (error) {
+          //console.log(error);
+        }
+
         this.trigerToggle("mine");
         this.checkItems = [];
       } catch (error) {
