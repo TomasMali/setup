@@ -86,6 +86,7 @@ export default {
             enctype: 'mutipart/form-data',
             body: JSON.stringify({
                 license: payload.license,
+                events: payload.events,
                 dances: payload.dances,
                 disciplines: payload.disciplines,
                 judges_disciplines: payload.judges_disciplines,

@@ -63,7 +63,7 @@ router.delete('/deleteEvent', (req, res, next) => {
 
             return res.status(errorNumber).json({
                 code: errorNumber,
-                message: errorNumber === 409 ? "Event " + event.name + " doesn't exsists" : "Generic network error!"
+                message: errorNumber === 409 ? "Event " + event.name + " doesn't exsists" : "Can't delete this event because it's used!"
             })
         }
         res.status(200).json(results.rows)

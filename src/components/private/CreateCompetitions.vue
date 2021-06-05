@@ -20,6 +20,23 @@
           <h1 class="my-8 w3-wide">Create your competition</h1>
 
           <div class="w3-row-padding w3-card-4 w3-white p-8">
+            <!--    Events   -->
+            <div class="w3-third mt-2 sm:mt-4">
+              <label>Event</label>
+              <select
+                v-model="form.events.value"
+                class="w3-select w3-border text-black"
+                name="option"
+                @click="loadTable('Events')"
+              >
+                <optgroup disabled hidden></optgroup>
+                <option value="" disabled selected>Choose the event</option>
+                <option v-for="item in events" :key="item.id" :value="item.id">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+            <!--    Events   -->
             <div class="w3-third mt-2 sm:mt-4">
               <label>Dances</label>
               <select
@@ -35,6 +52,7 @@
                 </option>
               </select>
             </div>
+
             <div class="w3-third mt-2 sm:mt-4">
               <label>Disciplines</label>
               <select
@@ -447,6 +465,7 @@ export default {
     return {
       checkItems: [],
       form: {
+        events: { value: null, isValid: true },
         dances: { value: null, isValid: true },
         disciplines: { value: null, isValid: true },
         judges_disciplines: { value: null, isValid: true },
@@ -468,6 +487,7 @@ export default {
       isLoading: false,
       error: null,
       tab: null,
+      events: null,
       dances: null,
       disciplines: null,
       judges_disciplines: null,
@@ -571,6 +591,10 @@ export default {
       // console.log("ciao");
       try {
         switch (tabName) {
+          case "Events":
+            await this.$store.dispatch("event/getEvents");
+            this.events = this.$store.getters["event/getEvents"];
+            break;
           case "Dances":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.dances = this.$store.getters["tab/get" + tabName];
@@ -649,8 +673,11 @@ export default {
     ////////////////////////////
     async formSubmit() {
       this.isLoading = true;
+
+      console.log(this.form.events.value);
       const actionPayload = {
         license: "FREE",
+        events: this.form.events.value,
         dances: this.form.dances.value,
         disciplines: this.form.disciplines.value,
         judges_disciplines: this.form.judges_disciplines.value,
@@ -680,7 +707,9 @@ export default {
       }
       this.isLoading = false;
       // clean the fields
+      /*
       this.form.dances.value = null;
+      this.form.events.value = null;
       this.form.disciplines.value = null;
       this.form.judges_disciplines.value = null;
       this.form.judges_licenses.value = null;
@@ -693,6 +722,7 @@ export default {
       this.form.competition_type.value = null;
       this.form.judging_systems.value = null;
       this.form.rounds.value = null;
+      */
     },
 
     handleError() {

@@ -127,7 +127,9 @@ export default {
 
           this.loadEvents();
         } catch (error) {
-          this.error = error.message || "Failed to authenticate";
+          this.error =
+            "Can't delete this event because it's used!" ||
+            "Failed to authenticate";
         }
         this.isLoading = false;
       }
