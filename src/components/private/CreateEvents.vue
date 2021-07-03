@@ -11,85 +11,194 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <!--   grid -->
-    <div class="mt-8 grid lg:grid-cols-2 gap-10 mx-4">
-      <div class="mycard">
-        <div class="col-span-1 lg:col-span-6">
-          <h3 class="text-3xl text-gray-700 mb-5">Create Event</h3>
+    <div class="row">
+      <div class="col p-4">
+        <div class="card text-dark bg-light mb-3">
+          <div class="card-body">
+            <h5 class="card-title mb-5">Create a new event</h5>
 
-          <form @submit.prevent="formSubmit" class="w3-container p-3">
-            <div class="mx-4 md:mt-10">
-              <label class="text-gray-600" for="name">Event name</label>
-              <input
-                type="text"
-                class="w3-input text-gray-600 tracking-wider"
-                id="name"
-                v-model.trim="name.value"
-                @blur="nameValidation"
-                :class="{ error: !name.isValid }"
-              />
-              <p class="alert" v-if="!name.isValid">Please enter your name</p>
-            </div>
-            <div class="mx-4 mb-4 md:mb-10">
-              <input
-                type="date"
-                id="date"
-                name="date"
-                class="w3-input text-gray-600 tracking-widest"
-                v-model.trim="date.value"
-                @blur="dateValidation"
-                :class="{ error: !date.isValid }"
-              />
-              <p class="alert" v-if="!date.isValid">
-                Please enter a valid date
-              </p>
-            </div>
-            <button
-              @click="loadEvents"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-4 py-1 px-2"
-            >
-              Create Event
-            </button>
-          </form>
+            <form class="row g-3" @submit.prevent="formSubmit">
+              <div class="col-md-12 form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  v-model.trim="name.value"
+                  placeholder="Event name"
+                  @blur="nameValidation"
+                  :class="{ error: !name.isValid }"
+                />
+                <label for="name">Event name</label>
+                <p class="alert" v-if="!name.isValid">Please enter your name</p>
+              </div>
+
+              <div class="col-md-6 form-floating mb-3">
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  class="form-control"
+                  v-model.trim="date.value"
+                  @blur="dateValidation"
+                  :class="{ error: !date.isValid }"
+                  placeholder="Begin date"
+                />
+                <label for="date">Begin date</label>
+                <p class="alert" v-if="!date.isValid">
+                  Please enter a valid date
+                </p>
+              </div>
+
+              <div class="col-md-6 form-floating mb-3">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="End date"
+                />
+                <label for="floatingInput">End date</label>
+              </div>
+
+              <div class="col-md-6 form-floating mb-3">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Begin date registration"
+                />
+                <label for="floatingInput">Begin date registration</label>
+              </div>
+
+              <div class="col-md-6 form-floating mb-3">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="End date registration"
+                />
+                <label for="floatingInput">End date registration</label>
+              </div>
+
+              <div class="col-md-12 form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Place"
+                />
+                <label for="floatingInput">Place</label>
+              </div>
+
+              <div class="col-md-4 form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Organizer name"
+                />
+                <label for="floatingInput">Organizer name</label>
+              </div>
+
+              <div class="col-md-4 form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Organizer email"
+                />
+                <label for="floatingInput">Organizer email</label>
+              </div>
+
+              <div class="col-md-4 form-floating mb-3">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Organizer phone"
+                />
+                <label for="floatingInput">Organizer phone</label>
+              </div>
+
+              <div class="col-md-4 form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Responsible name"
+                />
+                <label for="floatingInput">Responsible name</label>
+              </div>
+
+              <div class="col-md-4 form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Responsible email"
+                />
+                <label for="floatingInput">Responsible email</label>
+              </div>
+
+              <div class="col-md-4 form-floating mb-3">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Responsible phone"
+                />
+                <label for="floatingInput">Responsible phone</label>
+              </div>
+
+              <div class="d-grid col-md-4 mx-auto">
+                <button
+                  @click="loadEvents"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Create Event
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
-      <table class="w3-table-all w3-small mb-4">
-        <thead>
-          <tr class="w3-blue">
-            <th>Name</th>
-            <th>Date</th>
-            <th>Remove</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="w3-hover-grey" v-for="item in events" :key="item.id">
-            <td>{{ item.name }}</td>
-            <td>{{ dateConverter(item.date) }}</td>
-            <td>
-              <div class="px-4 cursor-pointer" @click="deleteItem(item.name)">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col p-4">
+        <table class="w3-table-all w3-small mb-4">
+          <thead>
+            <tr class="w3-blue">
+              <th>Name</th>
+              <th>Date</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="w3-hover-grey" v-for="item in events" :key="item.id">
+              <td>{{ item.name }}</td>
+              <td>{{ dateConverter(item.date) }}</td>
+              <td>
+                <div class="px-4 cursor-pointer" @click="deleteItem(item.name)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
-    <!--   Grid -->
   </div>
 </template>
 

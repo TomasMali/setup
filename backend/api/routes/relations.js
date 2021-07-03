@@ -43,7 +43,7 @@ router.post("/insertFromFidsCompetitions", (req, res, next) => {
 
     console.log(competitionsIdArray)
 
-    pool.query("INSERT INTO relations (SELECT * FROM relations_fids WHERE id IN (" + competitionsIdArray + "))", (error, results) => {
+    pool.query("INSERT INTO competitions (SELECT * FROM relations_fids WHERE id IN (" + competitionsIdArray + "))", (error, results) => {
         if (error) {
             console.log(error)
             let errorNumber = 500
@@ -77,7 +77,7 @@ router.post("/insertFromFidsCompetitions", (req, res, next) => {
 router.get('/getMyRelations', (req, res, next) => {
     const license = req.query.license
 
-    pool.query('SELECT * FROM relations', (error, results) => {
+    pool.query('SELECT * FROM competitions', (error, results) => {
         if (error) {
             throw error
         }
@@ -116,7 +116,7 @@ router.post("/addMyRelation", (req, res, next) => {
     const dances = req.body.dances
 
 
-    pool.query('SELECT MAX(id) FROM relations WHERE license = $1 AND event = $2', [license, event], (error, results) => {
+    pool.query('SELECT MAX(id) FROM competitions WHERE license = $1 AND event = $2', [license, event], (error, results) => {
         if (error) {
             return res.status(500).json({
                 code: 500,
@@ -130,7 +130,7 @@ router.post("/addMyRelation", (req, res, next) => {
             maxId = 1
 
 
-        pool.query('INSERT INTO relations (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group,perc_fq_age,perc_fq_class,members_min,members_max,exclusive_gender,music_required,alias,dances,event) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22, $23)', [maxId, license, discipline, age_group, classe, unit_type, judging_system_preliminary, judging_system_final, calculation_type, first_age_min, first_age_max, second_age_min, second_age_max, alternative_age_group, perc_fq_age, perc_fq_class, members_min, members_max, exclusive_gender, music_required, alias, dances, event], (error, results) => {
+        pool.query('INSERT INTO competitions (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group,perc_fq_age,perc_fq_class,members_min,members_max,exclusive_gender,music_required,alias,dances,event) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22, $23)', [maxId, license, discipline, age_group, classe, unit_type, judging_system_preliminary, judging_system_final, calculation_type, first_age_min, first_age_max, second_age_min, second_age_max, alternative_age_group, perc_fq_age, perc_fq_class, members_min, members_max, exclusive_gender, music_required, alias, dances, event], (error, results) => {
             if (error) {
                 console.log(error)
                 let errorNumber = 500
@@ -256,7 +256,7 @@ router.get("/insertRelationFromAPI", (req, res, next) => {
 router.delete('/deleteMyRelation', (req, res, next) => {
     console.log(req.body)
     const relation = req.body
-    pool.query('DELETE FROM relations WHERE id = $1 AND license = $2', [relation.id, relation.license], (error, results) => {
+    pool.query('DELETE FROM competitions WHERE id = $1 AND license = $2', [relation.id, relation.license], (error, results) => {
         if (error) {
             console.log(error)
             let errorNumber = 500
