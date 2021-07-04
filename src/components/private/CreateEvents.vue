@@ -35,16 +35,16 @@
               <div class="col-md-6 form-floating mb-3">
                 <input
                   type="date"
-                  id="date"
-                  name="date"
+                  id="beginDate"
+                  name="beginDate"
                   class="form-control"
-                  v-model.trim="date.value"
+                  v-model.trim="beginDate.value"
                   @blur="dateValidation"
-                  :class="{ error: !date.isValid }"
+                  :class="{ error: !beginDate.isValid }"
                   placeholder="Begin date"
                 />
                 <label for="date">Begin date</label>
-                <p class="alert" v-if="!date.isValid">
+                <p class="alert" v-if="!beginDate.isValid">
                   Please enter a valid date
                 </p>
               </div>
@@ -52,109 +52,163 @@
               <div class="col-md-6 form-floating mb-3">
                 <input
                   type="date"
+                  name="endDate"
                   class="form-control"
-                  id="floatingInput"
+                  id="endDate"
+                  v-model.trim="endDate.value"
+                  @blur="dateValidation"
+                  :class="{ error: !endDate.isValid }"
                   placeholder="End date"
                 />
-                <label for="floatingInput">End date</label>
+                <label for="endDate">End date</label>
+                <p class="alert" v-if="!endDate.isValid">
+                  Please enter a valid date
+                </p>
               </div>
 
               <div class="col-md-6 form-floating mb-3">
                 <input
                   type="date"
+                  name="beginDateRegistration"
                   class="form-control"
-                  id="floatingInput"
+                  id="beginDateRegistration"
+                  v-model.trim="beginDateRegistration.value"
+                  @blur="dateValidation"
+                  :class="{ error: !beginDateRegistration.isValid }"
                   placeholder="Begin date registration"
                 />
-                <label for="floatingInput">Begin date registration</label>
+                <label for="beginDateRegistration"
+                  >Begin date registration</label
+                >
+                <p class="alert" v-if="!beginDateRegistration.isValid">
+                  Please enter a valid date
+                </p>
               </div>
 
               <div class="col-md-6 form-floating mb-3">
                 <input
                   type="date"
+                  name="endDateRegistration"
                   class="form-control"
-                  id="floatingInput"
+                  id="endDateRegistration"
+                  v-model.trim="endDateRegistration.value"
+                  @blur="dateValidation"
+                  :class="{ error: !endDateRegistration.isValid }"
                   placeholder="End date registration"
                 />
-                <label for="floatingInput">End date registration</label>
+                <label for="endDateRegistration">End date registration</label>
+                <p class="alert" v-if="!endDateRegistration.isValid">
+                  Please enter a valid date
+                </p>
               </div>
 
               <div class="col-md-12 form-floating mb-3">
                 <input
                   type="text"
+                  id="place"
+                  name="place"
                   class="form-control"
-                  id="floatingInput"
+                  v-model.trim="place.value"
+                  @blur="placeValidation"
+                  :class="{ error: !place.isValid }"
                   placeholder="Place"
                 />
-                <label for="floatingInput">Place</label>
+                <label for="place">Place</label>
+                <p class="alert" v-if="!place.isValid">
+                  Please enter a valid place
+                </p>
               </div>
 
               <div class="col-md-4 form-floating mb-3">
                 <input
                   type="text"
                   class="form-control"
-                  id="floatingInput"
+                  v-model.trim="organizerName.value"
+                  name="organizerName"
+                  id="organizerName"
                   placeholder="Organizer name"
                 />
-                <label for="floatingInput">Organizer name</label>
+                <label for="organizerName"
+                  >Organizer name
+                  <small class="text-muted"> (optional)</small></label
+                >
               </div>
 
               <div class="col-md-4 form-floating mb-3">
                 <input
                   type="email"
                   class="form-control"
-                  id="floatingInput"
+                  v-model.trim="organizerMail.value"
+                  name="organizerMail"
+                  id="organizerMail"
                   placeholder="Organizer email"
                 />
-                <label for="floatingInput">Organizer email</label>
+                <label for="organizerMail"
+                  >Organizer email <small class="text-muted"> (optional)</small>
+                </label>
               </div>
 
               <div class="col-md-4 form-floating mb-3">
                 <input
                   type="tel"
+                  v-model="organizerPhone.value"
+                  name="organizerPhone"
                   class="form-control"
-                  id="floatingInput"
+                  id="organizerPhone"
                   placeholder="Organizer phone"
                 />
-                <label for="floatingInput">Organizer phone</label>
+                <label for="organizerPhone"
+                  >Organizer phone <small class="text-muted"> (optional)</small>
+                </label>
               </div>
 
               <div class="col-md-4 form-floating mb-3">
                 <input
                   type="text"
                   class="form-control"
-                  id="floatingInput"
-                  placeholder="Responsible name"
+                  v-model.trim="responsableName.value"
+                  name="responsableName"
+                  id="responsableName"
+                  placeholder="Responsable name"
                 />
-                <label for="floatingInput">Responsible name</label>
+                <label for="responsableName"
+                  >Responsable name
+                  <small class="text-muted"> (optional)</small>
+                </label>
               </div>
 
               <div class="col-md-4 form-floating mb-3">
                 <input
                   type="email"
+                  name="responsableMail"
+                  v-model.trim="responsableMail.value"
                   class="form-control"
-                  id="floatingInput"
+                  id="responsableMail"
                   placeholder="Responsible email"
                 />
-                <label for="floatingInput">Responsible email</label>
+                <label for="responsableMail"
+                  >Responsible email
+                  <small class="text-muted"> (optional)</small>
+                </label>
               </div>
 
               <div class="col-md-4 form-floating mb-3">
                 <input
                   type="tel"
                   class="form-control"
-                  id="floatingInput"
+                  v-model="responsablePhone.value"
+                  name="responsablePhone"
+                  id="responsablePhone"
                   placeholder="Responsible phone"
                 />
-                <label for="floatingInput">Responsible phone</label>
+                <label for="responsablePhone"
+                  >Responsible phone
+                  <small class="text-muted"> (optional)</small>
+                </label>
               </div>
 
               <div class="d-grid col-md-4 mx-auto">
-                <button
-                  @click="loadEvents"
-                  type="button"
-                  class="btn btn-primary"
-                >
+                <button type="submit" class="btn btn-primary">
                   Create Event
                 </button>
               </div>
@@ -213,10 +267,51 @@ export default {
         value: "",
         isValid: true,
       },
-      date: {
-        value: this.dateConverter(new Date().toISOString()),
+      beginDate: {
+        value: "", //this.dateConverter(new Date().toISOString()),
         isValid: true,
       },
+      endDate: {
+        value: "", //this.dateConverter(new Date().toISOString()),
+        isValid: true,
+      },
+      beginDateRegistration: {
+        value: "", //this.dateConverter(new Date().toISOString()),
+        isValid: true,
+      },
+      endDateRegistration: {
+        value: "", //this.dateConverter(new Date().toISOString()),
+        isValid: true,
+      },
+      place: {
+        value: "",
+        isValid: true,
+      },
+      organizerName: {
+        value: "",
+        isValid: true,
+      },
+      organizerMail: {
+        value: "",
+        isValid: true,
+      },
+      organizerPhone: {
+        value: "",
+        isValid: true,
+      },
+      responsableName: {
+        value: "",
+        isValid: true,
+      },
+      responsableMail: {
+        value: "",
+        isValid: true,
+      },
+      responsablePhone: {
+        value: "",
+        isValid: true,
+      },
+
       isFormValid: true,
       isLoading: false,
       error: null,
@@ -251,8 +346,10 @@ export default {
     },
 
     async formSubmit() {
+      console.log("formSubmit");
       this.nameValidation();
       this.dateValidation();
+      this.placeValidation();
       if (!this.isFormValid) {
         return;
       }
@@ -260,7 +357,7 @@ export default {
       this.isLoading = true;
       const actionPayload = {
         name: this.name.value,
-        date: this.date.value,
+        beginDate: this.beginDate.value,
       };
 
       // do the post
@@ -268,9 +365,31 @@ export default {
         await this.$store.dispatch("event/addEvent", actionPayload);
         this.isFormValid = true;
         this.name.isValid = true;
-        this.date.isValid = true;
+        this.beginDate.isValid = true;
+        this.endDate.isValid = true;
+        this.beginDateRegistration.isValid = true;
+        this.endDateRegistration.isValid = true;
+        this.place.isValid = true;
+        this.organizerName.isValid = true;
+        this.organizerMail.isValid = true;
+        this.organizerPhone.isValid = true;
+        this.responsableName.isValid = true;
+        this.responsableMail.isValid = true;
+        this.responsablePhone.isValid = true;
+
         this.name.value = "";
-        this.date.value = "";
+        this.beginDate.value = "";
+        this.endDate.value = "";
+        this.beginDateRegistration.value = "";
+        this.endDateRegistration.value = "";
+        this.place.value = "";
+        this.organizerName.value = "";
+        this.organizerMail.value = "";
+        this.organizerPhone.value = "";
+        this.responsableName.value = "";
+        this.responsableMail.value = "";
+        this.responsablePhone.value = "";
+
         this.loadEvents();
       } catch (error) {
         this.error = error.message || "Failed to authenticate";
@@ -280,21 +399,51 @@ export default {
     nameValidation() {
       this.isFormValid = true;
       this.name.isValid = true;
+
       if (this.name.value === "") {
         this.isFormValid = false;
         this.name.isValid = false;
       }
     },
-    dateValidation() {
+    placeValidation() {
       this.isFormValid = true;
-      this.date.isValid = true;
-      if (this.date.value === "") {
+      this.place.isValid = true;
+      if (this.place.value === "") {
         this.isFormValid = false;
-        this.date.isValid = false;
+        this.place.isValid = false;
+      }
+    },
+    dateValidation() {
+      //  this.isFormValid = true;
+      this.beginDate.isValid = true;
+      this.endDate.isValid = true;
+      this.beginDateRegistration.isValid = true;
+      this.endDateRegistration.isValid = true;
+      if (this.beginDate.value === "") {
+        this.isFormValid = false;
+        this.beginDate.isValid = false;
+        // return;
+      }
+      if (this.endDate.value === "") {
+        this.isFormValid = false;
+        this.endDate.isValid = false;
+        //  return;
+      }
+      if (this.beginDateRegistration.value === "") {
+        this.isFormValid = false;
+        this.beginDateRegistration.isValid = false;
+        // return;
+      }
+      if (this.endDateRegistration.value === "") {
+        this.isFormValid = false;
+        this.endDateRegistration.isValid = false;
+        //  return;
       }
     },
 
     async loadEvents() {
+      console.log("loadEventAutomatic");
+
       try {
         await this.$store.dispatch("event/getEvents");
         this.events = this.$store.getters["event/getEvents"];

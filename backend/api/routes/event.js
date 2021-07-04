@@ -20,31 +20,63 @@ router.get('/getEvent', (req, res, next) => {
 
 
 
+
+
+
+
+
+
+
+
+
 router.post("/addEvent", (req, res, next) => {
     const event = req.body
 
-    pool.query('INSERT INTO events (name, date) VALUES ($1, $2)', [event.name, event.date], (error, results) => {
 
-        console.log(results)
+    pool.query('SELECT 1 FROM events WHERE name = $1', [event.name], (error, results) => {
         if (error) {
-            console.log(error)
-            let errorNumber = 500
-            if (error.routine === '_bt_check_unique')
-                errorNumber = 409
+            return res.status(500).json({
+                code: 500,
+                message: "Generic network error!"
+            })
+        }
 
-            return res.status(errorNumber).json({
-                code: errorNumber,
-                message: errorNumber === 409 ? "Event " + event.name + " already exsists" : "Generic network error!"
+
+        if (results.rowCount > 0) {
+
+            return res.status(409).json({
+                code: 409,
+                message: "This event already exists!"
             })
 
         }
-        // qui ritorna che tutto è andato ok 
-        return res.status(201).json({
-            message: "Event created",
-            result: results.rowCount
+
+
+        pool.query('INSERT INTO events (name, date) VALUES ($1, $2)', [event.name, event.date], (error, results) => {
+
+            console.log(results)
+            if (error) {
+                console.log(error)
+                let errorNumber = 500
+                if (error.routine === '_bt_check_unique')
+                    errorNumber = 409
+
+                return res.status(errorNumber).json({
+                    code: errorNumber,
+                    message: errorNumber === 409 ? "Event " + event.name + " already exsists" : "Generic network error!"
+                })
+
+            }
+            // qui ritorna che tutto è andato ok 
+            return res.status(201).json({
+                message: "Event created",
+                result: results.rowCount
+            })
+
         })
 
     })
+
 })
 
 
