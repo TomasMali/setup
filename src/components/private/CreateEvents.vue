@@ -12,7 +12,7 @@
     </base-dialog>
 
     <div class="row">
-      <div class="col p-4">
+      <div class="col col-12 col-md-6 p-4">
         <div class="card text-dark bg-light mb-3">
           <div class="card-body">
             <h5 class="card-title mb-5">Create a new event</h5>
@@ -217,7 +217,7 @@
         </div>
       </div>
 
-      <div class="col p-4">
+      <div class="col col-12 col-md-6  p-4">
         <table class="w3-table-all w3-small mb-4">
           <thead>
             <tr class="w3-blue">
