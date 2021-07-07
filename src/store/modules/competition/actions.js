@@ -1,89 +1,79 @@
-import cred from '../../cred.js'
+import cred from "../../cred.js";
 
-const status = cred.prod
+const status = cred.prod;
 
 export default {
-
-
-
     async getFidsCompetitions(context) {
-        let url = status.url_fids_competition_get
+        let url = status.url_fids_competition_get;
         const response = await fetch(url, {
-            method: 'GET',
-            cache: 'no-cache',
-            credentials: 'same-origin',
+            method: "GET",
+            cache: "no-cache",
+            credentials: "same-origin",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data'
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
         });
 
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
             if (responseData.code === 409) {
-                throw new Error(responseData.message)
+                throw new Error(responseData.message);
             } else
-                throw new Error("Request failed with error code: " + response.status)
-
+                throw new Error("Request failed with error code: " + response.status);
         }
         //  console.log(responseData)
-        context.commit('setFidsCompetitions', {
-            fidsCompetitionObj: responseData
-        })
+        context.commit("setFidsCompetitions", {
+            fidsCompetitionObj: responseData,
+        });
     },
 
-
-
     async getMyCompetitions(context) {
-        let url = status.url_myCompetition_get
+        let url = status.url_myCompetition_get;
         const response = await fetch(url, {
-            method: 'GET',
-            cache: 'no-cache',
-            credentials: 'same-origin',
+            method: "GET",
+            cache: "no-cache",
+            credentials: "same-origin",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data'
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
         });
 
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
             if (responseData.code === 409) {
-                throw new Error(responseData.message)
+                throw new Error(responseData.message);
             } else
-                throw new Error("Request failed with error code: " + response.status)
-
+                throw new Error("Request failed with error code: " + response.status);
         }
         // console.log("Ciao")
-        context.commit('setMyCompetitions', {
-            myCompetitionObj: responseData
-        })
+        context.commit("setMyCompetitions", {
+            myCompetitionObj: responseData,
+        });
     },
 
-
-
     async addMyCompetition(_, payload) {
-
-        let url = status.url_my_competition_add
+        let url = status.url_my_competition_add;
 
         //  console.log(payload)
 
         const response = await fetch(url, {
-            method: 'POST',
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
+            method: "POST",
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data',
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
             body: JSON.stringify({
                 license: payload.license,
                 events: payload.events,
@@ -101,7 +91,6 @@ export default {
                 judging_systems: payload.judging_systems,
                 rounds: payload.rounds,
 
-
                 age_group: "8/9",
                 judging_system_preliminary: "test",
                 judging_system_final: "RTTT",
@@ -118,100 +107,80 @@ export default {
                 exclusive_gender: "F",
                 music_required: "No",
                 alias: "al",
-
-            })
+            }),
         });
 
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
             if (responseData.code === 409) {
-                throw new Error(responseData.message)
-            } else
+                throw new Error(responseData.message);
+            }
             //   throw new Error("Request failed with error code: " + response.status)
-                throw new Error("Work in progress..... Please submit all the fields ")
-
+            else
+                throw new Error("Work in progress..... Please submit all the fields ");
         }
-
-
     },
-
-
 
     async deleteMyCompetition(_, payload) {
-
-        let url = status.url_my_competition_delete
-            //  console.log(payload)
+        let url = status.url_my_competition_delete;
+        //  console.log(payload)
 
         const response = await fetch(url, {
-            method: 'DELETE',
-            cache: 'no-cache',
-            credentials: 'same-origin',
+            method: "DELETE",
+            cache: "no-cache",
+            credentials: "same-origin",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data',
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
             body: JSON.stringify({
                 id: payload.id,
-                license: payload.license
-            })
+                license: payload.license,
+            }),
         });
 
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
             if (responseData.code === 409) {
-                throw new Error(responseData.message)
+                throw new Error(responseData.message);
             } else
-                throw new Error("Request failed with error code: " + response.status)
-
+                throw new Error("Request failed with error code: " + response.status);
         }
-
-
     },
 
-
-
     async insertFromFidsCompetitions(_, payload) {
-
-        let url = status.url_insert_from_fids_competitions
+        let url = status.url_insert_from_fids_competitions;
 
         //  console.log(payload)
 
         const response = await fetch(url, {
-            method: 'POST',
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
+            method: "POST",
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data',
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
             body: JSON.stringify({
                 competitionsIdArray: payload.competitionsIdArray,
-            })
+            }),
         });
 
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
             if (responseData.code === 409) {
-                throw new Error(responseData.message)
-            } else
+                throw new Error(responseData.message);
+            }
             //   throw new Error("Request failed with error code: " + response.status)
-                throw new Error("Work in progress..... Please submit all the fields ")
-
+            else
+                throw new Error("Work in progress..... Please submit all the fields ");
         }
-
-
-
-
     },
-
-
-
-
-}
+};

@@ -11,225 +11,245 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <div class="row">
-      <div class="col col-12 col-md-6 p-4">
-        <div class="card text-dark bg-light mb-3">
-          <div class="card-body">
-            <h5 class="card-title mb-5">Create a new event</h5>
+    <create-dialog
+      :show="!!openDialogEventCreation"
+      title="Create an event"
+      @close="manageDialogEvent"
+    >
+      <div class="card text-dark bg-light mb-0">
+        <div class="card-body">
+          <form class="row g-3" @submit.prevent="formSubmit">
+            <div class="col-md-12 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                v-model.trim="name.value"
+                placeholder="Event name"
+                @blur="nameValidation"
+                :class="{ error: !name.isValid }"
+              />
+              <label for="name">Event name</label>
+              <span class="alert" v-if="!name.isValid">
+                <small>Please enter the event name </small>
+              </span>
+            </div>
 
-            <form class="row g-3" @submit.prevent="formSubmit">
-              <div class="col-md-12 form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  v-model.trim="name.value"
-                  placeholder="Event name"
-                  @blur="nameValidation"
-                  :class="{ error: !name.isValid }"
-                />
-                <label for="name">Event name</label>
-                <p class="alert" v-if="!name.isValid">Please enter your name</p>
-              </div>
+            <div class="col-md-6 form-floating">
+              <input
+                type="date"
+                id="beginDate"
+                name="beginDate"
+                class="form-control"
+                v-model.trim="beginDate.value"
+                @blur="dateValidation"
+                :class="{ error: !beginDate.isValid }"
+                placeholder="Begin date"
+              />
+              <label for="date">Begin date</label>
+              <span class="alert" v-if="!beginDate.isValid">
+                <small> Please enter a valid date </small>
+              </span>
+            </div>
 
-              <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="date"
-                  id="beginDate"
-                  name="beginDate"
-                  class="form-control"
-                  v-model.trim="beginDate.value"
-                  @blur="dateValidation"
-                  :class="{ error: !beginDate.isValid }"
-                  placeholder="Begin date"
-                />
-                <label for="date">Begin date</label>
-                <p class="alert" v-if="!beginDate.isValid">
-                  Please enter a valid date
-                </p>
-              </div>
+            <div class="col-md-6 form-floating">
+              <input
+                type="date"
+                name="endDate"
+                class="form-control"
+                id="endDate"
+                v-model.trim="endDate.value"
+                @blur="dateValidation"
+                :class="{ error: !endDate.isValid }"
+                placeholder="End date"
+              />
+              <label for="endDate">End date</label>
+              <span class="alert" v-if="!endDate.isValid">
+                <small> Please enter a valid date </small>
+              </span>
+            </div>
 
-              <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="date"
-                  name="endDate"
-                  class="form-control"
-                  id="endDate"
-                  v-model.trim="endDate.value"
-                  @blur="dateValidation"
-                  :class="{ error: !endDate.isValid }"
-                  placeholder="End date"
-                />
-                <label for="endDate">End date</label>
-                <p class="alert" v-if="!endDate.isValid">
-                  Please enter a valid date
-                </p>
-              </div>
+            <div class="col-md-6 form-floating">
+              <input
+                type="date"
+                name="beginDateRegistration"
+                class="form-control"
+                id="beginDateRegistration"
+                v-model.trim="beginDateRegistration.value"
+                @blur="dateValidation"
+                :class="{ error: !beginDateRegistration.isValid }"
+                placeholder="Begin date registration"
+              />
+              <label for="beginDateRegistration">Begin date registration</label>
+              <span class="alert" v-if="!beginDateRegistration.isValid">
+                <small> Please enter a valid date </small>
+              </span>
+            </div>
 
-              <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="date"
-                  name="beginDateRegistration"
-                  class="form-control"
-                  id="beginDateRegistration"
-                  v-model.trim="beginDateRegistration.value"
-                  @blur="dateValidation"
-                  :class="{ error: !beginDateRegistration.isValid }"
-                  placeholder="Begin date registration"
-                />
-                <label for="beginDateRegistration"
-                  >Begin date registration</label
-                >
-                <p class="alert" v-if="!beginDateRegistration.isValid">
-                  Please enter a valid date
-                </p>
-              </div>
+            <div class="col-md-6 form-floating">
+              <input
+                type="date"
+                name="endDateRegistration"
+                class="form-control"
+                id="endDateRegistration"
+                v-model.trim="endDateRegistration.value"
+                @blur="dateValidation"
+                :class="{ error: !endDateRegistration.isValid }"
+                placeholder="End date registration"
+              />
+              <label for="endDateRegistration">End date registration</label>
+              <span class="alert" v-if="!endDateRegistration.isValid">
+                <small> Please enter a valid date </small>
+              </span>
+            </div>
 
-              <div class="col-md-6 form-floating mb-3">
-                <input
-                  type="date"
-                  name="endDateRegistration"
-                  class="form-control"
-                  id="endDateRegistration"
-                  v-model.trim="endDateRegistration.value"
-                  @blur="dateValidation"
-                  :class="{ error: !endDateRegistration.isValid }"
-                  placeholder="End date registration"
-                />
-                <label for="endDateRegistration">End date registration</label>
-                <p class="alert" v-if="!endDateRegistration.isValid">
-                  Please enter a valid date
-                </p>
-              </div>
+            <div class="col-md-12 form-floating">
+              <input
+                type="text"
+                id="place"
+                name="place"
+                class="form-control"
+                v-model.trim="place.value"
+                @blur="placeValidation"
+                :class="{ error: !place.isValid }"
+                placeholder="Place"
+              />
+              <label for="place">Place</label>
+              <span class="alert" v-if="!place.isValid">
+                <small> Please enter a valid place </small>
+              </span>
+            </div>
 
-              <div class="col-md-12 form-floating mb-3">
-                <input
-                  type="text"
-                  id="place"
-                  name="place"
-                  class="form-control"
-                  v-model.trim="place.value"
-                  @blur="placeValidation"
-                  :class="{ error: !place.isValid }"
-                  placeholder="Place"
-                />
-                <label for="place">Place</label>
-                <p class="alert" v-if="!place.isValid">
-                  Please enter a valid place
-                </p>
-              </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                v-model.trim="organizerName.value"
+                name="organizerName"
+                id="organizerName"
+                placeholder="Organizer name"
+              />
+              <label for="organizerName">
+                <small class="text-muted"> Organizer name *</small></label
+              >
+            </div>
 
-              <div class="col-md-4 form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model.trim="organizerName.value"
-                  name="organizerName"
-                  id="organizerName"
-                  placeholder="Organizer name"
-                />
-                <label for="organizerName"
-                  >Organizer name
-                  <small class="text-muted"> (optional)</small></label
-                >
-              </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="email"
+                class="form-control"
+                v-model.trim="organizerMail.value"
+                name="organizerMail"
+                id="organizerMail"
+                placeholder="Organizer email"
+              />
+              <label for="organizerMail"
+                ><small class="text-muted"> Organizer email *</small>
+              </label>
+            </div>
 
-              <div class="col-md-4 form-floating mb-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  v-model.trim="organizerMail.value"
-                  name="organizerMail"
-                  id="organizerMail"
-                  placeholder="Organizer email"
-                />
-                <label for="organizerMail"
-                  >Organizer email <small class="text-muted"> (optional)</small>
-                </label>
-              </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="tel"
+                v-model="organizerPhone.value"
+                name="organizerPhone"
+                class="form-control"
+                id="organizerPhone"
+                placeholder="Organizer phone"
+              />
+              <label for="organizerPhone">
+                <small class="text-muted"> Organizer phone *</small>
+              </label>
+            </div>
 
-              <div class="col-md-4 form-floating mb-3">
-                <input
-                  type="tel"
-                  v-model="organizerPhone.value"
-                  name="organizerPhone"
-                  class="form-control"
-                  id="organizerPhone"
-                  placeholder="Organizer phone"
-                />
-                <label for="organizerPhone"
-                  >Organizer phone <small class="text-muted"> (optional)</small>
-                </label>
-              </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="text"
+                class="form-control"
+                v-model.trim="responsableName.value"
+                name="responsableName"
+                id="responsableName"
+                placeholder="Responsable name"
+              />
+              <label for="responsableName">
+                <small class="text-muted"> Responsable name *</small>
+              </label>
+            </div>
 
-              <div class="col-md-4 form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model.trim="responsableName.value"
-                  name="responsableName"
-                  id="responsableName"
-                  placeholder="Responsable name"
-                />
-                <label for="responsableName"
-                  >Responsable name
-                  <small class="text-muted"> (optional)</small>
-                </label>
-              </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="email"
+                name="responsableMail"
+                v-model.trim="responsableMail.value"
+                class="form-control"
+                id="responsableMail"
+                placeholder="Responsible email"
+              />
+              <label for="responsableMail">
+                <small class="text-muted"> Responsible email *</small>
+              </label>
+            </div>
 
-              <div class="col-md-4 form-floating mb-3">
-                <input
-                  type="email"
-                  name="responsableMail"
-                  v-model.trim="responsableMail.value"
-                  class="form-control"
-                  id="responsableMail"
-                  placeholder="Responsible email"
-                />
-                <label for="responsableMail"
-                  >Responsible email
-                  <small class="text-muted"> (optional)</small>
-                </label>
-              </div>
+            <div class="col-md-4 form-floating">
+              <input
+                type="tel"
+                class="form-control"
+                v-model="responsablePhone.value"
+                name="responsablePhone"
+                id="responsablePhone"
+                placeholder="Responsible phone"
+              />
+              <label for="responsablePhone">
+                <small class="text-muted"> Responsible phone *</small>
+              </label>
+            </div>
 
-              <div class="col-md-4 form-floating mb-3">
-                <input
-                  type="tel"
-                  class="form-control"
-                  v-model="responsablePhone.value"
-                  name="responsablePhone"
-                  id="responsablePhone"
-                  placeholder="Responsible phone"
-                />
-                <label for="responsablePhone"
-                  >Responsible phone
-                  <small class="text-muted"> (optional)</small>
-                </label>
-              </div>
-
-              <div class="d-grid col-md-4 mx-auto">
-                <button type="submit" class="btn btn-primary">
-                  Create Event
-                </button>
-              </div>
-            </form>
-          </div>
+            <div class="d-grid col-md-4 mx-auto">
+              <button type="submit" class="btn btn-primary mt-4">
+                Create Event
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+    </create-dialog>
 
-      <div class="col col-12 col-md-6  p-4">
+    <div class="row p-0 m-0">
+      <div class="col col-sm-2 m-4">
+        <button
+          class="btn btn-md btn-primary no_board"
+          @click="openDialogEventCreation = true"
+        >
+          Create event
+        </button>
+      </div>
+
+      <div class="col col-sm-10 m-4">
         <table class="w3-table-all w3-small mb-4">
-          <thead>
-            <tr class="w3-blue">
-              <th>Name</th>
-              <th>Date</th>
-              <th>Remove</th>
+          <thead class="">
+            <tr class="w3-blue p-0">
+              <th class="p-1">Name</th>
+              <th class="p-1">Begin date</th>
+              <th class="p-1">End date</th>
+              <!--  
+              <th>Begin registration</th>
+              <th>End registration</th>
+                   -->
+              <th class="p-1">Place</th>
+
+              <th class="p-1">Remove</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="w3-hover-grey" v-for="item in events" :key="item.id">
-              <td>{{ item.name }}</td>
-              <td>{{ dateConverter(item.date) }}</td>
+            <tr class="w3-hover-grey p-0" v-for="item in events" :key="item.id">
+              <td class="p-1">{{ item.name }}</td>
+              <td class="p-1">{{ dateConverter(item.begin_date) }}</td>
+              <td class="p-1">{{ dateConverter(item.end_date) }}</td>
+              <!--  
+              <td>{{ dateConverter(item.begin_date_registration) }}</td>
+              <td>{{ dateConverter(item.end_date_registration) }}</td>
+              -->
+              <td class="p-1">{{ item.place }}</td>
               <td>
                 <div class="px-4 cursor-pointer" @click="deleteItem(item.name)">
                   <svg
@@ -315,6 +335,7 @@ export default {
       isFormValid: true,
       isLoading: false,
       error: null,
+      openDialogEventCreation: null,
     };
   },
   methods: {
@@ -358,6 +379,18 @@ export default {
       const actionPayload = {
         name: this.name.value,
         beginDate: this.beginDate.value,
+        endDate: this.endDate.value,
+        beginDateRegistration: this.beginDateRegistration.value,
+        endDateRegistration: this.endDateRegistration.value,
+        place: this.place.value,
+        organizerName: this.organizerName.value,
+        organizerMail: this.organizerMail.value,
+        organizerPhone:
+          this.organizerPhone.value === "" ? 0 : this.organizerPhone.value,
+        responsableName: this.responsableName.value,
+        responsableMail: this.responsableMail.value,
+        responsablePhone:
+          this.responsablePhone.value === "" ? 0 : this.responsablePhone.value,
       };
 
       // do the post
@@ -391,6 +424,7 @@ export default {
         this.responsablePhone.value = "";
 
         this.loadEvents();
+        this.manageDialogEvent();
       } catch (error) {
         this.error = error.message || "Failed to authenticate";
       }
@@ -454,6 +488,9 @@ export default {
     handleError() {
       this.error = null;
     },
+    manageDialogEvent() {
+      this.openDialogEventCreation = null;
+    },
   },
   created() {
     this.loadEvents();
@@ -485,6 +522,10 @@ export default {
 
 .but {
   margin: 40px 0px;
+}
+
+.no_board {
+  border-radius: 0px;
 }
 </style>
 
