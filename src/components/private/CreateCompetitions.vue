@@ -1,7 +1,7 @@
 
 
 <template>
-  <div style="max-height: 400px">
+  <div>
     <base-dialog
       :show="!!error"
       title="An error occurred!"
@@ -13,16 +13,19 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <div class="m-4 md:m-10 lg:grid lg:grid-cols-2 gap-4 mx-4">
-      <div class="col-span-1 mycard mb-4">
-        <!--  -->
-        <form class="w-full" @submit.prevent="formSubmit">
-          <h1 class="my-8 w3-wide">Create your competition</h1>
-
-          <div class="w3-row-padding w3-card-4 w3-white p-8">
+    <!--  -->
+    <create-dialog
+      :show="!!openDialogCompetitionCreation"
+      title="Create new competition"
+      @close="manageDialogCompetition"
+    >
+      <div class="card text-dark bg-light mb-0">
+        <div class="card-body">
+          <form class="" @submit.prevent="formSubmit">
             <!--    Events   -->
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Event</label>
+            <div class="p-2">
+              <label for="" class="col-form-label">Event</label>
+
               <select
                 v-model="form.events.value"
                 class="w3-select w3-border text-black"
@@ -36,9 +39,11 @@
                 </option>
               </select>
             </div>
-            <!--    Events   -->
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Dances</label>
+            <!--    Dances   -->
+
+            <div class="p-2">
+              <label for="" class="col-form-label">Dances</label>
+
               <select
                 v-model="form.dances.value"
                 class="w3-select w3-border text-black"
@@ -52,9 +57,11 @@
                 </option>
               </select>
             </div>
+            <!--    Disciplines   -->
 
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Disciplines</label>
+            <div class="p-2">
+              <label for="" class="col-form-label">Disciplines</label>
+
               <select
                 v-model="form.disciplines.value"
                 class="w3-select w3-border text-black"
@@ -72,8 +79,13 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Select judges disciplines</label>
+
+            <!--    Select judges disciplines   -->
+            <div class="p-2">
+              <label for="" class="col-form-label"
+                >Select judges disciplines</label
+              >
+
               <select
                 v-model="form.judges_disciplines.value"
                 class="w3-select w3-border text-black"
@@ -93,11 +105,11 @@
                 </option>
               </select>
             </div>
-          </div>
 
-          <div class="w3-row-padding w3-card-4 w3-white p-8 my-2">
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Judges licenses</label>
+            <!--    Judges licenses   -->
+            <div class="p-2">
+              <label for="" class="col-form-label">Judges licenses</label>
+
               <select
                 v-model="form.judges_licenses.value"
                 class="w3-select w3-border text-black"
@@ -117,8 +129,11 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Official licenses</label>
+
+            <!--    Official licenses  -->
+            <div class="p-2">
+              <label for="" class="col-form-label">Official licenses</label>
+
               <select
                 v-model="form.officials_licenses.value"
                 class="w3-select w3-border text-black"
@@ -138,8 +153,11 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Choose official roles</label>
+
+            <!--    Choose official roles -->
+            <div class="p-2">
+              <label for="" class="col-form-label">Choose official roles</label>
+
               <select
                 v-model="form.officials_roles.value"
                 class="w3-select w3-border text-black"
@@ -159,13 +177,13 @@
                 </option>
               </select>
             </div>
-          </div>
 
-          <!-- ------------------- -->
+            <!-- ------------------- -->
 
-          <div class="w3-row-padding w3-card-4 w3-white p-8 my-2">
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Sectors discipline</label>
+            <!--    Sectors discipline-->
+            <div class="p-2">
+              <label for="" class="col-form-label">Sectors discipline</label>
+
               <select
                 v-model="form.sectors_discipline.value"
                 class="w3-select w3-border text-black"
@@ -185,8 +203,10 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Unit type</label>
+
+            <!--    Unit type<-->
+            <div class="p-2">
+              <label for="" class="col-form-label">Unit type</label>
               <select
                 v-model="form.unit_type.value"
                 class="w3-select w3-border text-black"
@@ -204,8 +224,10 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Choose age category</label>
+
+            <!--    Choose age category  -->
+            <div class="p-2">
+              <label for="" class="col-form-label">Choose age category</label>
               <select
                 v-model="form.age_category.value"
                 class="w3-select w3-border text-black"
@@ -223,14 +245,10 @@
                 </option>
               </select>
             </div>
-          </div>
-          <!-- ------------------- -->
 
-          <!-- ------------------- -->
-
-          <div class="w3-row-padding w3-card-4 w3-white p-8 my-2">
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Classe</label>
+            <!--    Classe -->
+            <div class="p-2">
+              <label for="" class="col-form-label">Classe</label>
               <select
                 v-model="form.classe.value"
                 class="w3-select w3-border text-black"
@@ -244,8 +262,10 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Competition type</label>
+
+            <!--    Competition type -->
+            <div class="p-2">
+              <label for="" class="col-form-label">Competition type</label>
               <select
                 v-model="form.competition_type.value"
                 class="w3-select w3-border text-black"
@@ -265,8 +285,12 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Choose judging systems</label>
+
+            <!--    Choose judging systems-->
+            <div class="p-2">
+              <label for="" class="col-form-label"
+                >Choose judging systems</label
+              >
               <select
                 v-model="form.judging_systems.value"
                 class="w3-select w3-border text-black"
@@ -287,8 +311,9 @@
               </select>
             </div>
 
-            <div class="w3-third mt-2 sm:mt-4">
-              <label>Choose rounds</label>
+            <!--    Choose rounds-->
+            <div class="p-2">
+              <label for="" class="col-form-label">Choose rounds</label>
               <select
                 v-model="form.rounds.value"
                 class="w3-select w3-border text-black"
@@ -302,156 +327,154 @@
                 </option>
               </select>
             </div>
-            <div class="w3-third mt-2 sm:mt-4">
+
+            <div class="">
               <h6 class="mt-2">Other fields goes here ....</h6>
             </div>
-          </div>
-          <!-- ------------------- -->
 
-          <p>
-            <button
-              class="w3-btn w3-blue w3-round-large w3-large px-32 ml-3 mt-20"
-            >
-              Create
-            </button>
-          </p>
-        </form>
-      </div>
-      <!-- ----------------------------------------------------------------------------------------------------------------------- -->
-      <div class="col-span-1">
-        <div style="overflow-y: auto">
-          <div class="w3-bar w3-black p-2">
-            <button
-              class="w3-bar-item w3-button"
-              :class="{ selected: mine }"
-              @click="trigerToggle('mine')"
-            >
-              Competitions
-            </button>
-            <button
-              class="w3-bar-item w3-button"
-              :class="{ selected: !mine }"
-              @click="trigerToggle('fids')"
-            >
-              From FIDS
-            </button>
-          </div>
+            <!-- ------------------- -->
 
-          <div
-            id="London"
-            class="w3-container w3-display-container w3-animate-zoom"
-            v-show="mine"
-          >
-            <h2 class="py-4 w3-wide">
-              Here goes my created configurations....
-            </h2>
-
-            <table class="w3-table-all w3-small mb-4">
-              <thead>
-                <tr class="w3-blue">
-                  <th>License</th>
-                  <th>Discipline</th>
-                  <th>Age group</th>
-                  <th>Class</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  class="w3-hover-grey"
-                  v-for="item in myCompetitions"
-                  :key="item.id"
-                >
-                  <td>{{ item.license }}</td>
-                  <td>{{ item.discipline }}</td>
-                  <td>{{ item.age_group }}</td>
-                  <td>{{ item.classe }}</td>
-                  <td>
-                    <div
-                      class="px-4 cursor-pointer"
-                      @click="deleteItem(item.id, item.license)"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div
-            id="Paris"
-            class="w3-container w3-display-container w3-animate-zoom"
-            v-show="!mine"
-          >
-            <p class="py-4">
-              <button
-                class="w3-button w3-small w3-white w3-border w3-border-blue w3-wide"
-                @click="loadFidsCompetitionsMethod"
-              >
-                Load the table
-              </button>
-
-              <button
-                :disabled="checkItems.length <= 0"
-                class="w3-button w3-small w3-blue w3-border w3-border-blue w3-wide ml-3"
-                @click="checkCompetitionsSubmit"
-              >
-                Insert
-              </button>
+            <p>
+              <button type="submit" class="btn btn-primary mt-4">Create</button>
             </p>
-
-            <table class="w3-table-all w3-small mb-4">
-              <thead>
-                <tr class="w3-blue">
-                  <th>Insert</th>
-                  <th>Discipline</th>
-                  <th>Age group</th>
-                  <th>Class</th>
-                  <th>Unit type</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  class="w3-hover-grey"
-                  v-for="item in fidsCompetitions"
-                  :key="item.id"
-                >
-                  <td>
-                    <div class="form-check">
-                      <input
-                        v-model="checkItems"
-                        :value="item.id"
-                        type="checkbox"
-                        class="form-check-input"
-                        id="exampleCheck1"
-                      />
-                    </div>
-                  </td>
-                  <td>{{ item.discipline }}</td>
-                  <td>{{ item.age_group }}</td>
-                  <td>{{ item.classe }}</td>
-                  <td>
-                    {{ item.unit_type }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          </form>
         </div>
+      </div>
+    </create-dialog>
+
+    <create-dialog
+      :show="!!openDialogCompetitionCreationFromFids"
+      title="Create From Fids"
+      @close="manageDialogCompetitionFromFids"
+    >
+      <div>
+        <p class="py-4">
+          <button
+            class="w3-button w3-small w3-white w3-border w3-border-blue w3-wide"
+            @click="loadFidsCompetitionsMethod"
+          >
+            Load the table
+          </button>
+
+          <button
+            :disabled="checkItems.length <= 0"
+            class="
+              w3-button w3-small w3-blue w3-border w3-border-blue w3-wide
+              ml-3
+            "
+            @click="checkCompetitionsSubmit"
+          >
+            Insert
+          </button>
+        </p>
+
+        <table class="w3-table-all w3-small mb-4">
+          <thead>
+            <tr class="w3-blue">
+              <th>Insert</th>
+              <th>Discipline</th>
+              <th>Age group</th>
+              <th>Class</th>
+              <th>Unit type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="w3-hover-grey"
+              v-for="item in fidsCompetitions"
+              :key="item.id"
+            >
+              <td>
+                <div class="form-check">
+                  <input
+                    v-model="checkItems"
+                    :value="item.id"
+                    type="checkbox"
+                    class="form-check-input"
+                    id="exampleCheck1"
+                  />
+                </div>
+              </td>
+              <td>{{ item.discipline }}</td>
+              <td>{{ item.age_group }}</td>
+              <td>{{ item.classe }}</td>
+              <td>
+                {{ item.unit_type }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </create-dialog>
+
+    <!-- ----------------------------------------------------------------------------------------------------------------------- -->
+
+    <div class="row p-0 m-0">
+      <div class="col mx-4 mt-4">
+        <div class="btn-group btn-group-md" role="group" aria-label="">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            @click="openDialogCompetitionCreation = true"
+          >
+            Create new competition
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            @click="openDialogCompetitionCreationFromFids = true"
+          >
+            Create from Fids
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row p-0 m-0">
+      <div class="col m-4">
+        <table class="w3-table-all w3-small mb-4">
+          <thead>
+            <tr class="w3-blue">
+              <th>License</th>
+              <th>Discipline</th>
+              <th>Age group</th>
+              <th>Class</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="w3-hover-grey"
+              v-for="item in myCompetitions"
+              :key="item.id"
+            >
+              <td>{{ item.license }}</td>
+              <td>{{ item.discipline }}</td>
+              <td>{{ item.age_group }}</td>
+              <td>{{ item.classe }}</td>
+              <td>
+                <div
+                  class="px-4 cursor-pointer"
+                  @click="deleteItem(item.id, item.license)"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -502,6 +525,8 @@ export default {
       judging_systems: null,
       rounds: null,
       mine: true,
+      openDialogCompetitionCreation: null,
+      openDialogCompetitionCreationFromFids: null,
     };
   },
   methods: {
@@ -516,9 +541,8 @@ export default {
 
         try {
           await this.$store.dispatch("competition/getMyCompetitions");
-          this.myCompetitions = this.$store.getters[
-            "competition/getMyCompetitions"
-          ];
+          this.myCompetitions =
+            this.$store.getters["competition/getMyCompetitions"];
         } catch (error) {
           //console.log(error);
         }
@@ -565,23 +589,23 @@ export default {
     },
     async loadFidsCompetitions() {
       this.isLoading = true;
+      this.openDialogCompetitionCreationFromFids = null;
       try {
         await this.$store.dispatch("competition/getFidsCompetitions");
-        this.fidsCompetitions = this.$store.getters[
-          "competition/getFidsCompetitions"
-        ];
+        this.fidsCompetitions =
+          this.$store.getters["competition/getFidsCompetitions"];
       } catch (error) {
         //console.log(error);
       }
       this.isLoading = false;
+      this.openDialogCompetitionCreationFromFids = true;
     },
     async loadMyCompetitions() {
       this.isLoading = true;
       try {
         await this.$store.dispatch("competition/getMyCompetitions");
-        this.myCompetitions = this.$store.getters[
-          "competition/getMyCompetitions"
-        ];
+        this.myCompetitions =
+          this.$store.getters["competition/getMyCompetitions"];
       } catch (error) {
         //console.log(error);
       }
@@ -727,6 +751,13 @@ export default {
 
     handleError() {
       this.error = null;
+    },
+
+    manageDialogCompetition() {
+      this.openDialogCompetitionCreation = null;
+    },
+    manageDialogCompetitionFromFids() {
+      this.openDialogCompetitionCreationFromFids = null;
     },
     loadFidsCompetitionsMethod() {
       this.loadFidsCompetitions();

@@ -1,10 +1,8 @@
 import cred from "../../cred.js";
 
-const status = cred.prod;
-
 export default {
     async getFidsCompetitions(context) {
-        let url = status.url_fids_competition_get;
+        let url = cred.getLinkType().url_fids_competition_get;
         const response = await fetch(url, {
             method: "GET",
             cache: "no-cache",
@@ -32,7 +30,7 @@ export default {
     },
 
     async getMyCompetitions(context) {
-        let url = status.url_myCompetition_get;
+        let url = cred.getLinkType().url_myCompetition_get;
         const response = await fetch(url, {
             method: "GET",
             cache: "no-cache",
@@ -60,7 +58,7 @@ export default {
     },
 
     async addMyCompetition(_, payload) {
-        let url = status.url_my_competition_add;
+        let url = cred.getLinkType().url_my_competition_add;
 
         //  console.log(payload)
 
@@ -123,7 +121,7 @@ export default {
     },
 
     async deleteMyCompetition(_, payload) {
-        let url = status.url_my_competition_delete;
+        let url = cred.getLinkType().url_my_competition_delete;
         //  console.log(payload)
 
         const response = await fetch(url, {
@@ -153,7 +151,7 @@ export default {
     },
 
     async insertFromFidsCompetitions(_, payload) {
-        let url = status.url_insert_from_fids_competitions;
+        let url = cred.getLinkType().url_insert_from_fids_competitions;
 
         //  console.log(payload)
 

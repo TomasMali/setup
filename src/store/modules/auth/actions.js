@@ -1,232 +1,197 @@
-import cred from '../../cred.js'
+import cred from "../../cred.js";
 
-let timer
+let timer;
 
 export default {
     /**Login method
-     * 
-     * @param {*} context 
-     * @param {*} payload 
+     *
+     * @param {*} context
+     * @param {*} payload
      */
     async login(context, payload) {
-
-        let url = cred.prod.url_login
+        let url = cred.getLinkType().url_login;
 
         const response = await fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-
+                "Content-Type": "application/json",
             },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer',
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer",
             body: JSON.stringify({
                 email: payload.email,
-                password: payload.password
-            })
+                password: payload.password,
+            }),
         });
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
             if (responseData.code === 401) {
-                throw new Error(responseData.message)
+                throw new Error(responseData.message);
             } else
-                throw new Error("Request failed with error code: " + response.status)
-
+                throw new Error("Request failed with error code: " + response.status);
         }
-        // qui tutto ok 
-
+        // qui tutto ok
 
         // responseData.expiresIn = 3600 ,,, è in secondi [* 100 per ottenere millisecondi]
-        const expiresIn = +responseData.expiresIn * 1000
-            //  const expiresIn = 5000
-            // gets the time in milliseconds
-        const expirationDate = new Date().getTime() + expiresIn
+        const expiresIn = +responseData.expiresIn * 1000;
+        //  const expiresIn = 5000
+        // gets the time in milliseconds
+        const expirationDate = new Date().getTime() + expiresIn;
 
-
-        localStorage.setItem('token', responseData.token)
-        localStorage.setItem('userId', responseData.email)
-        localStorage.setItem('tokenExpiration', expirationDate)
-
+        localStorage.setItem("token", responseData.token);
+        localStorage.setItem("userId", responseData.email);
+        localStorage.setItem("tokenExpiration", expirationDate);
 
         // dopo questo tempo 'expiresIn', la funzione viene eseguita
         // Una volta logout, pulisco il timer con clearTimeout
         timer = setTimeout(() => {
-            context.dispatch('autoLogOut')
+            context.dispatch("autoLogOut");
         }, expiresIn);
 
-
-        context.commit('setUser', {
+        context.commit("setUser", {
             token: responseData.token,
             userId: responseData.email,
-        })
-
-
+        });
     },
-
-
-
 
     /**
      * register method
-     * @param {*} _ 
-     * @param {*} payload 
+     * @param {*} _
+     * @param {*} payload
      */
     async register(_, payload) {
-
-        let url = cred.prod.url_register
-        console.log(payload)
+        let url = cred.getLinkType().url_register;
+        console.log(payload);
 
         const response = await fetch(url, {
-            method: 'POST',
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
+            method: "POST",
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data',
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
             body: JSON.stringify({
                 name: payload.name,
                 surname: payload.surname,
                 email: payload.email,
-                password: payload.password
-            })
+                password: payload.password,
+            }),
         });
 
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
             if (responseData.code === 409) {
-                throw new Error(responseData.message)
+                throw new Error(responseData.message);
             } else
-                throw new Error("Request failed with error code: " + response.status)
-
+                throw new Error("Request failed with error code: " + response.status);
         }
-
-
     },
 
-
-
-
-
     async resetPassword(_, payload) {
+        let url = cred.getLinkType().url_reset_password;
 
-        let url = cred.prod.url_reset_password
-
-        console.log(payload)
+        console.log(payload);
         const response = await fetch(url, {
-            method: 'POST',
-            cache: 'no-cache',
-            credentials: 'same-origin',
+            method: "POST",
+            cache: "no-cache",
+            credentials: "same-origin",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data',
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
 
             body: JSON.stringify({
                 email: payload.email,
-            })
+            }),
         });
-        const responseData = await response.json()
+        const responseData = await response.json();
 
         if (!response.ok) {
-            throw new Error(responseData.message)
+            throw new Error(responseData.message);
         }
     },
     async changePassword(_, payload) {
+        let url = cred.getLinkType().url_change_password;
 
-
-        let url = cred.prod.url_change_password
-
-        console.log(payload)
+        console.log(payload);
         const response = await fetch(url, {
-            method: 'POST',
-            cache: 'no-cache',
-            credentials: 'same-origin',
+            method: "POST",
+            cache: "no-cache",
+            credentials: "same-origin",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            enctype: 'mutipart/form-data',
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
 
             body: JSON.stringify({
                 email: payload.email,
-                password: payload.password
-            })
+                password: payload.password,
+            }),
         });
 
         if (!response.ok) {
-            throw new Error("Request failed with error code: " + response.status)
+            throw new Error("Request failed with error code: " + response.status);
         }
-
-
     },
-
-
-
-
 
     /**
      * Get calls in every page riload
-     * @param {*} _ 
-     * @param {*} payload 
+     * @param {*} _
+     * @param {*} payload
      */
     async tryLogin(context) {
-        const token = localStorage.getItem('token')
-        const userId = localStorage.getItem('userId')
-        const tokenExpiration = localStorage.getItem('tokenExpiration')
+        const token = localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
+        const tokenExpiration = localStorage.getItem("tokenExpiration");
 
         // prendo la differenza per capire se il token è scaduto
         const expiredIn = +tokenExpiration - new Date().getTime();
 
         if (expiredIn < 0) {
-            return
+            return;
         }
 
         timer = setTimeout(() => {
-            context.dispatch('autoLogOut')
-        }, expiredIn)
+            context.dispatch("autoLogOut");
+        }, expiredIn);
 
         if (token && userId) {
-            context.commit('setUser', {
+            context.commit("setUser", {
                 token: token,
                 userId: userId,
-            })
+            });
         }
     },
 
     /**
      * Logs the user out
-     * @param {*} context 
+     * @param {*} context
      */
     logout(context) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("tokenExpiration");
 
-        localStorage.removeItem('token')
-        localStorage.removeItem('userId')
-        localStorage.removeItem('tokenExpiration')
+        clearTimeout(timer);
 
-        clearTimeout(timer)
-
-        context.commit('setUser', {
+        context.commit("setUser", {
             token: null,
-            userId: null
-
-        })
-
+            userId: null,
+        });
     },
     autoLogOut(context) {
         // chiama il metodo qui sopra 'logout
-        context.dispatch('logout')
-            // mette didAutoLogout = true nel index.js
-        context.commit('setAutoLogout')
-    }
-
-
-
-}
+        context.dispatch("logout");
+        // mette didAutoLogout = true nel index.js
+        context.commit("setAutoLogout");
+    },
+};
