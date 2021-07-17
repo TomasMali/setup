@@ -1,8 +1,8 @@
 import cred from "../../cred.js";
 
 export default {
-    async getEvents(context) {
-        let url = cred.getLinkType().url_event_get;
+    async getEvents(context, payload) {
+        let url = cred.getLinkType().url_event_get + "?user=" + payload.user;
         const response = await fetch(url, {
             method: "GET",
             cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -44,6 +44,7 @@ export default {
             referrerPolicy: "no-referrer",
             enctype: "mutipart/form-data",
             body: JSON.stringify({
+                user: payload.user,
                 name: payload.name,
                 beginDate: payload.beginDate,
                 endDate: payload.endDate,

@@ -537,21 +537,15 @@ export default {
       try {
         await this.$store.dispatch("competition/insertFromFidsCompetitions", {
           competitionsIdArray: this.checkItems,
+          event: this.$route.query.eventId,
+          user: this.$route.query.user,
         });
-
-        try {
-          await this.$store.dispatch("competition/getMyCompetitions");
-          this.myCompetitions =
-            this.$store.getters["competition/getMyCompetitions"];
-        } catch (error) {
-          //console.log(error);
-        }
-
-        this.trigerToggle("mine");
-        this.checkItems = [];
       } catch (error) {
         this.error = error.message || "Failed to authenticate";
       }
+      this.openDialogCompetitionCreationFromFids = null;
+      this.checkItems = [];
+      this.loadMyCompetitions();
 
       //   this.isLoading = false;
     },
@@ -580,13 +574,6 @@ export default {
       }
     },
 
-    trigerToggle(mine) {
-      if (mine === "mine") {
-        this.mine = true;
-      } else {
-        this.mine = false;
-      }
-    },
     async loadFidsCompetitions() {
       this.isLoading = true;
       this.openDialogCompetitionCreationFromFids = null;
@@ -603,12 +590,24 @@ export default {
     async loadMyCompetitions() {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("competition/getMyCompetitions");
+        await this.$store.dispatch("competition/getMyCompetitions", {
+          user: this.$store.getters["auth/userId"],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      if (typeof this.$route.query.eventId === "undefined") {
+        //  console.log(this.$route.query.eventId);
         this.myCompetitions =
           this.$store.getters["competition/getMyCompetitions"];
-      } catch (error) {
-        //console.log(error);
-      }
+      } else
+        this.myCompetitions = this.$store.getters[
+          "competition/getMyCompetitions"
+        ].filter((el) => {
+          return el.event == this.$route.query.eventId;
+        });
+
       this.isLoading = false;
     },
     async loadTable(tabName) {

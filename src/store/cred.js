@@ -31,6 +31,6 @@ export default {
     },
 
     getLinkType() {
-        return this.prod;
+        return this.dev;
     },
 };

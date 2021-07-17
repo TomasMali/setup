@@ -29,8 +29,12 @@ export default {
         });
     },
 
-    async getMyCompetitions(context) {
-        let url = cred.getLinkType().url_myCompetition_get;
+    async getMyCompetitions(context, payload) {
+        let url =
+            cred.getLinkType().url_myCompetition_get + "?user=" + payload.user;
+        //  "&event=" +
+        // payload.event;
+
         const response = await fetch(url, {
             method: "GET",
             cache: "no-cache",
@@ -167,6 +171,8 @@ export default {
             enctype: "mutipart/form-data",
             body: JSON.stringify({
                 competitionsIdArray: payload.competitionsIdArray,
+                event: payload.event,
+                user: payload.user,
             }),
         });
 

@@ -1,9 +1,8 @@
 export default {
-
     getFidsCompetitions(state) {
-        return state.fidsCompetitions
+        return state.fidsCompetitions;
     },
     getMyCompetitions(state) {
-        return state.myCompetitions
-    }
-}
+        return state.myCompetitions;
+    },
+};

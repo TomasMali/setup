@@ -40,7 +40,8 @@ export default {
         const expirationDate = new Date().getTime() + expiresIn;
 
         localStorage.setItem("token", responseData.token);
-        localStorage.setItem("userId", responseData.email);
+        localStorage.setItem("email", responseData.email);
+        localStorage.setItem("userId", responseData.user);
         localStorage.setItem("tokenExpiration", expirationDate);
 
         // dopo questo tempo 'expiresIn', la funzione viene eseguita
@@ -51,7 +52,8 @@ export default {
 
         context.commit("setUser", {
             token: responseData.token,
-            userId: responseData.email,
+            userId: responseData.user,
+            email: responseData.email,
         });
     },
 
@@ -179,6 +181,7 @@ export default {
     logout(context) {
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
+        localStorage.removeItem("email");
         localStorage.removeItem("tokenExpiration");
 
         clearTimeout(timer);

@@ -241,7 +241,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="w3-hover-grey p-0" v-for="item in events" :key="item.id">
+            <tr
+              class="w3-hover-grey p-0"
+              v-for="item in events"
+              :key="item.id"
+              @dblclick="openCompetition(item.id)"
+            >
               <td class="p-1">{{ item.name }}</td>
               <td class="p-1">{{ dateConverter(item.begin_date) }}</td>
               <td class="p-1">{{ dateConverter(item.end_date) }}</td>
@@ -377,6 +382,7 @@ export default {
 
       this.isLoading = true;
       const actionPayload = {
+        user: this.$store.getters["auth/userId"],
         name: this.name.value,
         beginDate: this.beginDate.value,
         endDate: this.endDate.value,
@@ -479,7 +485,9 @@ export default {
       console.log("loadEventAutomatic");
 
       try {
-        await this.$store.dispatch("event/getEvents");
+        await this.$store.dispatch("event/getEvents", {
+          user: this.$store.getters["auth/userId"],
+        });
         this.events = this.$store.getters["event/getEvents"];
       } catch (error) {
         //  console.log(error);
@@ -490,6 +498,12 @@ export default {
     },
     manageDialogEvent() {
       this.openDialogEventCreation = null;
+    },
+    openCompetition(eventId) {
+      this.$router.push({
+        path: "competitions",
+        query: { user: this.$store.getters["auth/userId"], eventId: eventId },
+      });
     },
   },
   created() {

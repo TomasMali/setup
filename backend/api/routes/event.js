@@ -6,19 +6,23 @@ const pool = require("./connection");
  * Gets all the events
  */
 router.get("/getEvent", (req, res, next) => {
-    pool.query("SELECT * FROM events ORDER BY id ASC", (error, results) => {
-        if (error) {
-            throw error;
+    console.log(req.query.user);
+    pool.query(
+        'SELECT * FROM events WHERE "user"= $1', [req.query.user],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).json(results.rows);
         }
-        res.status(200).json(results.rows);
-    });
+    );
 });
 
 router.post("/addEvent", (req, res, next) => {
     const event = req.body;
 
     pool.query(
-        "SELECT 1 FROM events WHERE name = $1", [event.name],
+        'SELECT 1 FROM events WHERE name = $1 AND "user" = $2', [event.name, event.user],
         (error, results) => {
             if (error) {
                 return res.status(500).json({
