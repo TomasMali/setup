@@ -8,8 +8,12 @@
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
+
       <label class="logo">
-        <router-link to="/" class="text-white"> Muevelo</router-link>
+        <router-link to="/" class="text-white">
+          Muevelo <br />
+          <div class="user" v-if="isEmail">({{ isEmail.split("@")[0] }})</div>
+        </router-link>
       </label>
 
       <ul>
@@ -46,11 +50,15 @@ export default {
   data() {
     return {
       clicked: false,
+      email: null,
     };
   },
   computed: {
     isLoggedIn() {
       return this.$store.getters["auth/isAuthenticated"];
+    },
+    isEmail() {
+      return this.$store.getters["auth/email"];
     },
   },
   methods: {
@@ -64,6 +72,10 @@ export default {
     clickSubmit() {
       this.clicked = false;
     },
+  },
+  created() {
+    if (localStorage.getItem("email"))
+      this.email = String(this.$store.getters["auth/email"]).split("@")[0];
   },
 };
 </script>
@@ -94,6 +106,12 @@ label.logo {
   line-height: 80px;
   padding: 0 100px;
   font-weight: bold;
+}
+.user {
+  font-size: 12px;
+  margin-top: -55px;
+  margin-left: 17px;
+  color: cornsilk;
 }
 nav ul {
   float: right;
@@ -134,7 +152,7 @@ a:hover {
     padding-left: 50px;
   }
   nav ul li a {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 @media (max-width: 858px) {

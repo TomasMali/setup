@@ -40,8 +40,8 @@ router.post("/addEvent", (req, res, next) => {
 
             pool.query(
                 "INSERT INTO events (name, begin_date, end_date, begin_date_registration, end_date_registration," +
-                "place, organizer_name, organizer_mail, organizer_phone, responsable_name, responsable_mail, responsable_phone) " +
-                "VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)", [
+                'place, organizer_name, organizer_mail, organizer_phone, responsable_name, responsable_mail, responsable_phone, "user") ' +
+                "VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12,$13)", [
                     event.name,
                     event.beginDate,
                     event.endDate,
@@ -54,6 +54,7 @@ router.post("/addEvent", (req, res, next) => {
                     event.responsableName,
                     event.responsableMail,
                     event.responsablePhone,
+                    event.user,
                 ],
                 (error, results) => {
                     //  console.log(results);
@@ -86,8 +87,9 @@ router.post("/addEvent", (req, res, next) => {
 router.delete("/deleteEvent", (req, res, next) => {
     console.log(req.body);
     const event = req.body;
+
     pool.query(
-        "DELETE FROM events WHERE name = $1", [event.name],
+        'DELETE FROM competitions WHERE "user"= $1 AND event = $2 ', [event.user, event.idEvent],
         (error, results) => {
             if (error) {
                 console.log(error);
@@ -101,7 +103,25 @@ router.delete("/deleteEvent", (req, res, next) => {
                         "Can't delete this event because it's used!",
                 });
             }
-            res.status(200).json(results.rows);
+
+            pool.query(
+                'DELETE FROM events WHERE name = $1 AND "user"= $2  AND id= $3', [event.name, event.user, event.idEvent],
+                (error, results) => {
+                    if (error) {
+                        console.log(error);
+                        let errorNumber = 500;
+                        if (error.routine === "_bt_check_unique") errorNumber = 409;
+
+                        return res.status(errorNumber).json({
+                            code: errorNumber,
+                            message: errorNumber === 409 ?
+                                "Event " + event.name + " doesn't exsists" :
+                                "Can't delete this event because it's used!",
+                        });
+                    }
+                    res.status(200).json(results.rows);
+                }
+            );
         }
     );
 });

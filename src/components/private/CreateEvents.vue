@@ -256,7 +256,10 @@
               -->
               <td class="p-1">{{ item.place }}</td>
               <td>
-                <div class="px-4 cursor-pointer" @click="deleteItem(item.name)">
+                <div
+                  class="px-4 cursor-pointer"
+                  @click="deleteItem(item.name, item.id)"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-4 w-4"
@@ -344,14 +347,18 @@ export default {
     };
   },
   methods: {
-    async deleteItem(eventParam) {
+    async deleteItem(eventParam, idEventParam) {
       if (
-        confirm("Are you sure you want to delete this event from database?")
+        confirm(
+          "Are you sure you want to delete this event from database? All the competitions related to this event will be deleted?"
+        )
       ) {
         // do the delete
         try {
           const actionPayload = {
             name: eventParam,
+            user: this.$store.getters["auth/userId"],
+            idEvent: idEventParam,
           };
           await this.$store.dispatch("event/deleteEvent", actionPayload);
 
@@ -482,8 +489,6 @@ export default {
     },
 
     async loadEvents() {
-      console.log("loadEventAutomatic");
-
       try {
         await this.$store.dispatch("event/getEvents", {
           user: this.$store.getters["auth/userId"],

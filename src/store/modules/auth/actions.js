@@ -50,6 +50,7 @@ export default {
             context.dispatch("autoLogOut");
         }, expiresIn);
 
+        console.log(responseData);
         context.commit("setUser", {
             token: responseData.token,
             userId: responseData.user,
@@ -64,7 +65,7 @@ export default {
      */
     async register(_, payload) {
         let url = cred.getLinkType().url_register;
-        console.log(payload);
+        //console.log(payload);
 
         const response = await fetch(url, {
             method: "POST",
@@ -153,6 +154,7 @@ export default {
     async tryLogin(context) {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId");
+        const email = localStorage.getItem("email");
         const tokenExpiration = localStorage.getItem("tokenExpiration");
 
         // prendo la differenza per capire se il token è scaduto
@@ -170,6 +172,7 @@ export default {
             context.commit("setUser", {
                 token: token,
                 userId: userId,
+                email: email,
             });
         }
     },
@@ -189,6 +192,7 @@ export default {
         context.commit("setUser", {
             token: null,
             userId: null,
+            email: null,
         });
     },
     autoLogOut(context) {

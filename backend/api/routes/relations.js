@@ -343,7 +343,7 @@ router.delete("/deleteMyRelation", (req, res, next) => {
     console.log(req.body);
     const relation = req.body;
     pool.query(
-        "DELETE FROM competitions WHERE id = $1 AND license = $2", [relation.id, relation.license],
+        'DELETE FROM competitions WHERE id = $1 AND license = $2 and "user" = $3 ', [relation.id, relation.license, relation.user],
         (error, results) => {
             if (error) {
                 console.log(error);

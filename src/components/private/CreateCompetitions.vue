@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <base-dialog
@@ -13,7 +11,7 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <!--  -->
+    <!-- Manual Components Creation  -->
     <create-dialog
       :show="!!openDialogCompetitionCreation"
       title="Create new competition"
@@ -342,31 +340,49 @@
       </div>
     </create-dialog>
 
+    <!-- Fids Components -->
     <create-dialog
       :show="!!openDialogCompetitionCreationFromFids"
       title="Create From Fids"
       @close="manageDialogCompetitionFromFids"
     >
       <div>
-        <p class="py-4">
-          <button
-            class="w3-button w3-small w3-white w3-border w3-border-blue w3-wide"
-            @click="loadFidsCompetitionsMethod"
-          >
-            Load the table
-          </button>
+        <div class="row mb-4">
+          <div class="col">
+            <button
+              class="
+                w3-button w3-small w3-white w3-border w3-border-blue w3-wide
+              "
+              @click="loadFidsCompetitionsMethod"
+            >
+              Load the table
+            </button>
+          </div>
 
-          <button
-            :disabled="checkItems.length <= 0"
-            class="
-              w3-button w3-small w3-blue w3-border w3-border-blue w3-wide
-              ml-3
-            "
-            @click="checkCompetitionsSubmit"
-          >
-            Insert
-          </button>
-        </p>
+          <div class="col">
+            <!--    Select judges disciplines   -->
+            <div class="p-2">
+              <label for="" class="col-form-label"></label>
+              <select v-model.number="form.events.value">
+                <option v-for="item in events" :key="item.id" :value="item.id">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <button
+              :disabled="checkItems.length <= 0 || form.events.value === null"
+              class="
+                w3-button w3-small w3-blue w3-border w3-border-blue w3-wide
+                ml-3
+              "
+              @click="checkCompetitionsSubmit"
+            >
+              Insert
+            </button>
+          </div>
+        </div>
 
         <table class="w3-table-all w3-small mb-4">
           <thead>
@@ -385,12 +401,12 @@
               :key="item.id"
             >
               <td>
-                <div class="form-check">
+                <div class="form-check my_checkbox">
                   <input
                     v-model="checkItems"
                     :value="item.id"
                     type="checkbox"
-                    class="form-check-input"
+                    class="form-check-input p-2"
                     id="exampleCheck1"
                   />
                 </div>
@@ -422,13 +438,14 @@
           <button
             type="button"
             class="btn btn-outline-primary"
-            @click="openDialogCompetitionCreationFromFids = true"
+            @click="openFids"
           >
             Create from Fids
           </button>
         </div>
       </div>
     </div>
+    <!-- My Components List -->
     <div class="row p-0 m-0">
       <div class="col m-4">
         <table class="w3-table-all w3-small mb-4">
@@ -486,6 +503,7 @@
 export default {
   data() {
     return {
+      selected: "A",
       checkItems: [],
       form: {
         events: { value: null, isValid: true },
@@ -531,23 +549,24 @@ export default {
   },
   methods: {
     async checkCompetitionsSubmit() {
-      console.log(this.checkItems);
-
       // this.isLoading = true;
       try {
         await this.$store.dispatch("competition/insertFromFidsCompetitions", {
           competitionsIdArray: this.checkItems,
-          event: this.$route.query.eventId,
-          user: this.$route.query.user,
+          event: this.form.events.value,
+          user: this.$store.getters["auth/userId"],
         });
+        // this.$router.go();
+        this.openDialogCompetitionCreationFromFids = null;
+        this.checkItems = [];
       } catch (error) {
         this.error = error.message || "Failed to authenticate";
       }
-      this.openDialogCompetitionCreationFromFids = null;
-      this.checkItems = [];
-      this.loadMyCompetitions();
-
       //   this.isLoading = false;
+
+      setTimeout(() => {
+        this.loadMyCompetitions();
+      }, 100);
     },
     async deleteItem(id, license) {
       if (
@@ -560,12 +579,12 @@ export default {
           const actionPayload = {
             id: id,
             license: license,
+            user: this.$store.getters["auth/userId"],
           };
           await this.$store.dispatch(
             "competition/deleteMyCompetition",
             actionPayload
           );
-
           this.loadMyCompetitions();
         } catch (error) {
           this.error = error.message || "Failed to authenticate";
@@ -573,7 +592,6 @@ export default {
         this.isLoading = false;
       }
     },
-
     async loadFidsCompetitions() {
       this.isLoading = true;
       this.openDialogCompetitionCreationFromFids = null;
@@ -585,9 +603,11 @@ export default {
         //console.log(error);
       }
       this.isLoading = false;
-      this.openDialogCompetitionCreationFromFids = true;
+      this.openFids();
     },
+
     async loadMyCompetitions() {
+      //   this.form.events.value = this.$route.query.eventId;
       this.isLoading = true;
       try {
         await this.$store.dispatch("competition/getMyCompetitions", {
@@ -596,27 +616,30 @@ export default {
       } catch (error) {
         console.log(error);
       }
-
       if (typeof this.$route.query.eventId === "undefined") {
         //  console.log(this.$route.query.eventId);
         this.myCompetitions =
           this.$store.getters["competition/getMyCompetitions"];
-      } else
+      } else {
         this.myCompetitions = this.$store.getters[
           "competition/getMyCompetitions"
         ].filter((el) => {
           return el.event == this.$route.query.eventId;
         });
-
+      }
       this.isLoading = false;
+
+      //reload page
     },
     async loadTable(tabName) {
-      // console.log("ciao");
       try {
         switch (tabName) {
           case "Events":
-            await this.$store.dispatch("event/getEvents");
+            await this.$store.dispatch("event/getEvents", {
+              user: this.$store.getters["auth/userId"],
+            });
             this.events = this.$store.getters["event/getEvents"];
+
             break;
           case "Dances":
             await this.$store.dispatch("tab/getTabs", tabName);
@@ -626,22 +649,18 @@ export default {
             await this.$store.dispatch("tab/getTabs", tabName);
             this.disciplines = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Judges_disciplines":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.judges_disciplines = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Judges_licenses":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.judges_licenses = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Officials_licenses":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.officials_licenses = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Officials_roles":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.officials_roles = this.$store.getters["tab/get" + tabName];
@@ -651,12 +670,10 @@ export default {
             await this.$store.dispatch("tab/getTabs", tabName);
             this.sectors_discipline = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Unit_type":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.unit_type = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Age_category":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.age_category = this.$store.getters["tab/get" + tabName];
@@ -666,37 +683,30 @@ export default {
             await this.$store.dispatch("tab/getTabs", tabName);
             this.classe = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Competition_type":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.competition_type = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Judging_systems":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.judging_systems = this.$store.getters["tab/get" + tabName];
             break;
-
           case "Rounds":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.rounds = this.$store.getters["tab/get" + tabName];
             break;
-
           default:
             await this.$store.dispatch("tab/getTabs", tabName);
             this.tab = this.$store.getters["tab/get" + tabName];
         }
-
         // console.log(this.tab[0]);
       } catch (error) {
         //   console.log(error);
       }
     },
-
     ////////////////////////////
     async formSubmit() {
       this.isLoading = true;
-
       console.log(this.form.events.value);
       const actionPayload = {
         license: "FREE",
@@ -722,7 +732,6 @@ export default {
           "competition/addMyCompetition",
           actionPayload
         );
-
         this.loadMyCompetitions();
         //
       } catch (error) {
@@ -747,25 +756,36 @@ export default {
       this.form.rounds.value = null;
       */
     },
-
     handleError() {
       this.error = null;
     },
-
     manageDialogCompetition() {
       this.openDialogCompetitionCreation = null;
     },
     manageDialogCompetitionFromFids() {
       this.openDialogCompetitionCreationFromFids = null;
+
+      // this.form.events.value = null;
     },
     loadFidsCompetitionsMethod() {
       this.loadFidsCompetitions();
     },
+    openFids() {
+      if (typeof this.$route.query.eventId === "undefined") {
+        alert("No event selected. Please select an event from the Event page");
+        return;
+      }
+
+      this.openDialogCompetitionCreationFromFids = true;
+      this.checkItems = [];
+    },
   },
   created() {
-    // this.loadTable("Judges_licenses");
-    // this.loadFidsCompetitions();
     this.loadMyCompetitions();
+    this.loadTable("Events");
+    if (typeof this.$route.query.eventId !== "undefined") {
+      this.form.events.value = this.$route.query.eventId;
+    } else this.form.events.value = null;
   },
 };
 </script>
@@ -778,7 +798,6 @@ div {
   -ms-user-select: none; /* IE 10+ */
   user-select: none;
 }
-
 select {
   -webkit-user-select: none; /* Chrome all / Safari all */
   -moz-user-select: none; /* Firefox all */
@@ -787,11 +806,9 @@ select {
   font-size: 0.9rem;
   padding: 2px 5px;
 }
-
 .selected {
   background-color: cornflowerblue;
 }
-
 tbody {
   display: block;
   height: 500px;
@@ -808,17 +825,19 @@ thead {
     100% - 1em
   ); /* scrollbar is average 1em/16px width, remove it from thead width */
 }
-
 .mycard {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 1rem;
 }
-
 .scrollable {
   height: 700px;
   overflow-x: hidden;
   overflow-y: auto;
 }
-</style>>
 
+.my_checkbox {
+  width: 5px;
+  height: 5px;
+}
+</style>>
