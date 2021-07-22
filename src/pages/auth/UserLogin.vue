@@ -13,7 +13,8 @@
 
     <div class="w3-row margin-all">
       <div class="w3-quarter w3-container"></div>
-      <div class="w3-half w3-container sm:px-60">
+
+      <div class="w3-half w3-container max-width">
         <div class="w3-margin w3-card-4">
           <div class="w3-container w3-blue w3-center w3-padding-16">
             <h3>Login</h3>
@@ -72,6 +73,7 @@
           </form>
         </div>
       </div>
+
       <div class="w3-quarter w3-container"></div>
     </div>
   </div>
@@ -164,6 +166,13 @@ export default {
 
 
 <style scoped>
+@media screen and (min-width: 800px) {
+  .max-width {
+    max-width: 450px;
+    margin-left: 200px;
+  }
+}
+
 .error {
   border-color: red;
 }

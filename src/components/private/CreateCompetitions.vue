@@ -411,11 +411,11 @@
                   />
                 </div>
               </td>
-              <td>{{ item.discipline }}</td>
+              <td>{{ item.desc_discipline }}</td>
               <td>{{ item.age_group }}</td>
               <td>{{ item.classe }}</td>
               <td>
-                {{ item.unit_type }}
+                {{ item.desc_unit_type }}
               </td>
             </tr>
           </tbody>
@@ -424,74 +424,88 @@
     </create-dialog>
 
     <!-- ----------------------------------------------------------------------------------------------------------------------- -->
-
-    <div class="row p-0 m-0">
-      <div class="col mx-4 mt-4">
-        <div class="btn-group btn-group-md" role="group" aria-label="">
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            @click="openDialogCompetitionCreation = true"
-          >
-            Create new competition
-          </button>
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            @click="openFids"
-          >
-            Create from Fids
-          </button>
+    <div>
+      <div class="row p-0 m-0">
+        <div class="col mx-4 mt-4">
+          <div>
+            <a
+              class="btn btn-outline-secondary mb-1"
+              @click="openDialogCompetitionCreation = true"
+            >
+              Create new competition
+            </a>
+            <a class="btn btn-outline-secondary mb-1" @click="openFids">
+              Create from Fids
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- My Components List -->
-    <div class="row p-0 m-0">
-      <div class="col m-4">
-        <table class="w3-table-all w3-small mb-4">
-          <thead>
-            <tr class="w3-blue">
-              <th>License</th>
-              <th>Discipline</th>
-              <th>Age group</th>
-              <th>Class</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="w3-hover-grey"
-              v-for="item in myCompetitions"
-              :key="item.id"
-            >
-              <td>{{ item.license }}</td>
-              <td>{{ item.discipline }}</td>
-              <td>{{ item.age_group }}</td>
-              <td>{{ item.classe }}</td>
-              <td>
-                <div
-                  class="px-4 cursor-pointer"
-                  @click="deleteItem(item.id, item.license)"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+      <!-- My Components List -->
+      <div class="row p-0 m-0">
+        <div class="col m-4">
+          <table class="w3-table-all w3-small mb-4">
+            <thead>
+              <tr class="w3-blue">
+                <th v-if="!isMobile">Unit type</th>
+                <th>License</th>
+                <th>Discipline</th>
+                <th>Age group</th>
+                <th v-if="!isMobile">Class</th>
+
+                <th v-if="!isMobile">Title</th>
+                <th v-if="!isMobile">Start</th>
+                <th v-if="!isMobile">End</th>
+                <th v-if="!isMobile">Stars</th>
+                <th v-if="!isMobile">Hall</th>
+                <th v-if="!isMobile">Price</th>
+
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="w3-hover-grey"
+                v-for="item in myCompetitions"
+                :key="item.id"
+              >
+                <td v-if="!isMobile">{{ item.desc_unit_type }}</td>
+                <td>{{ item.license }}</td>
+                <td>{{ item.desc_discipline }}</td>
+                <td>{{ item.age_group }}</td>
+                <td v-if="!isMobile">{{ item.classe }}</td>
+
+                <td v-if="!isMobile">{{ item.title }}</td>
+                <td v-if="!isMobile">{{ item.start_competition }}</td>
+                <td v-if="!isMobile">{{ item.end_competition }}</td>
+                <td v-if="!isMobile">{{ item.stars }}</td>
+                <td v-if="!isMobile">{{ item.hall }}</td>
+                <td v-if="!isMobile">{{ item.price }}</td>
+
+                <td>
+                  <div
+                    class="px-4 cursor-pointer"
+                    @click="deleteItem(item.id, item.license)"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -545,6 +559,7 @@ export default {
       mine: true,
       openDialogCompetitionCreation: null,
       openDialogCompetitionCreationFromFids: null,
+      isMobile: false,
     };
   },
   methods: {
@@ -707,7 +722,7 @@ export default {
     ////////////////////////////
     async formSubmit() {
       this.isLoading = true;
-      console.log(this.form.events.value);
+      //console.log(this.form.events.value);
       const actionPayload = {
         license: "FREE",
         events: this.form.events.value,
@@ -786,6 +801,12 @@ export default {
     if (typeof this.$route.query.eventId !== "undefined") {
       this.form.events.value = this.$route.query.eventId;
     } else this.form.events.value = null;
+
+    if (screen.width <= 760) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
   },
 };
 </script>

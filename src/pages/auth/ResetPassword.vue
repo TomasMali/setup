@@ -100,4 +100,10 @@ export default {
 
 
 <style scoped>
+@media screen and (min-width: 800px) {
+  .max-width {
+    max-width: 450px;
+    margin-left: 200px;
+  }
+}
 </style>

@@ -49,11 +49,25 @@ router.post("/register", (req, res, next) => {
                                 "Generic network error!",
                         });
                     }
-                    // qui ritorna che tutto è andato ok
-                    return res.status(201).json({
-                        message: "User created",
-                        result: results.rowCount,
-                    });
+
+                    try {
+                        sendMail({
+                            to: user_.email,
+                            subject: "Welcome to Muevelo " + user_.name + " :)",
+                            text: "You have successfully registred!",
+                        });
+
+                        // qui ritorna che tutto è andato ok
+                        return res.status(201).json({
+                            message: "User created",
+                            result: results.rowCount,
+                        });
+                    } catch (error) {
+                        return res.status(401).json({
+                            code: 401,
+                            message: "Generic network error! Please try later.",
+                        });
+                    }
                 }
             );
         })
@@ -99,12 +113,12 @@ router.post("/login", (req, res, next) => {
 
                         // send email
                         /*    
-                                                                                                                    sendMail({
-                                                                                                                        to: "tomasmali08@gmail.com",
-                                                                                                                        subject: "My first email from nodejs",
-                                                                                                                        text: "Ciao io sono tmas mali, email generato automaticamente"
-                                                                                                                    })
-                                                                                                                    */
+                                                                                                                                                                                                                                            sendMail({
+                                                                                                                                                                                                                                                to: "tomasmali08@gmail.com",
+                                                                                                                                                                                                                                                subject: "My first email from nodejs",
+                                                                                                                                                                                                                                                text: "Ciao io sono tmas mali, email generato automaticamente"
+                                                                                                                                                                                                                                            })
+                                                                                                                                                                                                                                            */
 
                         // l'oggetto da ritornare
                         console.log(results.rows[0].email);
@@ -148,7 +162,7 @@ router.post("/resetPassword", (req, res, next) => {
                     sendMail({
                         to: email,
                         subject: "Confirmation for reseting your password",
-                        html: "Please click  <a href='http://localhost:8080/changePassword?email=" +
+                        html: "Please click  <a href='https://tomasmali.it/changePassword?email=" +
                             email +
                             "'>here </a> ",
                     });

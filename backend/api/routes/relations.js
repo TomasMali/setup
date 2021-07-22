@@ -2,20 +2,44 @@ const express = require("express");
 const router = express.Router();
 const pool = require("./connection");
 var fs = require("fs");
+const { setTimeout } = require("timers");
 
 /**
  * get all the FIDS loaded relations
  */
 router.get("/getRelationsFIDS", (req, res, next) => {
-    pool.query(
-        "SELECT * FROM competition_fids ORDER BY id ASC",
-        (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).json(results.rows);
+    res2 = [];
+    pool.query("SELECT * FROM competition_fids ", (error, results) => {
+        if (error) {
+            throw error;
         }
-    );
+
+        var allCometitions = results.rows;
+
+        for (let index = 0; index < allCometitions.length; index++) {
+            const element = allCometitions[index];
+            const el = results.rows[index];
+            pool.query(
+                "SELECT * FROM tab_unit_type WHERE id = $1", [element.unit_type],
+                (error, resu) => {
+                    el.desc_unit_type = resu.rows[0].description;
+                }
+            );
+
+            pool.query(
+                "SELECT * FROM tab_disciplines WHERE id = $1", [element.discipline],
+                (error, resu) => {
+                    el.desc_discipline = resu.rows[0].description;
+                }
+            );
+
+            res2.push(el);
+        }
+    });
+
+    setTimeout(() => {
+        return res.status(200).json(res2);
+    }, 4000);
 });
 
 /**
@@ -116,17 +140,38 @@ router.post("/insertFromFidsCompetitions", (req, res, next) => {
 /**
  * Get all my created relations
  */
-router.get("/getMyRelations", (req, res, next) => {
+router.get("/getMyRelations", async(req, res, next) => {
     const user = req.query.user;
-    //const event = req.query.event;
+    res2 = [];
 
     pool.query(
         'SELECT * FROM competitions WHERE "user"=$1', [user],
         (error, results) => {
-            if (error) {
-                throw error;
+            var allCometitions = results.rows;
+            var competitions = results.rows.map((a) => a.unit_type);
+
+            for (let index = 0; index < allCometitions.length; index++) {
+                const element = allCometitions[index];
+                const el = results.rows[index];
+                pool.query(
+                    "SELECT * FROM tab_unit_type WHERE id = $1", [element.unit_type],
+                    (error, resu) => {
+                        el.desc_unit_type = resu.rows[0].description;
+                    }
+                );
+
+                pool.query(
+                    "SELECT * FROM tab_disciplines WHERE id = $1", [element.discipline],
+                    (error, resu) => {
+                        el.desc_discipline = resu.rows[0].description;
+                    }
+                );
+
+                res2.push(el);
             }
-            res.status(200).json(results.rows);
+            setTimeout(() => {
+                res.status(200).json(res2);
+            }, 200);
         }
     );
 });

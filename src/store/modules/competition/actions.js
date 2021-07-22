@@ -55,7 +55,7 @@ export default {
             } else
                 throw new Error("Request failed with error code: " + response.status);
         }
-        // console.log("Ciao")
+
         context.commit("setMyCompetitions", {
             myCompetitionObj: responseData,
         });

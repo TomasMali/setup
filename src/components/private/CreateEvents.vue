@@ -231,10 +231,10 @@
               <th class="p-1">Name</th>
               <th class="p-1">Begin date</th>
               <th class="p-1">End date</th>
-              <!--  
-              <th>Begin registration</th>
-              <th>End registration</th>
-                   -->
+
+              <th v-if="!isMobile">Begin registration</th>
+              <th v-if="!isMobile">End registration</th>
+
               <th class="p-1">Place</th>
 
               <th class="p-1">Remove</th>
@@ -250,10 +250,14 @@
               <td class="p-1">{{ item.name }}</td>
               <td class="p-1">{{ dateConverter(item.begin_date) }}</td>
               <td class="p-1">{{ dateConverter(item.end_date) }}</td>
-              <!--  
-              <td>{{ dateConverter(item.begin_date_registration) }}</td>
-              <td>{{ dateConverter(item.end_date_registration) }}</td>
-              -->
+
+              <td v-if="!isMobile">
+                {{ dateConverter(item.begin_date_registration) }}
+              </td>
+              <td v-if="!isMobile">
+                {{ dateConverter(item.end_date_registration) }}
+              </td>
+
               <td class="p-1">{{ item.place }}</td>
               <td>
                 <div
@@ -344,9 +348,16 @@ export default {
       isLoading: false,
       error: null,
       openDialogEventCreation: null,
+      isMobile: false,
     };
   },
   methods: {
+    isMobileFun() {
+      if (typeof window.orientation !== "undefined") {
+        this.isMobile = true;
+      } else this.isMobile = false;
+    },
+
     async deleteItem(eventParam, idEventParam) {
       if (
         confirm(
@@ -379,7 +390,7 @@ export default {
     },
 
     async formSubmit() {
-      console.log("formSubmit");
+      //  console.log("formSubmit");
       this.nameValidation();
       this.dateValidation();
       this.placeValidation();
@@ -513,6 +524,12 @@ export default {
   },
   created() {
     this.loadEvents();
+
+    if (screen.width <= 760) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
   },
 };
 </script>

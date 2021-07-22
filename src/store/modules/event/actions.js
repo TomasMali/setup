@@ -33,7 +33,7 @@ export default {
 
     async addEvent(_, payload) {
         let url = cred.getLinkType().url_event_add;
-        console.log(payload);
+        // console.log(payload);
 
         const response = await fetch(url, {
             method: "POST",
@@ -74,7 +74,7 @@ export default {
 
     async deleteEvent(_, payload) {
         let url = cred.getLinkType().url_event_delete;
-        console.log(payload);
+        //  console.log(payload);
 
         const response = await fetch(url, {
             method: "DELETE",
