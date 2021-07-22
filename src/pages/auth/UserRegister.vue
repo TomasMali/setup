@@ -155,7 +155,8 @@ export default {
             actionPayload.name +
             " " +
             actionPayload.surname +
-            " registered successfully"
+            " registered successfully. We have sent You an email to " +
+            this.email.value
         );
         const redirecturl = "/" + (this.$route.query.redirect || "public");
         this.$router.replace(redirecturl);

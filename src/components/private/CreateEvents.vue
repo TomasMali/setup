@@ -228,14 +228,18 @@
         <table class="w3-table-all w3-small mb-4">
           <thead class="">
             <tr class="w3-blue p-0">
-              <th class="p-1">Name</th>
-              <th class="p-1">Begin date</th>
-              <th class="p-1">End date</th>
+              <th class="">Name</th>
+              <th class="">Begin date</th>
+              <th class="">End date</th>
 
               <th v-if="!isMobile">Begin registration</th>
               <th v-if="!isMobile">End registration</th>
 
-              <th class="p-1">Place</th>
+              <th class="">Place</th>
+
+              <th v-if="!isMobile" class="">Organizer</th>
+              <th v-if="!isMobile" class="">Email</th>
+              <th v-if="!isMobile" class="">Phone</th>
 
               <th class="p-1">Remove</th>
             </tr>
@@ -247,9 +251,9 @@
               :key="item.id"
               @dblclick="openCompetition(item.id)"
             >
-              <td class="p-1">{{ item.name }}</td>
-              <td class="p-1">{{ dateConverter(item.begin_date) }}</td>
-              <td class="p-1">{{ dateConverter(item.end_date) }}</td>
+              <td class="">{{ item.name }}</td>
+              <td class="">{{ dateConverter(item.begin_date) }}</td>
+              <td class="">{{ dateConverter(item.end_date) }}</td>
 
               <td v-if="!isMobile">
                 {{ dateConverter(item.begin_date_registration) }}
@@ -258,7 +262,11 @@
                 {{ dateConverter(item.end_date_registration) }}
               </td>
 
-              <td class="p-1">{{ item.place }}</td>
+              <td class="">{{ item.place }}</td>
+
+              <td v-if="!isMobile" class="">{{ item.organizer_name }}</td>
+              <td v-if="!isMobile" class="">{{ item.organizer_mail }}</td>
+              <td v-if="!isMobile" class="">{{ item.organizer_phone }}</td>
               <td>
                 <div
                   class="px-4 cursor-pointer"
