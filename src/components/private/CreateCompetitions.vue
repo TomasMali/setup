@@ -2,6 +2,7 @@
   <div>
     <base-dialog
       :show="!!error"
+      :type="typeDialog"
       title="An error occurred!"
       @close="handleError"
       >{{ error }}</base-dialog
@@ -340,88 +341,23 @@
       </div>
     </create-dialog>
 
-    <!-- Fids Components -->
+    <!-- Fids Components 
     <create-dialog
       :show="!!openDialogCompetitionCreationFromFids"
       title="Create From Fids"
       @close="manageDialogCompetitionFromFids"
     >
-      <div>
-        <div class="row mb-4">
-          <div class="col">
-            <button
-              class="
-                w3-button w3-small w3-white w3-border w3-border-blue w3-wide
-              "
-              @click="loadFidsCompetitionsMethod"
-            >
-              Load the table
-            </button>
-          </div>
-
-          <div class="col">
-            <!--    Select judges disciplines   -->
-            <div class="p-2">
-              <label for="" class="col-form-label"></label>
-              <select v-model.number="form.events.value">
-                <option v-for="item in events" :key="item.id" :value="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="col">
-            <button
-              :disabled="checkItems.length <= 0 || form.events.value === null"
-              class="
-                w3-button w3-small w3-blue w3-border w3-border-blue w3-wide
-                ml-3
-              "
-              @click="checkCompetitionsSubmit"
-            >
-              Insert
-            </button>
-          </div>
-        </div>
-
-        <table class="w3-table-all w3-small mb-4">
-          <thead>
-            <tr class="w3-blue">
-              <th>Insert</th>
-              <th>Discipline</th>
-              <th>Age group</th>
-              <th>Class</th>
-              <th>Unit type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="w3-hover-grey"
-              v-for="item in fidsCompetitions"
-              :key="item.id"
-            >
-              <td>
-                <div class="form-check my_checkbox">
-                  <input
-                    v-model="checkItems"
-                    :value="item.id"
-                    type="checkbox"
-                    class="form-check-input p-2"
-                    id="exampleCheck1"
-                  />
-                </div>
-              </td>
-              <td>{{ item.desc_discipline }}</td>
-              <td>{{ item.age_group }}</td>
-              <td>{{ item.classe }}</td>
-              <td>
-                {{ item.desc_unit_type }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </create-dialog>
+    -->
+    <load-fids
+      v-if="!!openDialogCompetitionCreationFromFids"
+      @close="openDialogCompetitionCreationFromFids = null"
+      :eventId="getParamEventId"
+      @insertFidsCompleated="insertFidsCompleated"
+    >
+    </load-fids>
+    <!-- 
+    </create-dialog>   
+    -->
 
     <!-- ----------------------------------------------------------------------------------------------------------------------- -->
     <div>
@@ -517,6 +453,7 @@
 export default {
   data() {
     return {
+      typeDialog: null,
       selected: "A",
       checkItems: [],
       form: {
@@ -562,27 +499,18 @@ export default {
       isMobile: false,
     };
   },
+  computed: {
+    getParamEventId() {
+      return this.$route.query.eventId;
+    },
+  },
   methods: {
-    async checkCompetitionsSubmit() {
-      // this.isLoading = true;
-      try {
-        await this.$store.dispatch("competition/insertFromFidsCompetitions", {
-          competitionsIdArray: this.checkItems,
-          event: this.form.events.value,
-          user: this.$store.getters["auth/userId"],
-        });
-        // this.$router.go();
-        this.openDialogCompetitionCreationFromFids = null;
-        this.checkItems = [];
-      } catch (error) {
-        this.error = error.message || "Failed to authenticate";
-      }
-      //   this.isLoading = false;
-
+    insertFidsCompleated() {
       setTimeout(() => {
         this.loadMyCompetitions();
       }, 100);
     },
+
     async deleteItem(id, license) {
       if (
         confirm(
@@ -607,42 +535,30 @@ export default {
         this.isLoading = false;
       }
     },
-    async loadFidsCompetitions() {
+
+    loadMyCompetitions() {
       this.isLoading = true;
       this.openDialogCompetitionCreationFromFids = null;
-      try {
-        await this.$store.dispatch("competition/getFidsCompetitions");
-        this.fidsCompetitions =
-          this.$store.getters["competition/getFidsCompetitions"];
-      } catch (error) {
-        //console.log(error);
-      }
-      this.isLoading = false;
-      this.openFids();
-    },
-
-    async loadMyCompetitions() {
-      //   this.form.events.value = this.$route.query.eventId;
-      this.isLoading = true;
-      try {
-        await this.$store.dispatch("competition/getMyCompetitions", {
+      this.$store
+        .dispatch("competition/getMyCompetitions", {
           user: this.$store.getters["auth/userId"],
+        })
+        .then((res) => {
+          if (!res)
+            if (typeof this.$route.query.eventId === "undefined") {
+              //  console.log(this.$route.query.eventId);
+              this.myCompetitions =
+                this.$store.getters["competition/getMyCompetitions"];
+            } else {
+              this.myCompetitions = this.$store.getters[
+                "competition/getMyCompetitions"
+              ].filter((el) => {
+                return el.event == this.$route.query.eventId;
+              });
+            }
+
+          this.isLoading = false;
         });
-      } catch (error) {
-        console.log(error);
-      }
-      if (typeof this.$route.query.eventId === "undefined") {
-        //  console.log(this.$route.query.eventId);
-        this.myCompetitions =
-          this.$store.getters["competition/getMyCompetitions"];
-      } else {
-        this.myCompetitions = this.$store.getters[
-          "competition/getMyCompetitions"
-        ].filter((el) => {
-          return el.event == this.$route.query.eventId;
-        });
-      }
-      this.isLoading = false;
 
       //reload page
     },
@@ -650,7 +566,7 @@ export default {
       try {
         switch (tabName) {
           case "Events":
-            await this.$store.dispatch("event/getEvents", {
+            await this.$store.dispatch("event/getEventsFromDb", {
               user: this.$store.getters["auth/userId"],
             });
             this.events = this.$store.getters["event/getEvents"];
@@ -773,6 +689,7 @@ export default {
     },
     handleError() {
       this.error = null;
+      this.typeDialog = null;
     },
     manageDialogCompetition() {
       this.openDialogCompetitionCreation = null;
@@ -782,25 +699,22 @@ export default {
 
       // this.form.events.value = null;
     },
-    loadFidsCompetitionsMethod() {
-      this.loadFidsCompetitions();
-    },
+
     openFids() {
       if (typeof this.$route.query.eventId === "undefined") {
-        alert("No event selected. Please select an event from the Event page");
+        //alert("No event selected. Please select an event from the Event page");
+        this.typeDialog = "Error";
+        this.error =
+          "No event selected. Please select an event from the Event page";
         return;
       }
 
       this.openDialogCompetitionCreationFromFids = true;
-      this.checkItems = [];
     },
   },
   created() {
     this.loadMyCompetitions();
-    this.loadTable("Events");
-    if (typeof this.$route.query.eventId !== "undefined") {
-      this.form.events.value = this.$route.query.eventId;
-    } else this.form.events.value = null;
+    // this.loadTable("Events");
 
     if (screen.width <= 760) {
       this.isMobile = true;
@@ -845,16 +759,6 @@ thead {
   width: calc(
     100% - 1em
   ); /* scrollbar is average 1em/16px width, remove it from thead width */
-}
-.mycard {
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  padding: 1rem;
-}
-.scrollable {
-  height: 700px;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .my_checkbox {

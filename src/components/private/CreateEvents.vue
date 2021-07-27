@@ -509,7 +509,7 @@ export default {
 
     async loadEvents() {
       try {
-        await this.$store.dispatch("event/getEvents", {
+        await this.$store.dispatch("event/getEventsFromDb", {
           user: this.$store.getters["auth/userId"],
         });
         this.events = this.$store.getters["event/getEvents"];

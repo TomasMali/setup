@@ -1,7 +1,7 @@
 import cred from "../../cred.js";
 
 export default {
-    async getEvents(context, payload) {
+    async getEventsFromDb(context, payload) {
         let url = cred.getLinkType().url_event_get + "?user=" + payload.user;
 
         //console.log(url);

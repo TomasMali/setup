@@ -13,9 +13,7 @@
         </section>
         <menu v-if="!fixed">
           <slot name="actions">
-            <!-- :class="{ insertButtonDisabled: insertOff }" -->
-            <base-button @click="tryInsert"> Insert</base-button>
-            <base-button @click="tryClose">Close</base-button>
+            <base-button class="red" @click="tryClose">Close</base-button>
           </slot>
         </menu>
       </dialog>
@@ -39,12 +37,8 @@ export default {
       required: false,
       default: false,
     },
-    insertOff: {
-      type: Boolean,
-      required: false,
-    },
   },
-  emits: ["close", "insert"],
+  emits: ["close"],
   methods: {
     tryClose() {
       if (this.fixed) {
@@ -52,22 +46,13 @@ export default {
       }
       this.$emit("close");
     },
-    tryInsert() {
-      this.$emit("insert");
-    },
   },
 };
 </script>
 
-
 <style scoped>
-.insertButtonDisabled {
-  border: 1px solid #1574e0;
-  background-color: #cee6f8;
-  color: #666666;
-
-  cursor: not-allowed;
-  pointer-events: none;
+.red {
+  background: red;
 }
 
 .backdrop {
@@ -82,11 +67,11 @@ export default {
 
 dialog {
   position: fixed;
-  top: 6vh;
-  left: 5%;
-  width: 90%;
+  top: 20vh;
+  left: 10%;
+  width: 80%;
   z-index: 100;
-
+  border-radius: 12px;
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   padding: 0;
@@ -97,7 +82,7 @@ dialog {
 
 header {
   /** background-color: #3a0061; */
-  background-color: #0082e6;
+  background-color: #f04d0d;
   color: white;
   width: 100%;
   padding: 1rem;
@@ -109,9 +94,6 @@ header h2 {
 
 section {
   padding: 1rem;
-  height: 490px;
-
-  overflow-y: scroll;
 }
 
 menu {

@@ -3,7 +3,7 @@
     <div v-if="show" @click="tryClose" class="backdrop"></div>
     <transition name="dialog">
       <dialog open v-if="show">
-        <header>
+        <header :class="{ red: type === 'Error' }">
           <slot name="header">
             <h2>{{ title }}</h2>
           </slot>
@@ -13,7 +13,9 @@
         </section>
         <menu v-if="!fixed">
           <slot name="actions">
-            <base-button @click="tryClose">Close</base-button>
+            <base-button :class="{ red: type === 'Error' }" @click="tryClose"
+              >Close</base-button
+            >
           </slot>
         </menu>
       </dialog>
@@ -37,6 +39,11 @@ export default {
       required: false,
       default: false,
     },
+
+    type: {
+      type: String,
+      required: false,
+    },
   },
   emits: ["close"],
   methods: {
@@ -51,6 +58,10 @@ export default {
 </script>
 
 <style scoped>
+.red {
+  background-color: red;
+}
+
 .backdrop {
   position: fixed;
   top: 0;

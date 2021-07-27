@@ -1,5 +1,5 @@
 <template>
-  <button v-if="!link" :class="mode">
+  <button v-if="!link" :class="mode" class="ciao">
     <slot></slot>
   </button>
   <router-link v-else :to="to" :class="mode">
@@ -37,7 +37,7 @@ a {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
   font: inherit;
-  background-color: #554a5c;
+  background-color: #3770b1;
   border: 1px solid #1d56d1;
   color: white;
   cursor: pointer;
@@ -64,12 +64,5 @@ button:active {
   background-color: transparent;
   border-color: #270041;
   color: #270041;
-}
-
-.flat:hover,
-.flat:active,
-.outline:hover,
-.outline:active {
-  background-color: #edd2ff;
 }
 </style>
