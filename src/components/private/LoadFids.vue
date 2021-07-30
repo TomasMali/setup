@@ -56,18 +56,60 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              class="w3-hover-grey"
-              v-for="item in fidsCompetitions"
-              :key="item.id"
-            >
+            <tr class="text-primary">
               <td>
-                <div class="form-check my_checkbox">
+                <div class="cursor-pointer ml-4 my-2" @click="cleanFilter()">
+                  <img
+                    src="https://img.icons8.com/material-outlined/18/000000/clear-filters.png"
+                  />
+                </div>
+              </td>
+              <td>
+                <input
+                  class="my-2"
+                  type="text"
+                  placeholder="&#xF002;  Search"
+                  style="font-family: Arial, FontAwesome"
+                  v-model="search.discipline"
+                />
+              </td>
+              <td>
+                <input
+                  class="my-2"
+                  type="text"
+                  placeholder="&#xF002;  Search"
+                  style="font-family: Arial, FontAwesome"
+                  v-model="search.ageGroup"
+                />
+              </td>
+              <td>
+                <input
+                  class="my-2"
+                  type="text"
+                  placeholder="&#xF002;  Search"
+                  style="font-family: Arial, FontAwesome"
+                  v-model="search.class"
+                />
+              </td>
+              <td>
+                <input
+                  class="my-2"
+                  type="text"
+                  placeholder="&#xF002;  Search"
+                  style="font-family: Arial, FontAwesome"
+                  v-model="search.unitType"
+                />
+              </td>
+            </tr>
+
+            <tr class="w3-hover-grey" v-for="item in filterFids" :key="item.id">
+              <td>
+                <div class="form-check">
                   <input
                     v-model="checkItems"
                     :value="item.id"
                     type="checkbox"
-                    class="form-check-input p-2"
+                    class="form-check-input my_checkbox"
                     id="exampleCheck1"
                   />
                 </div>
@@ -96,10 +138,17 @@ export default {
   data() {
     return {
       checkItems: [],
-      fidsCompetitions: null,
+      fidsCompetitions: [],
       isMobile: false,
       event: { value: null, isValid: true },
       events: null,
+      search: {
+        discipline: "",
+        ageGroup: "",
+        class: "",
+        unitType: "",
+      },
+
       isLoading: false,
       showDialog: true,
       error: null,
@@ -175,6 +224,36 @@ export default {
       this.error = null;
       this.showDialog = true;
     },
+    cleanFilter() {
+      this.search.discipline = "";
+      this.search.ageGroup = "";
+      this.search.class = "";
+      this.search.unitType = "";
+    },
+  },
+  computed: {
+    filterFids() {
+      return this.fidsCompetitions.filter((row) => {
+        return (
+          row.desc_discipline
+            .toString()
+            .toLowerCase()
+            .includes(this.search.discipline.toLowerCase().toLowerCase()) &&
+          row.age_group
+            .toString()
+            .toLowerCase()
+            .includes(this.search.ageGroup.toLowerCase().toLowerCase()) &&
+          row.desc_unit_type
+            .toString()
+            .toLowerCase()
+            .includes(this.search.unitType.toLowerCase().toLowerCase()) &&
+          row.classe
+            .toString()
+            .toLowerCase()
+            .includes(this.search.class.toLowerCase().toLowerCase())
+        );
+      });
+    },
   },
   created() {
     this.loadTable("Events");
@@ -185,8 +264,21 @@ export default {
 
 
 <style scoped>
+.w3-table td,
+.w3-table th,
+.w3-table-all td {
+  padding: 0px 1px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: top;
+  font-size: 11px;
+}
+
 .my_checkbox {
-  width: 5px;
-  height: 5px;
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  margin-left: 1px;
+  border-color: #0082e6;
 }
 </style>

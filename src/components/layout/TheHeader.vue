@@ -18,16 +18,18 @@
 
       <ul>
         <li>
-          <router-link @click="clickSubmit" to="/public">Public</router-link>
+          <router-link @click="clickSubmit" to="/public">Home</router-link>
         </li>
         <li v-if="isLoggedIn">
           <router-link @click="clickSubmit" to="/events">Events</router-link>
         </li>
+        <!--
         <li v-if="isLoggedIn">
           <router-link @click="clickSubmit" to="/competitions"
             >Competitions</router-link
           >
         </li>
+-->
         <li v-if="!isLoggedIn">
           <router-link @click="clickSubmit" to="/login">Login</router-link>
         </li>
