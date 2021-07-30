@@ -230,21 +230,21 @@ export default {
   computed: {
     filterFids() {
       return this.fidsCompetitions.filter((row) => {
-        console.log(row);
+        let desc_discipline = String(row.desc_discipline).toLowerCase();
+        let age_group = String(row.ageGroup).toLowerCase();
+        let desc_unit_type = String(row.desc_unit_type).toLowerCase();
+        let classe = String(row.classe);
         return (
-          row.desc_discipline
-            .toLowerCase()
-            .includes(this.search.discipline.toLowerCase().toLowerCase()) &&
-          row.age_group
-            .toLowerCase()
-            .includes(this.search.ageGroup.toLowerCase().toLowerCase()) &&
-          row.desc_unit_type
-            .toLowerCase()
-            .includes(this.search.unitType.toLowerCase().toLowerCase()) &&
-          row.classe
-
-            .toLowerCase()
-            .includes(this.search.class.toLowerCase().toLowerCase())
+          desc_discipline.includes(
+            this.search.discipline.toLowerCase().toLowerCase()
+          ) &&
+          age_group.includes(
+            this.search.ageGroup.toLowerCase().toLowerCase()
+          ) &&
+          desc_unit_type.includes(
+            this.search.unitType.toLowerCase().toLowerCase()
+          ) &&
+          classe.includes(this.search.class.toLowerCase().toLowerCase())
         );
       });
     },
