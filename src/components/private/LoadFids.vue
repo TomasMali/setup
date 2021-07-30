@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <error-dialog
@@ -128,9 +126,6 @@
   </div>
 </template>
 
-
-
-
 <script>
 export default {
   props: ["eventId"],
@@ -161,8 +156,9 @@ export default {
       // this.openDialogCompetitionCreationFromFids = null;
       try {
         await this.$store.dispatch("competition/getFidsCompetitions");
-        this.fidsCompetitions =
-          this.$store.getters["competition/getFidsCompetitions"];
+        this.fidsCompetitions = this.$store.getters[
+          "competition/getFidsCompetitions"
+        ];
       } catch (error) {
         //console.log(error);
       }
@@ -234,21 +230,19 @@ export default {
   computed: {
     filterFids() {
       return this.fidsCompetitions.filter((row) => {
+        console.log(row);
         return (
           row.desc_discipline
-            .toString()
             .toLowerCase()
             .includes(this.search.discipline.toLowerCase().toLowerCase()) &&
           row.age_group
-            .toString()
             .toLowerCase()
             .includes(this.search.ageGroup.toLowerCase().toLowerCase()) &&
           row.desc_unit_type
-            .toString()
             .toLowerCase()
             .includes(this.search.unitType.toLowerCase().toLowerCase()) &&
           row.classe
-            .toString()
+
             .toLowerCase()
             .includes(this.search.class.toLowerCase().toLowerCase())
         );
@@ -261,7 +255,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .w3-table td,
