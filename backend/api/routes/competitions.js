@@ -8,52 +8,24 @@ const { setTimeout } = require("timers");
  * get all the FIDS loaded relations
  */
 router.get("/getRelationsFIDS", (req, res, next) => {
-    res2 = [];
-    pool.query("SELECT * FROM competition_fids ", (error, results) => {
-        if (error) {
-            throw error;
+    pool.query(
+        "select c.*, d.description as desc_discipline, u.description as desc_unit_type from competition_fids  as c join tab_disciplines as d on c.discipline = d.id join tab_unit_type as u on c.unit_type = u.id ",
+        (error, resu) => {
+            return res.status(200).json(resu.rows);
         }
-
-        var allCometitions = results.rows;
-
-        for (let index = 0; index < allCometitions.length; index++) {
-            const element = allCometitions[index];
-            const el = results.rows[index];
-            pool.query(
-                "SELECT * FROM tab_unit_type WHERE id = $1", [element.unit_type],
-                (error, resu) => {
-                    el.desc_unit_type = resu.rows[0].description;
-                }
-            );
-
-            pool.query(
-                "SELECT * FROM tab_disciplines WHERE id = $1", [element.discipline],
-                (error, resu) => {
-                    el.desc_discipline = resu.rows[0].description;
-                }
-            );
-
-            res2.push(el);
-        }
-    });
-
-    setTimeout(() => {
-        return res.status(200).json(res2);
-    }, 4000);
+    );
 });
 
 /**
- * get all the FIDS loaded relations
+ * Get all my created relations
  */
-router.get("/getSelectedRelations", (req, res, next) => {
-    x = ["1", "4"];
+router.get("/getMyRelations", async(req, res, next) => {
+    const user = req.query.user;
+
     pool.query(
-        "SELECT * FROM competition_fids WHERE id in (" + x + ")",
-        (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).json(results.rows);
+        "select c.*, d.description as desc_discipline, u.description as desc_unit_type from competitions  as c join tab_disciplines as d on c.discipline = d.id join tab_unit_type as u on c.unit_type = u.id WHERE c.user = $1", [user],
+        (error, resu) => {
+            return res.status(200).json(resu.rows);
         }
     );
 });
@@ -133,45 +105,6 @@ router.post("/insertFromFidsCompetitions", (req, res, next) => {
                 message: "Relation created successfully",
                 result: results.rowCount,
             });
-        }
-    );
-});
-
-/**
- * Get all my created relations
- */
-router.get("/getMyRelations", async(req, res, next) => {
-    const user = req.query.user;
-    res2 = [];
-
-    pool.query(
-        'SELECT * FROM competitions WHERE "user"=$1', [user],
-        (error, results) => {
-            var allCometitions = results.rows;
-            var competitions = results.rows.map((a) => a.unit_type);
-
-            for (let index = 0; index < allCometitions.length; index++) {
-                const element = allCometitions[index];
-                const el = results.rows[index];
-                pool.query(
-                    "SELECT * FROM tab_unit_type WHERE id = $1", [element.unit_type],
-                    (error, resu) => {
-                        el.desc_unit_type = resu.rows[0].description;
-                    }
-                );
-
-                pool.query(
-                    "SELECT * FROM tab_disciplines WHERE id = $1", [element.discipline],
-                    (error, resu) => {
-                        el.desc_discipline = resu.rows[0].description;
-                    }
-                );
-
-                res2.push(el);
-            }
-            setTimeout(() => {
-                res.status(200).json(res2);
-            }, 200);
         }
     );
 });

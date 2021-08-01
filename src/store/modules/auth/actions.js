@@ -50,7 +50,7 @@ export default {
             context.dispatch("autoLogOut");
         }, expiresIn);
 
-        console.log(responseData);
+        // console.log(responseData);
         context.commit("setUser", {
             token: responseData.token,
             userId: responseData.user,
@@ -98,7 +98,7 @@ export default {
     async resetPassword(_, payload) {
         let url = cred.getLinkType().url_reset_password;
 
-        console.log(payload);
+        //  console.log(payload);
         const response = await fetch(url, {
             method: "POST",
             cache: "no-cache",
@@ -123,7 +123,7 @@ export default {
     async changePassword(_, payload) {
         let url = cred.getLinkType().url_change_password;
 
-        console.log(payload);
+        //  console.log(payload);
         const response = await fetch(url, {
             method: "POST",
             cache: "no-cache",

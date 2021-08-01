@@ -59,6 +59,7 @@ export default {
         context.commit("setMyCompetitions", {
             myCompetitionObj: responseData,
         });
+        return;
     },
 
     async addMyCompetition(_, payload) {

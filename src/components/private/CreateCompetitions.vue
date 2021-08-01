@@ -12,357 +12,26 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <!-- Manual Components Creation  -->
-    <create-dialog
-      :show="!!openDialogCompetitionCreation"
-      title="Create new competition"
-      @close="manageDialogCompetition"
+    <!-- Fids Components -->
+    <new-competition
+      :open="!!openDialogCompetitionCreation"
+      @close="openDialogCompetitionCreation = null"
     >
-      <div class="card text-dark bg-light mb-0">
-        <div class="card-body">
-          <form class="" @submit.prevent="formSubmit">
-            <!--    Events   -->
-            <div class="p-2">
-              <label for="" class="col-form-label">Event</label>
+    </new-competition>
 
-              <select
-                v-model="form.events.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Events')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the event</option>
-                <option v-for="item in events" :key="item.id" :value="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-            <!--    Dances   -->
-
-            <div class="p-2">
-              <label for="" class="col-form-label">Dances</label>
-
-              <select
-                v-model="form.dances.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Dances')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the dance</option>
-                <option v-for="item in dances" :key="item.id" :value="item.id">
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-            <!--    Disciplines   -->
-
-            <div class="p-2">
-              <label for="" class="col-form-label">Disciplines</label>
-
-              <select
-                v-model="form.disciplines.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Disciplines')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option disabled selected>Choose the disciplines</option>
-                <option
-                  v-for="item in disciplines"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.sector }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Select judges disciplines   -->
-            <div class="p-2">
-              <label for="" class="col-form-label"
-                >Select judges disciplines</label
-              >
-
-              <select
-                v-model="form.judges_disciplines.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Judges_disciplines')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose judges disciplines
-                </option>
-                <option
-                  v-for="item in judges_disciplines"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Judges licenses   -->
-            <div class="p-2">
-              <label for="" class="col-form-label">Judges licenses</label>
-
-              <select
-                v-model="form.judges_licenses.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Judges_licenses')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the judges licenses
-                </option>
-                <option
-                  v-for="item in judges_licenses"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Official licenses  -->
-            <div class="p-2">
-              <label for="" class="col-form-label">Official licenses</label>
-
-              <select
-                v-model="form.officials_licenses.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Officials_licenses')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the official licenses
-                </option>
-                <option
-                  v-for="item in officials_licenses"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose official roles -->
-            <div class="p-2">
-              <label for="" class="col-form-label">Choose official roles</label>
-
-              <select
-                v-model="form.officials_roles.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Officials_roles')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose Officials_roles
-                </option>
-                <option
-                  v-for="item in officials_roles"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }}
-                </option>
-              </select>
-            </div>
-
-            <!-- ------------------- -->
-
-            <!--    Sectors discipline-->
-            <div class="p-2">
-              <label for="" class="col-form-label">Sectors discipline</label>
-
-              <select
-                v-model="form.sectors_discipline.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Sectors_discipline')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the Sectors discipline
-                </option>
-                <option
-                  v-for="item in sectors_discipline"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Unit type<-->
-            <div class="p-2">
-              <label for="" class="col-form-label">Unit type</label>
-              <select
-                v-model="form.unit_type.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Unit_type')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the unit type</option>
-                <option
-                  v-for="item in unit_type"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose age category  -->
-            <div class="p-2">
-              <label for="" class="col-form-label">Choose age category</label>
-              <select
-                v-model="form.age_category.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Age_category')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose age category</option>
-                <option
-                  v-for="item in age_category"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Classe -->
-            <div class="p-2">
-              <label for="" class="col-form-label">Classe</label>
-              <select
-                v-model="form.classe.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Classe')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the classe</option>
-                <option v-for="item in classe" :key="item.id" :value="item.id">
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Competition type -->
-            <div class="p-2">
-              <label for="" class="col-form-label">Competition type</label>
-              <select
-                v-model="form.competition_type.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Competition_type')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the competition type
-                </option>
-                <option
-                  v-for="item in competition_type"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose judging systems-->
-            <div class="p-2">
-              <label for="" class="col-form-label"
-                >Choose judging systems</label
-              >
-              <select
-                v-model="form.judging_systems.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Judging_systems')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose judging systems
-                </option>
-                <option
-                  v-for="item in judging_systems"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose rounds-->
-            <div class="p-2">
-              <label for="" class="col-form-label">Choose rounds</label>
-              <select
-                v-model="form.rounds.value"
-                class="w3-select w3-border text-black"
-                name="option"
-                @click="loadTable('Rounds')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose rounds</option>
-                <option v-for="item in rounds" :key="item.id" :value="item.id">
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <div class="">
-              <h6 class="mt-2">Other fields goes here ....</h6>
-            </div>
-
-            <!-- ------------------- -->
-
-            <p>
-              <button type="submit" class="btn btn-primary mt-4">Create</button>
-            </p>
-          </form>
-        </div>
-      </div>
-    </create-dialog>
-
-    <!-- Fids Components 
-    <create-dialog
-      :show="!!openDialogCompetitionCreationFromFids"
-      title="Create From Fids"
-      @close="manageDialogCompetitionFromFids"
-    >
-    -->
+    <!--  Load FIDS  -->
     <load-fids
       v-if="!!openDialogCompetitionCreationFromFids"
       @close="openDialogCompetitionCreationFromFids = null"
+      @insertFidsCompleated="loadMyCompetitions()"
       :eventId="getParamEventId"
-      @insertFidsCompleated="insertFidsCompleated"
     >
     </load-fids>
-    <!-- 
-    </create-dialog>   
-    -->
 
     <!-- ----------------------------------------------------------------------------------------------------------------------- -->
     <div>
       <div class="row p-0 m-0">
-        <div class="col mx-4 mt-4">
+        <div class=" col-md-4 mx-md-5 mx-4  mt-4 text-right-md ">
           <div>
             <a
               class="btn btn-outline-secondary mb-1"
@@ -375,7 +44,19 @@
             </a>
           </div>
         </div>
+
+        <div class="col col-md-2 mx-md-5 mx-4 mt-md-4 text-left">
+          <!--    Select Event   -->
+          <div class="">
+            <select class="form-select" v-model.number="event">
+              <option v-for="item in events" :key="item.id" :value="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
+
       <!-- My Components List -->
       <div class="row p-0 m-0">
         <div class="col m-4">
@@ -447,55 +128,25 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
+  props: ["eventId"],
   data() {
     return {
       typeDialog: null,
       selected: "A",
       checkItems: [],
-      form: {
-        events: { value: null, isValid: true },
-        dances: { value: null, isValid: true },
-        disciplines: { value: null, isValid: true },
-        judges_disciplines: { value: null, isValid: true },
-        judges_licenses: { value: null, isValid: true },
-        officials_licenses: { value: null, isValid: true },
-        officials_roles: { value: null, isValid: true },
-        sectors_discipline: { value: null, isValid: true },
-        unit_type: { value: null, isValid: true },
-        classe: { value: null, isValid: true },
-        age_category: { value: null, isValid: true },
-        competition_type: { value: null, isValid: true },
-        judging_systems: { value: null, isValid: true },
-        rounds: { value: null, isValid: true },
-      },
-      //
       fidsCompetitions: null,
-      myCompetitions: null,
+      myCompetitions: [],
+      //
+      event: null,
+      events: null,
+      //
       isFormValid: true,
       isLoading: false,
       error: null,
-      tab: null,
-      events: null,
-      dances: null,
-      disciplines: null,
-      judges_disciplines: null,
-      judges_licenses: null,
-      officials_licenses: null,
-      officials_roles: null,
-      sectors_discipline: null,
-      unit_type: null,
-      classe: null,
-      age_category: null,
-      competition_type: null,
-      judging_systems: null,
-      rounds: null,
-      mine: true,
-      openDialogCompetitionCreation: null,
       openDialogCompetitionCreationFromFids: null,
+      openDialogCompetitionCreation: null,
       isMobile: false,
     };
   },
@@ -504,13 +155,64 @@ export default {
       return this.$route.query.eventId;
     },
   },
-  methods: {
-    insertFidsCompleated() {
-      setTimeout(() => {
-        this.loadMyCompetitions();
-      }, 100);
+  watch: {
+    event: function(newVal) {
+      this.$router.replace({
+        path: "competitions",
+        query: {
+          user: this.$store.getters["auth/userId"],
+          eventId: newVal,
+        },
+      });
+      this.loadMyCompetitions();
     },
+  },
+  methods: {
+    async loadMyCompetitions() {
+      this.isLoading = true;
+      this.openDialogCompetitionCreationFromFids = null;
 
+      try {
+        await this.$store.dispatch("competition/getMyCompetitions", {
+          user: this.$store.getters["auth/userId"],
+        });
+
+        if (typeof this.$route.query.eventId === "undefined") {
+          //  console.log(this.$route.query.eventId);
+          this.myCompetitions = this.$store.getters[
+            "competition/getMyCompetitions"
+          ];
+        } else {
+          this.myCompetitions = this.$store.getters[
+            "competition/getMyCompetitions"
+          ].filter((el) => {
+            return el.event == this.event;
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      this.isLoading = false;
+    },
+    async loadTable(tabName) {
+      try {
+        switch (tabName) {
+          case "Events":
+            await this.$store.dispatch("event/getEventsFromDb", {
+              user: this.$store.getters["auth/userId"],
+            });
+            this.events = this.$store.getters["event/getEvents"];
+            break;
+          default:
+
+          //   await this.$store.dispatch("tab/getTabs", tabName);
+          //  this.tab = this.$store.getters["tab/get" + tabName];
+        }
+        // console.log(this.tab[0]);
+      } catch (error) {
+        //   console.log(error);
+      }
+    },
     async deleteItem(id, license) {
       if (
         confirm(
@@ -536,164 +238,11 @@ export default {
       }
     },
 
-    loadMyCompetitions() {
-      this.isLoading = true;
-      this.openDialogCompetitionCreationFromFids = null;
-      this.$store
-        .dispatch("competition/getMyCompetitions", {
-          user: this.$store.getters["auth/userId"],
-        })
-        .then((res) => {
-          if (!res)
-            if (typeof this.$route.query.eventId === "undefined") {
-              //  console.log(this.$route.query.eventId);
-              this.myCompetitions =
-                this.$store.getters["competition/getMyCompetitions"];
-            } else {
-              this.myCompetitions = this.$store.getters[
-                "competition/getMyCompetitions"
-              ].filter((el) => {
-                return el.event == this.$route.query.eventId;
-              });
-            }
-
-          this.isLoading = false;
-        });
-
-      //reload page
-    },
-    async loadTable(tabName) {
-      try {
-        switch (tabName) {
-          case "Events":
-            await this.$store.dispatch("event/getEventsFromDb", {
-              user: this.$store.getters["auth/userId"],
-            });
-            this.events = this.$store.getters["event/getEvents"];
-
-            break;
-          case "Dances":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.dances = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Disciplines":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.disciplines = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Judges_disciplines":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.judges_disciplines = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Judges_licenses":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.judges_licenses = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Officials_licenses":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.officials_licenses = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Officials_roles":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.officials_roles = this.$store.getters["tab/get" + tabName];
-            break;
-          //
-          case "Sectors_discipline":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.sectors_discipline = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Unit_type":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.unit_type = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Age_category":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.age_category = this.$store.getters["tab/get" + tabName];
-            break;
-          //
-          case "Classe":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.classe = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Competition_type":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.competition_type = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Judging_systems":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.judging_systems = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Rounds":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.rounds = this.$store.getters["tab/get" + tabName];
-            break;
-          default:
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.tab = this.$store.getters["tab/get" + tabName];
-        }
-        // console.log(this.tab[0]);
-      } catch (error) {
-        //   console.log(error);
-      }
-    },
-    ////////////////////////////
-    async formSubmit() {
-      this.isLoading = true;
-      //console.log(this.form.events.value);
-      const actionPayload = {
-        license: "FREE",
-        events: this.form.events.value,
-        dances: this.form.dances.value,
-        disciplines: this.form.disciplines.value,
-        judges_disciplines: this.form.judges_disciplines.value,
-        judges_licenses: this.form.judges_licenses.value,
-        officials_licenses: this.form.officials_licenses.value,
-        officials_roles: this.form.officials_roles.value,
-        sectors_discipline: this.form.sectors_discipline.value,
-        unit_type: this.form.unit_type.value,
-        classe: this.form.classe.value,
-        age_category: this.form.age_category.value,
-        competition_type: this.form.competition_type.value,
-        judging_systems: this.form.judging_systems.value,
-        rounds: this.form.rounds.value,
-      };
-      // console.log(this.form);
-      // do the post
-      try {
-        await this.$store.dispatch(
-          "competition/addMyCompetition",
-          actionPayload
-        );
-        this.loadMyCompetitions();
-        //
-      } catch (error) {
-        this.error = error.message || "Failed to authenticate";
-      }
-      this.isLoading = false;
-      // clean the fields
-      /*
-      this.form.dances.value = null;
-      this.form.events.value = null;
-      this.form.disciplines.value = null;
-      this.form.judges_disciplines.value = null;
-      this.form.judges_licenses.value = null;
-      this.form.officials_licenses.value = null;
-      this.form.officials_roles.value = null;
-      this.form.sectors_discipline.value = null;
-      this.form.unit_type.value = null;
-      this.form.classe.value = null;
-      this.form.age_category.value = null;
-      this.form.competition_type.value = null;
-      this.form.judging_systems.value = null;
-      this.form.rounds.value = null;
-      */
-    },
     handleError() {
       this.error = null;
       this.typeDialog = null;
     },
-    manageDialogCompetition() {
-      this.openDialogCompetitionCreation = null;
-    },
+
     manageDialogCompetitionFromFids() {
       this.openDialogCompetitionCreationFromFids = null;
 
@@ -714,7 +263,9 @@ export default {
   },
   created() {
     this.loadMyCompetitions();
-    // this.loadTable("Events");
+
+    this.loadTable("Events");
+    this.event = this.$route.query.eventId;
 
     if (screen.width <= 760) {
       this.isMobile = true;
@@ -724,7 +275,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 div {
@@ -764,5 +314,5 @@ thead {
 .my_checkbox {
   width: 5px;
   height: 5px;
-}
-</style>>
+}</style
+>>

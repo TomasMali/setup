@@ -245,28 +245,36 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              class="w3-hover-grey p-0"
-              v-for="item in events"
-              :key="item.id"
-              @dblclick="openCompetition(item.id)"
-            >
-              <td class="">{{ item.name }}</td>
-              <td class="">{{ dateConverter(item.begin_date) }}</td>
-              <td class="">{{ dateConverter(item.end_date) }}</td>
+            <tr class="w3-hover-grey p-0" v-for="item in events" :key="item.id">
+              <td @click="openCompetition(item.id)">{{ item.name }}</td>
+              <td @click="openCompetition(item.id)">
+                {{ dateConverter(item.begin_date) }}
+              </td>
+              <td @click="openCompetition(item.id)">
+                {{ dateConverter(item.end_date) }}
+              </td>
 
-              <td v-if="!isMobile">
+              <td @click="openCompetition(item.id)" v-if="!isMobile">
                 {{ dateConverter(item.begin_date_registration) }}
               </td>
-              <td v-if="!isMobile">
+              <td @click="openCompetition(item.id)" v-if="!isMobile">
                 {{ dateConverter(item.end_date_registration) }}
               </td>
 
-              <td class="">{{ item.place }}</td>
+              <td @click="openCompetition(item.id)" class="">
+                {{ item.place }}
+              </td>
 
-              <td v-if="!isMobile" class="">{{ item.organizer_name }}</td>
-              <td v-if="!isMobile" class="">{{ item.organizer_mail }}</td>
-              <td v-if="!isMobile" class="">{{ item.organizer_phone }}</td>
+              <td @click="openCompetition(item.id)" v-if="!isMobile" class="">
+                {{ item.organizer_name }}
+              </td>
+              <td @click="openCompetition(item.id)" v-if="!isMobile" class="">
+                {{ item.organizer_mail }}
+              </td>
+              <td @click="openCompetition(item.id)" v-if="!isMobile" class="">
+                {{ item.organizer_phone }}
+              </td>
+
               <td>
                 <div
                   class="px-4 cursor-pointer"
@@ -295,7 +303,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import moment from "moment";
@@ -542,10 +549,6 @@ export default {
 };
 </script>
 
-
-
-
-
 <style scoped>
 .mycard {
   border-radius: 12px;
@@ -572,5 +575,3 @@ export default {
   border-radius: 0px;
 }
 </style>
-
-
