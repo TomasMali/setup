@@ -15,7 +15,7 @@
 
               <select
                 v-model="events.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Events')"
               >
@@ -37,7 +37,7 @@
 
               <select
                 v-model="dances.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Dances')"
               >
@@ -59,12 +59,13 @@
 
               <select
                 v-model="disciplines.value"
-                class="w3-select w3-border text-black"
+                class="w3-select  w3-small w3-border text-black"
                 name="option"
                 @click="loadTable('Disciplines')"
               >
-                <optgroup disabled hidden></optgroup>
-                <option disabled selected>Choose the disciplines</option>
+                <option value="" disabled class="">
+                  Choose the disciplines
+                </option>
                 <option
                   v-for="item in disciplines.tab"
                   :key="item.id"
@@ -83,7 +84,7 @@
 
               <select
                 v-model="judges_disciplines.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Judges_disciplines')"
               >
@@ -107,7 +108,7 @@
 
               <select
                 v-model="judges_licenses.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Judges_licenses')"
               >
@@ -131,7 +132,7 @@
 
               <select
                 v-model="officials_licenses.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Officials_licenses')"
               >
@@ -155,7 +156,7 @@
 
               <select
                 v-model="officials_roles.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Officials_roles')"
               >
@@ -181,7 +182,7 @@
 
               <select
                 v-model="sectors_discipline.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Sectors_discipline')"
               >
@@ -204,7 +205,7 @@
               <label for="" class="col-form-label">Unit type</label>
               <select
                 v-model="unit_type.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Unit_type')"
               >
@@ -225,7 +226,7 @@
               <label for="" class="col-form-label">Choose age category</label>
               <select
                 v-model="age_category.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Age_category')"
               >
@@ -246,7 +247,7 @@
               <label for="" class="col-form-label">Classe</label>
               <select
                 v-model="classe.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Classe')"
               >
@@ -267,7 +268,7 @@
               <label for="" class="col-form-label">Competition type</label>
               <select
                 v-model="competition_type.value"
-                class="w3-select w3-border text-black"
+                class="w3-select  w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Competition_type')"
               >
@@ -292,7 +293,7 @@
               >
               <select
                 v-model="judging_systems.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Judging_systems')"
               >
@@ -315,7 +316,7 @@
               <label for="" class="col-form-label">Choose rounds</label>
               <select
                 v-model="rounds.value"
-                class="w3-select w3-border text-black"
+                class="w3-select w3-small  w3-border text-black"
                 name="option"
                 @click="loadTable('Rounds')"
               >
@@ -353,22 +354,22 @@ export default {
   props: ["open"],
   data() {
     return {
-      events: { value: null, isValid: true, tab: [] },
-      dances: { value: null, isValid: true, tab: [] },
-      disciplines: { value: null, isValid: true, tab: [] },
-      judges_disciplines: { value: null, isValid: true, tab: [] },
-      judges_licenses: { value: null, isValid: true, tab: [] },
-      officials_licenses: { value: null, isValid: true, tab: [] },
-      officials_roles: { value: null, isValid: true, tab: [] },
-      sectors_discipline: { value: null, isValid: true, tab: [] },
-      unit_type: { value: null, isValid: true, tab: [] },
-      classe: { value: null, isValid: true, tab: [] },
-      age_category: { value: null, isValid: true, tab: [] },
-      competition_type: { value: null, isValid: true, tab: [] },
-      judging_systems: { value: null, isValid: true, tab: [] },
-      rounds: { value: null, isValid: true, tab: [] },
+      events: { value: "", isValid: true, tab: [] },
+      dances: { value: "", isValid: true, tab: [] },
+      disciplines: { value: "", isValid: true, tab: [] },
+      judges_disciplines: { value: "", isValid: true, tab: [] },
+      judges_licenses: { value: "", isValid: true, tab: [] },
+      officials_licenses: { value: "", isValid: true, tab: [] },
+      officials_roles: { value: "", isValid: true, tab: [] },
+      sectors_discipline: { value: "", isValid: true, tab: [] },
+      unit_type: { value: "", isValid: true, tab: [] },
+      classe: { value: "", isValid: true, tab: [] },
+      age_category: { value: "", isValid: true, tab: [] },
+      competition_type: { value: "", isValid: true, tab: [] },
+      judging_systems: { value: "", isValid: true, tab: [] },
+      rounds: { value: "", isValid: true, tab: [] },
 
-      myCompetitions: null,
+      myCompetitions: [],
       isFormValid: true,
       isLoading: false,
       error: null,

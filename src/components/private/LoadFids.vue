@@ -13,6 +13,7 @@
     <!------------------------------------------------------------->
     <!------------------------------------------------------------->
     <!------------------------------------------------------------->
+
     <create-dialog
       :show="showDialog && !isLoading"
       :insertOff="checkItems.length <= 0 || event.value === null"
@@ -51,8 +52,8 @@
               <th>Insert</th>
               <th>Discipline</th>
               <th>Age group</th>
-              <th>Class</th>
-              <th>Unit type</th>
+              <th v-if="!isMobile">Class</th>
+              <th v-if="!isMobile">Unit type</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +83,7 @@
                   v-model="search.ageGroup"
                 />
               </td>
-              <td>
+              <td v-if="!isMobile">
                 <input
                   class="my-2"
                   type="text"
@@ -91,7 +92,7 @@
                   v-model="search.class"
                 />
               </td>
-              <td>
+              <td v-if="!isMobile">
                 <input
                   class="my-2"
                   type="text"
@@ -116,8 +117,8 @@
               </td>
               <td>{{ item.desc_discipline }}</td>
               <td>{{ item.age_group }}</td>
-              <td>{{ item.classe }}</td>
-              <td>
+              <td v-if="!isMobile">{{ item.classe }}</td>
+              <td v-if="!isMobile">
                 {{ item.desc_unit_type }}
               </td>
             </tr>
@@ -125,6 +126,7 @@
         </table>
       </div>
     </create-dialog>
+
     <!------------------------------------------------------------->
     <!------------------------------------------------------------->
     <!------------------------------------------------------------->
@@ -255,6 +257,12 @@ export default {
   created() {
     this.loadTable("Events");
     this.event.value = this.eventId;
+
+    if (screen.width <= 760) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
   },
 };
 </script>

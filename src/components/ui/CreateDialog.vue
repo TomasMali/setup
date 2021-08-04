@@ -59,7 +59,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .insertButtonDisabled {
   border: 1px solid #1574e0;
@@ -83,7 +82,7 @@ export default {
 dialog {
   position: fixed;
   top: 6vh;
-  left: 5%;
+  left: 2%;
   width: 90%;
   z-index: 100;
 
@@ -143,8 +142,8 @@ menu {
 
 @media (min-width: 768px) {
   dialog {
-    left: calc(50% - 20rem);
-    width: 40rem;
+    left: calc(50% - 30rem);
+    width: 60rem;
   }
 }
 </style>

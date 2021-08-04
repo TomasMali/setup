@@ -13,6 +13,7 @@
     </base-dialog>
 
     <!-- Fids Components -->
+
     <new-competition
       :open="!!openDialogCompetitionCreation"
       @close="openDialogCompetitionCreation = null"
@@ -29,17 +30,17 @@
     </load-fids>
 
     <!-- ----------------------------------------------------------------------------------------------------------------------- -->
-    <div>
+    <div class="row_padding">
       <div class="row p-0 m-0">
         <div class=" col-md-4 mx-md-5 mx-4  mt-4 text-right-md ">
           <div>
             <a
-              class="btn btn-outline-secondary mb-1"
+              class="btn  btn-outline-secondary mb-1"
               @click="openDialogCompetitionCreation = true"
             >
               Create new competition
             </a>
-            <a class="btn btn-outline-secondary mb-1" @click="openFids">
+            <a class="btn btn-outline-secondary mb-1 " @click="openFids">
               Create from Fids
             </a>
           </div>
@@ -58,7 +59,7 @@
       </div>
 
       <!-- My Components List -->
-      <div class="row p-0 m-0">
+      <div class="row   m-0">
         <div class="col m-4">
           <table class="w3-table-all w3-small mb-4">
             <thead>
@@ -277,6 +278,12 @@ export default {
 </script>
 
 <style scoped>
+@media (min-width: 768px) {
+  .row_padding {
+    padding: 20px 260px;
+  }
+}
+
 div {
   -webkit-user-select: none; /* Chrome all / Safari all */
   -moz-user-select: none; /* Firefox all */
