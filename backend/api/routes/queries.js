@@ -10,13 +10,16 @@ const sendMail = require("./sendmail");
 /**
  * Gets all the users
  */
-router.get("", (req, res, next) => {
-    pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
-        if (error) {
-            throw error;
+router.get("/getUsers", (req, res, next) => {
+    pool.query(
+        "SELECT A.*,B.id as role_id, B.name as role_name, B.page FROM users as A join role as B on A.role=B.id ORDER BY B.id ASC",
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(200).json(results.rows);
         }
-        res.status(200).json(results.rows);
-    });
+    );
 });
 
 /**
@@ -113,12 +116,12 @@ router.post("/login", (req, res, next) => {
 
                         // send email
                         /*    
-                                                                                                                                                                                                                                            sendMail({
-                                                                                                                                                                                                                                                to: "tomasmali08@gmail.com",
-                                                                                                                                                                                                                                                subject: "My first email from nodejs",
-                                                                                                                                                                                                                                                text: "Ciao io sono tmas mali, email generato automaticamente"
-                                                                                                                                                                                                                                            })
-                                                                                                                                                                                                                                            */
+                                                                                                                                                                                                                                                                                                                                            sendMail({
+                                                                                                                                                                                                                                                                                                                                                to: "tomasmali08@gmail.com",
+                                                                                                                                                                                                                                                                                                                                                subject: "My first email from nodejs",
+                                                                                                                                                                                                                                                                                                                                                text: "Ciao io sono tmas mali, email generato automaticamente"
+                                                                                                                                                                                                                                                                                                                                            })
+                                                                                                                                                                                                                                                                                                                                            */
 
                         // l'oggetto da ritornare
                         console.log(results.rows[0].email);
@@ -248,20 +251,6 @@ const getUserById = (request, response) => {
                 throw error;
             }
             response.status(200).json(results.rows);
-        }
-    );
-};
-
-const createUser = (request, response) => {
-    const { name, surname } = request.body;
-
-    pool.query(
-        "INSERT INTO users (user_id, name, surname) VALUES ($1, $2, $3)", [1000234, name, surname],
-        (error, results) => {
-            if (error) {
-                throw error;
-            }
-            response.status(201).send(`User added with ID: ${results}`);
         }
     );
 };

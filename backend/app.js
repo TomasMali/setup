@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 });
 
 // just go to the ather file if you pass me ...
+app.use("/user", db);
 app.use("/", db);
 app.use("/tab", tab);
 app.use("/event", event);

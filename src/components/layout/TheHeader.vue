@@ -1,6 +1,3 @@
-
-
-
 <template>
   <header>
     <nav>
@@ -23,6 +20,9 @@
         <li v-if="isLoggedIn">
           <router-link @click="clickSubmit" to="/events">Events</router-link>
         </li>
+        <li v-if="isLoggedIn">
+          <router-link @click="clickSubmit" to="/manage">Manage</router-link>
+        </li>
         <!--
         <li v-if="isLoggedIn">
           <router-link @click="clickSubmit" to="/competitions"
@@ -40,12 +40,6 @@
     </nav>
   </header>
 </template>
-
-
-
-
-
-
 
 <script>
 export default {
@@ -81,10 +75,6 @@ export default {
   },
 };
 </script>
-
-
-
-
 
 <style scoped>
 * {

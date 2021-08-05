@@ -11,6 +11,7 @@ import BaseBadge from "./components/ui/BaseBadge.vue";
 import BaseSpinner from "./components/ui/BaseSpinner.vue";
 import NewCompetition from "./components/private/NewCompetition.vue";
 import LoadFids from "./components/private/LoadFids.vue";
+import ShowUsers from "./components/private/ShowUsers.vue";
 
 import Dialog from "primevue/dialog";
 
@@ -41,5 +42,6 @@ app.component("error-dialog", ErrorDialog);
 app.component("Dialog", Dialog);
 app.component("new-competition", NewCompetition);
 app.component("load-fids", LoadFids);
+app.component("show-users", ShowUsers);
 
 app.mount("#app");

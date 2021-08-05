@@ -1,11 +1,11 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
-
-import authModule from './modules/auth/index.js'
-import eventModule from './modules/event/index.js'
-import competitionModule from './modules/competition/index.js'
-import tabsModule from './modules/tables/index.js'
-//import requestModule from 
+import authModule from "./modules/auth/index.js";
+import eventModule from "./modules/event/index.js";
+import competitionModule from "./modules/competition/index.js";
+import tabsModule from "./modules/tables/index.js";
+import usersModule from "./modules/user/index.js";
+//import requestModule from
 
 const store = createStore({
     modules: {
@@ -13,9 +13,8 @@ const store = createStore({
         event: eventModule,
         competition: competitionModule,
         tab: tabsModule,
+        user: usersModule,
     },
+});
 
-})
-
-
-export default store
+export default store;
