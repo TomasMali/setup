@@ -39,9 +39,9 @@ export default {
      * register method
      * @param {*} _
      * @param {*} payload
-    
-    async register(_, payload) {
-        let url = cred.getLinkType().url_register;
+     */
+    async updateUser(_, payload) {
+        let url = cred.getLinkType().url_update_users;
         //console.log(payload);
 
         const response = await fetch(url, {
@@ -55,10 +55,7 @@ export default {
             referrerPolicy: "no-referrer",
             enctype: "mutipart/form-data",
             body: JSON.stringify({
-                name: payload.name,
-                surname: payload.surname,
-                email: payload.email,
-                password: payload.password,
+                user: payload,
             }),
         });
 
@@ -68,8 +65,12 @@ export default {
             if (responseData.code === 409) {
                 throw new Error(responseData.message);
             } else
-                throw new Error("Request failed with error code: " + response.status);
+                throw new Error(
+                    "Request failed with error code: " +
+                    response.status +
+                    " Message error from server: " +
+                    responseData.message
+                );
         }
     },
- */
 };

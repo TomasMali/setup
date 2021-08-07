@@ -174,7 +174,7 @@ router.get("/competition_type", (req, res, next) => {
 });
 
 /**
- * Gets all the disciplines   sdfsdfsdfsdfsdf
+ * Gets all the disciplines
  */
 router.get("/judging_systems", (req, res, next) => {
     pool.query(
@@ -189,10 +189,22 @@ router.get("/judging_systems", (req, res, next) => {
 });
 
 /**
- * Gets all the disciplines   sdfsdfsdfsdfsdf
+ * Gets all the disciplines
  */
 router.get("/rounds", (req, res, next) => {
     pool.query("SELECT * FROM tab_rounds ORDER BY id ASC", (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
+});
+
+/**
+ * Gets all the roles
+ */
+router.get("/roles", (req, res, next) => {
+    pool.query("SELECT * FROM role ORDER BY id ASC", (error, results) => {
         if (error) {
             throw error;
         }

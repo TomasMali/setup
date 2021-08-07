@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import PagePubblic from "./components/pubblic/PagePubblic.vue";
-import CreateEvents from "./components/private/CreateEvents.vue";
-import CreateCompetitions from "./components/private/CreateCompetitions.vue";
+import CreateEvents from "./components/private/event/CreateEvents.vue";
+import CreateCompetitions from "./components/private/competition/CreateCompetitions.vue";
 import UserRegister from "./pages/auth/UserRegister.vue";
 import UserLogin from "./pages/auth/UserLogin.vue";
 import NotFound from "./pages/NotFound.vue";
 import ResetPassword from "./pages/auth/ResetPassword.vue";
 import ChangePassword from "./pages/auth/ChangePassword.vue";
 import store from "./store/index.js";
-import ShowUsers from "./components/private/ShowUsers.vue";
+import ManageData from "./components/private/management/ManageData.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -47,7 +47,7 @@ const router = createRouter({
 
         {
             path: "/manage",
-            component: ShowUsers,
+            component: ManageData,
             meta: { privateProtection: true },
         },
 

@@ -23,7 +23,7 @@ export default {
         url_reset_password: "http://localhost:3100/resetPassword",
         url_change_password: "http://localhost:3100/changePassword",
         url_get_users: "http://localhost:3100/user/getUsers",
-        url_update_users: "http://localhost:3100/user/pdateUser",
+        url_update_users: "http://localhost:3100/user/updateUser",
         url_delete_users: "http://localhost:3100/user/deleteUser",
         url_event_delete: "http://localhost:3100/event/deleteEvent",
         url_event_get: "http://localhost:3100/event/getEvent",

@@ -1,6 +1,6 @@
-import mutations from './mutations.js'
-import actions from './actions.js'
-import getters from './getters.js'
+import mutations from "./mutations.js";
+import actions from "./actions.js";
+import getters from "./getters.js";
 
 export default {
     namespaced: true,
@@ -20,10 +20,10 @@ export default {
             competition_type: null,
             judging_systems: null,
             rounds: null,
-
-        }
+            roles: null,
+        };
     },
     mutations,
     actions,
-    getters
-}
+    getters,
+};

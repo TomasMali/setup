@@ -22,6 +22,35 @@ router.get("/getUsers", (req, res, next) => {
     );
 });
 
+router.post("/updateUser", (req, res, next) => {
+    const u = req.body.user;
+
+    console.log(u);
+
+    //  if (false)
+    pool.query(
+        "UPDATE USERS set name = $1 ,surname = $2 ,email = $3 ,license_start = $4 ,license_end = $5 ,role = $6  WHERE id = $7", [u.name, u.surname, u.email, u.license_start, u.license_end, u.role, u.id],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            // se ho trovato l'utente a db
+            if (results.rowCount > 0) {
+                // send email
+
+                return res.status(200).json({
+                    status: 200,
+                });
+            } else {
+                return res.status(401).json({
+                    code: 401,
+                    message: "User does not exsists! Please try with another user!",
+                });
+            }
+        }
+    );
+});
+
 /**
  * Inserts a new user if it doesnt exists
  * Generates an encoded password
@@ -116,12 +145,12 @@ router.post("/login", (req, res, next) => {
 
                         // send email
                         /*    
-                                                                                                                                                                                                                                                                                                                                            sendMail({
-                                                                                                                                                                                                                                                                                                                                                to: "tomasmali08@gmail.com",
-                                                                                                                                                                                                                                                                                                                                                subject: "My first email from nodejs",
-                                                                                                                                                                                                                                                                                                                                                text: "Ciao io sono tmas mali, email generato automaticamente"
-                                                                                                                                                                                                                                                                                                                                            })
-                                                                                                                                                                                                                                                                                                                                            */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    sendMail({
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        to: "tomasmali08@gmail.com",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        subject: "My first email from nodejs",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        text: "Ciao io sono tmas mali, email generato automaticamente"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    })
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    */
 
                         // l'oggetto da ritornare
                         console.log(results.rows[0].email);

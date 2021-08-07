@@ -1,20 +1,13 @@
 <template>
   <div>
-    <base-dialog :show="isLoading" fixed title="Loading...">
-      <base-spinner></base-spinner>
-    </base-dialog>
-    <div class="container mt-5">
-      <div class="table-responsive">
-        <table class="table table-responsive  table-sm table-hover text-center">
+    <div class="container my-5">
+      <div class="table-responsive ">
+        <table class="table table-hover table-responsive  table-sm text-center">
           <thead class="bg-dark text-white">
             <tr class="">
               <th scope="col">#</th>
-              <th scope="col">Edit</th>
+
               <th scope="col">Name</th>
-              <th scope="col">Save</th>
-              <th scope="col">Surname</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
 
               <th scope="col">Public</th>
               <th scope="col">Events</th>
@@ -25,52 +18,39 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(user, index) in users" :key="user.email">
+            <tr v-for="(role, index) in roles" :key="role.id">
               <th scope="row">{{ index + 1 }}</th>
 
-              <td>
-                <div class="px-4 cursor-pointer">
-                  <i class="fas fa-save"></i>
-                </div>
-              </td>
-              <td>
-                <div class="px-4 cursor-pointer">
-                  <i class="fas fa-edit"></i>
-                </div>
+              <td class="text-center mx-0 px-0 ">
+                <input type="text" v-model="role.name" class="text-center" />
               </td>
 
-              <td>{{ user.name }}</td>
-              <td>{{ user.surname }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.role_name }}</td>
-
               <td>
                 <input
                   type="checkbox"
                   id="checkbox"
-                  v-model="user.page.allow.public"
+                  v-model="role.page.allow.public"
                 />
               </td>
               <td>
                 <input
                   type="checkbox"
                   id="checkbox"
-                  v-model="user.page.allow.events"
+                  v-model="role.page.allow.events"
                 />
               </td>
               <td>
                 <input
                   type="checkbox"
                   id="checkbox"
-                  v-model="user.page.allow.competitions"
+                  v-model="role.page.allow.competitions"
                 />
               </td>
-              <td class=" ">
+              <td>
                 <input
-                  class=""
                   type="checkbox"
                   id="checkbox"
-                  v-model="user.page.allow.manageUser"
+                  v-model="role.page.allow.manageUser"
                 />
               </td>
             </tr>
@@ -85,17 +65,17 @@
 export default {
   data() {
     return {
-      users: null,
+      roles: null,
+
       isLoading: false,
     };
   },
   methods: {
-    async loadUsers() {
+    async loadRolesTable() {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("user/fetchUsers");
-
-        this.users = this.$store.getters["user/getUsers"];
+        await this.$store.dispatch("tab/getTabs", "Roles");
+        this.roles = this.$store.getters["tab/get" + "Roles"];
       } catch (error) {
         console.log(error);
       }
@@ -103,7 +83,7 @@ export default {
     },
   },
   created() {
-    this.loadUsers();
+    this.loadRolesTable();
   },
 };
 </script>
