@@ -15,6 +15,7 @@
     <!------------------------------------------------------------->
 
     <create-dialog
+      :showBottons="true"
       :show="showDialog && !isLoading"
       :insertOff="checkItems.length <= 0 || event.value === null"
       title="Create From Fids"

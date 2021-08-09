@@ -11,8 +11,8 @@
         <section>
           <slot></slot>
         </section>
-        <menu v-if="!fixed">
-          <slot name="actions">
+        <menu :show="!fixed">
+          <slot name="actions" v-if="showBottons">
             <!-- :class="{ insertButtonDisabled: insertOff }" -->
             <base-button @click="tryInsert"> Insert</base-button>
             <base-button @click="tryClose">Close</base-button>
@@ -40,6 +40,10 @@ export default {
       default: false,
     },
     insertOff: {
+      type: Boolean,
+      required: false,
+    },
+    showBottons: {
       type: Boolean,
       required: false,
     },
@@ -117,7 +121,7 @@ menu {
   padding: 1rem;
   display: flex;
   justify-content: flex-end;
-  margin: 0;
+  margin: 20;
 }
 
 .dialog-enter-from,

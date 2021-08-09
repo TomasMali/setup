@@ -7,12 +7,22 @@
       >{{ error }}</base-dialog
     >
 
+    <error-dialog
+      dialogType="warning"
+      :show="!!warning"
+      @ok="deleteItem"
+      title="Attention!"
+      @close="handleWarning"
+      >{{ warning }}</error-dialog
+    >
+
     <base-dialog :show="isLoading" fixed title="Authenticating...">
       <base-spinner></base-spinner>
     </base-dialog>
 
     <create-dialog
       :show="!!openDialogEventCreation"
+      :showBottons="false"
       title="Create an event"
       @close="manageDialogEvent"
     >
@@ -278,7 +288,7 @@
               <td>
                 <div
                   class="px-4 cursor-pointer"
-                  @click="deleteItem(item.name, item.id)"
+                  @click="confirmDeletion(item.name, item.id)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -359,9 +369,13 @@ export default {
         isValid: true,
       },
 
+      eventParam: "",
+      idEventParam: "",
+
       isFormValid: true,
       isLoading: false,
       error: null,
+      warning: null,
       openDialogEventCreation: null,
       isMobile: false,
     };
@@ -373,29 +387,35 @@ export default {
       } else this.isMobile = false;
     },
 
-    async deleteItem(eventParam, idEventParam) {
-      if (
-        confirm(
-          "Are you sure you want to delete this event from database? All the competitions related to this event will be deleted?"
-        )
-      ) {
-        // do the delete
-        try {
-          const actionPayload = {
-            name: eventParam,
-            user: this.$store.getters["auth/userId"],
-            idEvent: idEventParam,
-          };
-          await this.$store.dispatch("event/deleteEvent", actionPayload);
+    confirmDeletion(eventParam, idEventParam) {
+      this.eventParam = eventParam;
+      this.idEventParam = idEventParam;
+      this.warning =
+        "Are you sure you want to delete this event from database? All the competitions related to this event will be deleted?";
+    },
 
-          this.loadEvents();
-        } catch (error) {
-          this.error =
-            "Can't delete this event because it's used!" ||
-            "Failed to authenticate";
-        }
-        this.isLoading = false;
+    async deleteItem() {
+      this.handleWarning();
+      // do the delete
+      try {
+        const actionPayload = {
+          name: this.eventParam,
+          user: this.$store.getters["auth/userId"],
+          idEvent: this.idEventParam,
+        };
+        await this.$store.dispatch("event/deleteEvent", actionPayload);
+
+        this.loadEvents();
+      } catch (error) {
+        this.error =
+          "Can't delete this event because it's used!" ||
+          "Failed to authenticate";
       }
+      this.isLoading = false;
+    },
+
+    handleWarning() {
+      this.warning = null;
     },
 
     dateConverter(value) {

@@ -3,7 +3,7 @@
     <div v-if="show" @click="tryClose" class="backdrop"></div>
     <transition name="dialog">
       <dialog open v-if="show">
-        <header>
+        <header :class="headerColor">
           <slot name="header">
             <h2>{{ title }}</h2>
           </slot>
@@ -13,7 +13,12 @@
         </section>
         <menu v-if="!fixed">
           <slot name="actions">
-            <base-button class="red" @click="tryClose">Close</base-button>
+            <base-button :class="colorType" @click="$emit('ok')">
+              OK</base-button
+            >
+            <base-button @click="tryClose" :class="colorType"
+              >Close</base-button
+            >
           </slot>
         </menu>
       </dialog>
@@ -37,8 +42,12 @@ export default {
       required: false,
       default: false,
     },
+    dialogType: {
+      type: String,
+      required: false,
+    },
   },
-  emits: ["close"],
+  emits: ["close", "ok"],
   methods: {
     tryClose() {
       if (this.fixed) {
@@ -47,12 +56,34 @@ export default {
       this.$emit("close");
     },
   },
+  computed: {
+    colorType() {
+      return this.dialogType === "warning" ? "yellow" : "red";
+    },
+    headerColor() {
+      return this.dialogType === "warning"
+        ? "headerColorYellow"
+        : "headerColorRed";
+    },
+  },
 };
 </script>
 
 <style scoped>
 .red {
   background: red;
+}
+
+.yellow {
+  background: #df971c;
+}
+
+.headerColorRed {
+  background-color: #f04d0d;
+}
+
+.headerColorYellow {
+  background-color: #df971c;
 }
 
 .backdrop {
@@ -82,7 +113,7 @@ dialog {
 
 header {
   /** background-color: #3a0061; */
-  background-color: #f04d0d;
+
   color: white;
   width: 100%;
   padding: 1rem;

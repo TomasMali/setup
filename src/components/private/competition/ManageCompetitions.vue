@@ -1,5 +1,14 @@
 <template>
   <div>
+    <error-dialog
+      dialogType="warning"
+      :show="!!warning"
+      @ok="deleteItem"
+      title="Attention!"
+      @close="handleWarning"
+      >{{ warning }}</error-dialog
+    >
+
     <base-dialog
       :show="!!error"
       :type="typeDialog"
@@ -102,7 +111,7 @@
                 <td>
                   <div
                     class="px-4 cursor-pointer"
-                    @click="deleteItem(item.id, item.license)"
+                    @click="confirmDeletion(item.id, item.license)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -148,10 +157,13 @@ export default {
       //
       event: null,
       events: null,
+      id: "",
+      license: "",
       //
       isFormValid: true,
       isLoading: false,
       error: null,
+      warning: null,
       openDialogCompetitionCreationFromFids: null,
       openDialogCompetitionCreation: null,
       isMobile: false,
@@ -220,34 +232,39 @@ export default {
         //   console.log(error);
       }
     },
-    async deleteItem(id, license) {
-      if (
-        confirm(
-          "Are you sure you want to delete this competition from database?"
-        )
-      ) {
-        // do the delete
-        try {
-          const actionPayload = {
-            id: id,
-            license: license,
-            user: this.$store.getters["auth/userId"],
-          };
-          await this.$store.dispatch(
-            "competition/deleteMyCompetition",
-            actionPayload
-          );
-          this.loadMyCompetitions();
-        } catch (error) {
-          this.error = error.message || "Failed to authenticate";
-        }
-        this.isLoading = false;
+    confirmDeletion(id, license) {
+      this.id = id;
+      this.license = license;
+      this.warning =
+        "Are you sure you want to delete this competition from database?";
+    },
+    async deleteItem() {
+      // do the delete
+      this.handleWarning();
+      try {
+        const actionPayload = {
+          id: this.id,
+          license: this.license,
+          user: this.$store.getters["auth/userId"],
+        };
+        await this.$store.dispatch(
+          "competition/deleteMyCompetition",
+          actionPayload
+        );
+        this.loadMyCompetitions();
+      } catch (error) {
+        this.error = error.message || "Failed to authenticate";
       }
+      this.isLoading = false;
     },
 
     handleError() {
       this.error = null;
       this.typeDialog = null;
+    },
+
+    handleWarning() {
+      this.warning = null;
     },
 
     manageDialogCompetitionFromFids() {
