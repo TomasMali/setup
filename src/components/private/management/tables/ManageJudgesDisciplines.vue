@@ -1,0 +1,69 @@
+<template>
+  <div>
+    <base-dialog :show="isLoading" fixed title="Loading table...">
+      <base-spinner></base-spinner>
+    </base-dialog>
+
+    <div class="container my-5">
+      <div class="table-responsive ">
+        <table class="table table-hover table-responsive  table-sm ">
+          <thead class="bg-dark text-white">
+            <tr class="">
+              <th scope="col">#</th>
+              <th scope="col">Id judges discipline</th>
+
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in judgesDisciplines" :key="index">
+              <th scope="row">{{ index + 1 }}</th>
+
+              <td class=" mx-0 px-0 ">
+                <input type="text" v-model="item.id" />
+              </td>
+
+              <td>
+                <input type="text" v-model="item.description" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      judgesDisciplines: null,
+      isLoading: false,
+    };
+  },
+  methods: {
+    async loadJudgesDisciplinesTable() {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("tab/getTabs", "Judges_disciplines");
+        this.judgesDisciplines = this.$store.getters[
+          "tab/get" + "Judges_disciplines"
+        ];
+      } catch (error) {
+        console.log(error);
+      }
+      this.isLoading = false;
+    },
+  },
+  created() {
+    this.loadJudgesDisciplinesTable();
+  },
+};
+</script>
+
+<style scoped>
+.table-responsive {
+  max-height: 400px;
+}
+</style>

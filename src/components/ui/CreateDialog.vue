@@ -110,7 +110,7 @@ section {
   padding: 1rem;
   height: 490px;
 
-  overflow-y: scroll;
+  /* overflow-y: scroll;   */
 }
 
 menu {

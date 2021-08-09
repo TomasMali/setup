@@ -119,18 +119,6 @@ router.get("/unit_type", (req, res, next) => {
     );
 });
 
-router.get("/desc_unit_type", (req, res, next) => {
-    pool.query(
-        "SELECT * FROM tab_unit_type WHERE id = $1", [req.query.id],
-        (error, results) => {
-            if (error) {
-                throw error;
-            }
-            res.status(200).json(results.rows[0]);
-        }
-    );
-});
-
 /**
  * Gets all the disciplines   sdfsdfsdfsdfsdf
  */

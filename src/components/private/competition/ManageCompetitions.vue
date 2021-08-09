@@ -130,7 +130,13 @@
 </template>
 
 <script>
+import NewCompetition from "./NewCompetition.vue";
+import LoadFids from "./LoadFids.vue";
 export default {
+  components: {
+    NewCompetition,
+    LoadFids,
+  },
   props: ["eventId"],
   data() {
     return {

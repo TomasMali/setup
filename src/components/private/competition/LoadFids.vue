@@ -46,84 +46,90 @@
           </div>
         </div>
 
-        <table class="w3-table-all w3-small mb-4">
-          <thead>
-            <tr class="w3-blue">
-              <th>Insert</th>
-              <th>Discipline</th>
-              <th>Age group</th>
-              <th v-if="!isMobile">Class</th>
-              <th v-if="!isMobile">Unit type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-primary">
-              <td>
-                <div class="cursor-pointer ml-4 my-2" @click="cleanFilter()">
-                  <img
-                    src="https://img.icons8.com/material-outlined/18/000000/clear-filters.png"
-                  />
-                </div>
-              </td>
-              <td>
-                <input
-                  class="my-2"
-                  type="text"
-                  placeholder="&#xF002;  Search"
-                  style="font-family: Arial, FontAwesome"
-                  v-model="search.discipline"
-                />
-              </td>
-              <td>
-                <input
-                  class="my-2"
-                  type="text"
-                  placeholder="&#xF002;  Search"
-                  style="font-family: Arial, FontAwesome"
-                  v-model="search.ageGroup"
-                />
-              </td>
-              <td v-if="!isMobile">
-                <input
-                  class="my-2"
-                  type="text"
-                  placeholder="&#xF002;  Search"
-                  style="font-family: Arial, FontAwesome"
-                  v-model="search.class"
-                />
-              </td>
-              <td v-if="!isMobile">
-                <input
-                  class="my-2"
-                  type="text"
-                  placeholder="&#xF002;  Search"
-                  style="font-family: Arial, FontAwesome"
-                  v-model="search.unitType"
-                />
-              </td>
-            </tr>
-
-            <tr class="w3-hover-grey" v-for="item in filterFids" :key="item.id">
-              <td>
-                <div class="form-check">
+        <div class="table-responsive ">
+          <table class="table  table-hover table-sm">
+            <thead class="table-dark">
+              <tr class="">
+                <th>Insert</th>
+                <th>Discipline</th>
+                <th>Age group</th>
+                <th v-if="!isMobile">Class</th>
+                <th v-if="!isMobile">Unit type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-primary">
+                <td>
+                  <div class="cursor-pointer ml-4 my-2" @click="cleanFilter()">
+                    <img
+                      src="https://img.icons8.com/material-outlined/18/000000/clear-filters.png"
+                    />
+                  </div>
+                </td>
+                <td>
                   <input
-                    v-model="checkItems"
-                    :value="item.id"
-                    type="checkbox"
-                    class="form-check-input my_checkbox"
-                    id="exampleCheck1"
+                    class="my-2"
+                    type="text"
+                    placeholder="&#xF002;  Search"
+                    style="font-family: Arial, FontAwesome"
+                    v-model="search.discipline"
                   />
-                </div>
-              </td>
-              <td>{{ item.desc_discipline }}</td>
-              <td>{{ item.age_group }}</td>
-              <td v-if="!isMobile">{{ item.classe }}</td>
-              <td v-if="!isMobile">
-                {{ item.desc_unit_type }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </td>
+                <td>
+                  <input
+                    class="my-2"
+                    type="text"
+                    placeholder="&#xF002;  Search"
+                    style="font-family: Arial, FontAwesome"
+                    v-model="search.ageGroup"
+                  />
+                </td>
+                <td v-if="!isMobile">
+                  <input
+                    class="my-2"
+                    type="text"
+                    placeholder="&#xF002;  Search"
+                    style="font-family: Arial, FontAwesome"
+                    v-model="search.class"
+                  />
+                </td>
+                <td v-if="!isMobile">
+                  <input
+                    class="my-2"
+                    type="text"
+                    placeholder="&#xF002;  Search"
+                    style="font-family: Arial, FontAwesome"
+                    v-model="search.unitType"
+                  />
+                </td>
+              </tr>
+
+              <tr
+                class="w3-hover-grey"
+                v-for="item in filterFids"
+                :key="item.id"
+              >
+                <td>
+                  <div class="form-check">
+                    <input
+                      v-model="checkItems"
+                      :value="item.id"
+                      type="checkbox"
+                      class="form-check-input my_checkbox"
+                      id="exampleCheck1"
+                    />
+                  </div>
+                </td>
+                <td>{{ item.desc_discipline }}</td>
+                <td>{{ item.age_group }}</td>
+                <td v-if="!isMobile">{{ item.classe }}</td>
+                <td v-if="!isMobile">
+                  {{ item.desc_unit_type }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </create-dialog>
 
@@ -268,9 +274,16 @@ export default {
 </script>
 
 <style scoped>
-.w3-table td,
-.w3-table th,
-.w3-table-all td {
+.my_checkbox {
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  margin-left: 1px;
+  border-color: #0082e6;
+}
+
+td,
+td {
   padding: 0px 1px;
   display: table-cell;
   text-align: left;
@@ -278,11 +291,15 @@ export default {
   font-size: 11px;
 }
 
-.my_checkbox {
-  width: 18px;
-  height: 18px;
-  margin-top: 4px;
-  margin-left: 1px;
-  border-color: #0082e6;
+th {
+  padding: 5px 1px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+.table-responsive {
+  max-height: 400px;
 }
 </style>
