@@ -30,6 +30,66 @@ router.get("/getMyRelations", async(req, res, next) => {
     );
 });
 
+router.post("/updateMyRelation", (req, res, next) => {
+    const c = req.body.competition;
+
+    // console.log(c);
+
+    //if (false)
+    pool.query(
+        'UPDATE competitions set license=$1, discipline=$2, age_group=$3, classe=$4, unit_type=$5, judging_system_preliminary=$6, judging_system_final=$7, calculation_type=$8, first_age_min=$9, first_age_max=$10, second_age_min = $11, second_age_max = $12, alternative_age_group = $13, perc_fq_age = $14, perc_fq_class = $15, members_min = $16, members_max = $17, exclusive_gender = $18, music_required = $19, alias = $20, dances = $21, start_competition = $22, end_competition = $23, title = $24, stars = $25, hall = $26, price = $27 WHERE id = $28 AND  "user" = $29 AND event = $30', [
+            c.license,
+            c.discipline,
+            c.age_group,
+            c.classe,
+            c.unit_type,
+            c.judging_system_preliminary,
+            c.judging_system_final,
+            c.calculation_type,
+            c.first_age_min,
+            c.first_age_max,
+            c.second_age_min,
+            c.second_age_max,
+            c.alternative_age_group,
+            c.perc_fq_age,
+            c.perc_fq_class,
+            c.members_min,
+            c.members_max,
+            c.exclusive_gender,
+            c.music_required,
+            c.alias,
+            c.dances,
+            c.start_competition,
+            c.end_competition,
+            c.title,
+            c.stars,
+            c.hall,
+            c.price,
+            c.id,
+            c.user,
+            c.event,
+        ],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            // se ho trovato l'utente a db
+            if (results.rowCount > 0) {
+                // send email
+
+                return res.status(200).json({
+                    status: 200,
+                });
+            } else {
+                return res.status(401).json({
+                    code: 401,
+                    message: "Competition does not exsists! Please try with another competition!",
+                });
+            }
+        }
+    );
+});
+
 // insertFromFidsCompetitions
 
 router.post("/insertFromFidsCompetitions", (req, res, next) => {

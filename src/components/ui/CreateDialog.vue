@@ -113,8 +113,6 @@ header h2 {
 section {
   padding: 1rem;
   height: 490px;
-
-  /* overflow-y: scroll;   */
 }
 
 menu {

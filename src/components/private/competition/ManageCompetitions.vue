@@ -70,68 +70,86 @@
       <!-- My Components List -->
       <div class="row   m-0">
         <div class="col m-4">
-          <table class="w3-table-all w3-small mb-4">
-            <thead>
-              <tr class="w3-blue">
-                <th v-if="!isMobile">Unit type</th>
-                <th>License</th>
-                <th>Discipline</th>
-                <th>Age group</th>
-                <th v-if="!isMobile">Class</th>
-
-                <th v-if="!isMobile">Title</th>
-                <th v-if="!isMobile">Start</th>
-                <th v-if="!isMobile">End</th>
-                <th v-if="!isMobile">Stars</th>
-                <th v-if="!isMobile">Hall</th>
-                <th v-if="!isMobile">Price</th>
-
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                class="w3-hover-grey"
-                v-for="item in myCompetitions"
-                :key="item.id"
+          <div class=" my-5">
+            <div class=" table-responsive">
+              <table
+                class="table table-responsive table-bordered table-sm text-center  my-5"
               >
-                <td v-if="!isMobile">{{ item.desc_unit_type }}</td>
-                <td>{{ item.license }}</td>
-                <td>{{ item.desc_discipline }}</td>
-                <td>{{ item.age_group }}</td>
-                <td v-if="!isMobile">{{ item.classe }}</td>
+                <thead class="bg-dark text-white">
+                  <tr class="">
+                    <th scope="col" v-if="!isMobile">Unit type</th>
+                    <th scope="col">License</th>
+                    <th scope="col">Discipline</th>
+                    <th scope="col">Age group</th>
+                    <th scope="col" v-if="!isMobile">Class</th>
 
-                <td v-if="!isMobile">{{ item.title }}</td>
-                <td v-if="!isMobile">{{ item.start_competition }}</td>
-                <td v-if="!isMobile">{{ item.end_competition }}</td>
-                <td v-if="!isMobile">{{ item.stars }}</td>
-                <td v-if="!isMobile">{{ item.hall }}</td>
-                <td v-if="!isMobile">{{ item.price }}</td>
+                    <th scope="col" v-if="!isMobile">Title</th>
+                    <th scope="col" v-if="false">Start</th>
+                    <th scope="col" v-if="false">End</th>
+                    <th scope="col" v-if="!isMobile">Stars</th>
+                    <th scope="col" v-if="!isMobile">Hall</th>
+                    <th scope="col" v-if="!isMobile">Price</th>
+                    <th scope="col">Save</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in myCompetitions" :key="item.id">
+                    <td v-if="!isMobile">{{ item.desc_unit_type }}</td>
 
-                <td>
-                  <div
-                    class="px-4 cursor-pointer"
-                    @click="confirmDeletion(item.id, item.license)"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    <td>{{ item.license }}</td>
+                    <td>{{ item.desc_discipline }}</td>
+                    <td>{{ item.age_group }}</td>
+                    <td v-if="!isMobile">{{ item.classe }}</td>
+
+                    <td v-if="!isMobile" class=" ">
+                      <input type="text" v-model="item.title" />
+                    </td>
+
+                    <td v-if="false">
+                      <input
+                        name="start_competition"
+                        id="start_competition"
+                        type="date"
+                        v-model.trim="item.start_competition"
+                        placeholder="End date registration"
                       />
-                    </svg>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                    </td>
+                    <td v-if="false">
+                      <input type="date" v-model="item.end_competition" />
+                    </td>
+                    <td v-if="!isMobile">
+                      <input type="checkbox" v-model.number="item.stars" />
+                    </td>
+                    <td v-if="!isMobile">
+                      <input type="text" v-model="item.hall" />
+                    </td>
+                    <td v-if="!isMobile">
+                      <input type="number" v-model.number="item.price" />
+                    </td>
+
+                    <td>
+                      <div
+                        class=" cursor-pointer"
+                        @click="saveCompetition(item)"
+                      >
+                        <i class="fas fa-save"></i>
+                      </div>
+                    </td>
+
+                    <td>
+                      <div
+                        class=" cursor-pointer"
+                        @click="confirmDeletion(item.id, item.license)"
+                      >
+                        <i class="fas fa-trash-alt"></i>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -141,6 +159,7 @@
 <script>
 import NewCompetition from "./NewCompetition.vue";
 import LoadFids from "./LoadFids.vue";
+import moment from "moment";
 export default {
   components: {
     NewCompetition,
@@ -187,6 +206,23 @@ export default {
     },
   },
   methods: {
+    dateConverter(value) {
+      if (value) {
+        return moment(String(value)).format("YYYY-MM-DD");
+      }
+    },
+    async saveCompetition(competiton) {
+      try {
+        await this.$store.dispatch(
+          "competition/updateMyCompetition",
+          competiton
+        );
+        this.loadMyCompetitions();
+      } catch (error) {
+        this.error = error.message || "Failed to authenticate";
+      }
+    },
+
     async loadMyCompetitions() {
       this.isLoading = true;
       this.openDialogCompetitionCreationFromFids = null;
@@ -301,48 +337,32 @@ export default {
 </script>
 
 <style scoped>
-@media (min-width: 768px) {
-  .row_padding {
-    padding: 20px 260px;
-  }
+@media (min-width: 2000px) {
 }
 
-div {
-  -webkit-user-select: none; /* Chrome all / Safari all */
-  -moz-user-select: none; /* Firefox all */
-  -ms-user-select: none; /* IE 10+ */
-  user-select: none;
+td,
+tr {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
-select {
-  -webkit-user-select: none; /* Chrome all / Safari all */
-  -moz-user-select: none; /* Firefox all */
-  -ms-user-select: none; /* IE 10+ */
-  user-select: none;
-  font-size: 0.9rem;
-  padding: 2px 5px;
-}
+
 .selected {
   background-color: cornflowerblue;
-}
-tbody {
-  display: block;
-  height: 500px;
-  overflow: auto;
-}
-thead,
-tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed; /* even columns width , fix width of table too*/
-}
-thead {
-  width: calc(
-    100% - 1em
-  ); /* scrollbar is average 1em/16px width, remove it from thead width */
 }
 
 .my_checkbox {
   width: 5px;
   height: 5px;
-}</style
->>
+}
+
+.table-responsive {
+  max-height: 400px;
+}
+
+input {
+  background-color: white;
+  text-align: center;
+}
+</style>

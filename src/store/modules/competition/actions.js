@@ -1,6 +1,40 @@
 import cred from "../../cred.js";
 
 export default {
+    async updateMyCompetition(_, payload) {
+        let url = cred.getLinkType().url_my_competition_update;
+        //   console.log(payload);
+
+        const response = await fetch(url, {
+            method: "POST",
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer",
+            enctype: "mutipart/form-data",
+            body: JSON.stringify({
+                competition: payload,
+            }),
+        });
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            if (responseData.code === 409) {
+                throw new Error(responseData.message);
+            } else
+                throw new Error(
+                    "Request failed with error code: " +
+                    response.status +
+                    " Message error from server: " +
+                    responseData.message
+                );
+        }
+    },
+
     async getFidsCompetitions(context) {
         let url = cred.getLinkType().url_fids_competition_get;
         const response = await fetch(url, {

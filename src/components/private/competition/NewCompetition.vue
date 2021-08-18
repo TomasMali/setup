@@ -6,21 +6,22 @@
       title="Create new competition"
       @close="$emit('close')"
     >
-      <div class="card text-dark bg-light mb-0">
+      <div class="card text-dark bg-light px-5  mb-0 scroll">
         <div class="card-body">
           <form class="" @submit.prevent="formSubmit">
             <!--    Events   -->
             <div class="p-2">
-              <label for="" class="col-form-label">Event</label>
-
               <select
                 v-model="events.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Events')"
               >
                 <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the event</option>
+                <option value="" disabled selected id="text-color"
+                  >Choose the event</option
+                >
                 <option
                   v-for="item in events.tab"
                   :key="item.id"
@@ -33,11 +34,10 @@
             <!--    Dances   -->
 
             <div class="p-2">
-              <label for="" class="col-form-label">Dances</label>
-
               <select
                 v-model="dances.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Dances')"
               >
@@ -55,11 +55,10 @@
             <!--    Disciplines   -->
 
             <div class="p-2">
-              <label for="" class="col-form-label">Disciplines</label>
-
               <select
                 v-model="disciplines.value"
-                class="w3-select  w3-small w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Disciplines')"
               >
@@ -78,13 +77,10 @@
 
             <!--    Select judges disciplines   -->
             <div class="p-2">
-              <label for="" class="col-form-label"
-                >Select judges disciplines</label
-              >
-
               <select
                 v-model="judges_disciplines.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Judges_disciplines')"
               >
@@ -104,11 +100,10 @@
 
             <!--    Judges licenses   -->
             <div class="p-2">
-              <label for="" class="col-form-label">Judges licenses</label>
-
               <select
                 v-model="judges_licenses.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Judges_licenses')"
               >
@@ -128,11 +123,10 @@
 
             <!--    Official licenses  -->
             <div class="p-2">
-              <label for="" class="col-form-label">Official licenses</label>
-
               <select
                 v-model="officials_licenses.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Officials_licenses')"
               >
@@ -152,11 +146,10 @@
 
             <!--    Choose official roles -->
             <div class="p-2">
-              <label for="" class="col-form-label">Choose official roles</label>
-
               <select
                 v-model="officials_roles.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Officials_roles')"
               >
@@ -178,11 +171,10 @@
 
             <!--    Sectors discipline-->
             <div class="p-2">
-              <label for="" class="col-form-label">Sectors discipline</label>
-
               <select
                 v-model="sectors_discipline.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Sectors_discipline')"
               >
@@ -202,10 +194,10 @@
 
             <!--    Unit type<-->
             <div class="p-2">
-              <label for="" class="col-form-label">Unit type</label>
               <select
                 v-model="unit_type.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Unit_type')"
               >
@@ -223,10 +215,10 @@
 
             <!--    Choose age category  -->
             <div class="p-2">
-              <label for="" class="col-form-label">Choose age category</label>
               <select
                 v-model="age_category.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Age_category')"
               >
@@ -244,10 +236,10 @@
 
             <!--    Classe -->
             <div class="p-2">
-              <label for="" class="col-form-label">Classe</label>
               <select
                 v-model="classe.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Classe')"
               >
@@ -265,10 +257,10 @@
 
             <!--    Competition type -->
             <div class="p-2">
-              <label for="" class="col-form-label">Competition type</label>
               <select
                 v-model="competition_type.value"
-                class="w3-select  w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Competition_type')"
               >
@@ -288,12 +280,10 @@
 
             <!--    Choose judging systems-->
             <div class="p-2">
-              <label for="" class="col-form-label"
-                >Choose judging systems</label
-              >
               <select
                 v-model="judging_systems.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Judging_systems')"
               >
@@ -313,15 +303,17 @@
 
             <!--    Choose rounds-->
             <div class="p-2">
-              <label for="" class="col-form-label">Choose rounds</label>
               <select
                 v-model="rounds.value"
-                class="w3-select w3-small  w3-border text-black"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
                 name="option"
                 @click="loadTable('Rounds')"
               >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose rounds</option>
+                <optgroup disabled hidden> </optgroup>
+                <option value="" disabled selected>
+                  <div style="color: red;">Choose rounds</div>
+                </option>
                 <option
                   v-for="item in rounds.tab"
                   :key="item.id"
@@ -527,3 +519,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.scroll {
+  height: 420px;
+  overflow-y: scroll;
+}
+
+select {
+  width: 100%;
+  padding: 5px;
+  border-radius: 10px;
+}
+select option {
+  color: red;
+}
+</style>
