@@ -81,6 +81,7 @@
                   v-model="user.page.allow.events"
                 />
               </td>
+
               <td>
                 <input
                   disabled

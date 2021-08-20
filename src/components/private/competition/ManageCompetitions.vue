@@ -84,8 +84,8 @@
                     <th scope="col" v-if="!isMobile">Class</th>
 
                     <th scope="col" v-if="!isMobile">Title</th>
-                    <th scope="col" v-if="false">Start</th>
-                    <th scope="col" v-if="false">End</th>
+                    <th scope="col" v-if="!isMobile">Start</th>
+                    <th scope="col" v-if="!isMobile">End</th>
                     <th scope="col" v-if="!isMobile">Stars</th>
                     <th scope="col" v-if="!isMobile">Hall</th>
                     <th scope="col" v-if="!isMobile">Price</th>
@@ -96,7 +96,6 @@
                 <tbody>
                   <tr v-for="item in myCompetitions" :key="item.id">
                     <td v-if="!isMobile">{{ item.desc_unit_type }}</td>
-
                     <td>{{ item.license }}</td>
                     <td>{{ item.desc_discipline }}</td>
                     <td>{{ item.age_group }}</td>
@@ -106,16 +105,11 @@
                       <input type="text" v-model="item.title" />
                     </td>
 
-                    <td v-if="false">
-                      <input
-                        name="start_competition"
-                        id="start_competition"
-                        type="date"
-                        v-model.trim="item.start_competition"
-                        placeholder="End date registration"
-                      />
+                    <td v-if="!isMobile">
+                      <input type="date" v-model="item.start_competition" />
                     </td>
-                    <td v-if="false">
+
+                    <td v-if="!isMobile">
                       <input type="date" v-model="item.end_competition" />
                     </td>
                     <td v-if="!isMobile">
@@ -159,7 +153,7 @@
 <script>
 import NewCompetition from "./NewCompetition.vue";
 import LoadFids from "./LoadFids.vue";
-import moment from "moment";
+
 export default {
   components: {
     NewCompetition,
@@ -206,11 +200,6 @@ export default {
     },
   },
   methods: {
-    dateConverter(value) {
-      if (value) {
-        return moment(String(value)).format("YYYY-MM-DD");
-      }
-    },
     async saveCompetition(competiton) {
       try {
         await this.$store.dispatch(
