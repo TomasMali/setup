@@ -9,6 +9,8 @@ import BaseCard from "./components/ui/BaseCard.vue";
 import BaseButton from "./components/ui/BaseButton.vue";
 import BaseBadge from "./components/ui/BaseBadge.vue";
 import BaseSpinner from "./components/ui/BaseSpinner.vue";
+// vuetify
+import vuetify from "./plugins/vuetify";
 
 import Dialog from "primevue/dialog";
 
@@ -38,4 +40,5 @@ app.component("create-dialog", CreateDialog);
 app.component("error-dialog", ErrorDialog);
 app.component("Dialog", Dialog);
 
+app.use(vuetify);
 app.mount("#app");

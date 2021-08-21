@@ -1,52 +1,139 @@
 <template>
-  <header>
-    <nav>
-      <input type="checkbox" id="check" v-model="clicked" />
-      <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-      </label>
+  <div>
+    <v-list dense nav class="mt-12">
+      <v-list-item link>
+        <v-list-item-icon class="ml-4 mr-3">
+          <v-icon>{{ home.icon }}</v-icon>
+        </v-list-item-icon>
 
-      <label class="logo">
-        <router-link to="/" class="text-white">
-          Muevelo <br />
-          <div class="user" v-if="isEmail">({{ isEmail.split("@")[0] }})</div>
+        <router-link
+          @click="clickSubmit"
+          to="/public"
+          class="routerLink "
+          tag="span"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="text-white">
+              {{ home.title }}
+            </v-list-item-title>
+          </v-list-item-content>
         </router-link>
-      </label>
+      </v-list-item>
 
-      <ul>
-        <li>
-          <router-link @click="clickSubmit" to="/public">Home</router-link>
-        </li>
-        <li v-if="isLoggedIn">
-          <router-link @click="clickSubmit" to="/events">Events</router-link>
-        </li>
-        <li v-if="isLoggedIn">
-          <router-link @click="clickSubmit" to="/manage">Manage</router-link>
-        </li>
-        <!--
-        <li v-if="isLoggedIn">
-          <router-link @click="clickSubmit" to="/competitions"
-            >Competitions</router-link
-          >
-        </li>
--->
-        <li v-if="!isLoggedIn">
-          <router-link @click="clickSubmit" to="/login">Login</router-link>
-        </li>
-        <li v-if="isLoggedIn">
-          <router-link @click="logout" to="/public">Logout</router-link>
-        </li>
-      </ul>
-    </nav>
-  </header>
+      <v-list-item link v-if="isLoggedIn">
+        <v-list-item-icon class="ml-4 mr-3">
+          <v-icon>{{ events.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <router-link
+          @click="clickSubmit"
+          to="/events"
+          class="routerLink "
+          tag="span"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="text-white">
+              {{ events.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </router-link>
+      </v-list-item>
+      <v-list-item link v-if="isLoggedIn">
+        <v-list-item-icon class="ml-4 mr-3">
+          <v-icon>{{ manage.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <router-link
+          @click="clickSubmit"
+          to="/manage"
+          class="routerLink "
+          tag="span"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="text-white">
+              {{ manage.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </router-link>
+      </v-list-item>
+      <v-list-item link v-if="!isLoggedIn">
+        <v-list-item-icon class="ml-4 mr-3">
+          <v-icon>{{ login.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <router-link
+          @click="clickSubmit"
+          to="/login"
+          class="routerLink "
+          tag="span"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="text-white">
+              {{ login.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </router-link>
+      </v-list-item>
+      <v-list-item link v-if="isLoggedIn">
+        <v-list-item-icon class="ml-4 mr-3">
+          <v-icon>{{ logoutRoute.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <router-link
+          @click="logout"
+          to="/public"
+          class="routerLink "
+          tag="span"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="text-white">
+              {{ logoutRoute.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </router-link>
+      </v-list-item>
+    </v-list>
+  </div>
 </template>
 
 <script>
 export default {
+  emits: ["triggerMenuMobile"],
   data() {
     return {
       clicked: false,
       email: null,
+
+      home: {
+        title: "Home",
+        icon: "mdi-home",
+        path: "/public",
+      },
+      events: {
+        title: "Events",
+        icon: "mdi-widgets",
+        path: "/events",
+      },
+      manage: {
+        title: "Manage",
+        icon: "mdi-view-grid-plus-outline",
+        path: "/manage",
+      },
+      login: {
+        title: "Login",
+        icon: "mdi-login",
+        path: "/login",
+      },
+      logoutRoute: {
+        title: "Logout",
+        icon: "mdi-login",
+        path: "/public",
+      },
+
+      right: null,
+      drawer: null,
+      group: null,
+      mobile: null,
     };
   },
   computed: {
@@ -67,6 +154,8 @@ export default {
     },
     clickSubmit() {
       this.clicked = false;
+
+      this.$emit("triggerMenuMobile");
     },
   },
   created() {
@@ -77,109 +166,11 @@ export default {
 </script>
 
 <style scoped>
-* {
-  padding: 0;
-  margin: 0;
-  text-decoration: none;
-  list-style: none;
-  box-sizing: border-box;
-}
 body {
   font-family: montserrat;
 }
-nav {
-  background: #0082e6;
-  height: 80px;
-  width: 100%;
-}
-label.logo {
-  color: white;
-  font-size: 35px;
-  line-height: 80px;
-  padding: 0 100px;
-  font-weight: bold;
-}
-.user {
-  font-size: 12px;
-  margin-top: -55px;
-  margin-left: 17px;
-  color: cornsilk;
-}
-nav ul {
-  float: right;
-  margin-right: 20px;
-}
-nav ul li {
-  display: inline-block;
-  line-height: 80px;
-  margin: 0 5px;
-}
-nav ul li a {
-  color: white;
-  font-size: 17px;
-  padding: 7px 13px;
-  border-radius: 3px;
-  text-transform: uppercase;
-}
-a.active,
-a:hover {
-  background: #1b9bff;
-  transition: 0.5s;
-}
-.checkbtn {
-  font-size: 30px;
-  color: white;
-  float: right;
-  line-height: 80px;
-  margin-right: 40px;
-  cursor: pointer;
-  display: none;
-}
-#check {
-  display: none;
-}
-@media (max-width: 952px) {
-  label.logo {
-    font-size: 30px;
-    padding-left: 50px;
-  }
-  nav ul li a {
-    font-size: 14px;
-  }
-}
-@media (max-width: 858px) {
-  .checkbtn {
-    display: block;
-  }
-  ul {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background: #2c3e50;
-    top: 80px;
-    left: -100%;
-    text-align: center;
-    transition: all 0.5s;
-  }
-  nav ul li {
-    display: block;
-    margin: 50px 0;
-    line-height: 30px;
-  }
-  nav ul li a {
-    font-size: 20px;
-  }
-  a:hover,
-  a.active {
-    background: none;
-    color: #0082e6;
-  }
-  #check:checked ~ ul {
-    left: 0;
-  }
-}
 
-.chiudi #check:checked ~ ul {
-  left: 0;
+* {
+  text-decoration: none;
 }
 </style>

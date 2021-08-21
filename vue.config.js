@@ -1,4 +1,8 @@
 module.exports = {
-    publicPath: "",
     //   baseUrl: '/tomi/',
+    publicPath: "",
+
+    transpileDependencies: [
+      'vuetify'
+    ]
 };
