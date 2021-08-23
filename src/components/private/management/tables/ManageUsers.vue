@@ -25,7 +25,7 @@
           </thead>
           <tbody>
             <tr v-for="(user, index) in users" :key="user.email">
-              <th scope="row">{{ index + 1 }}</th>
+              <td scope="row">{{ index + 1 }}</td>
 
               <td>
                 <div class="px-4 cursor-pointer" @click="saveUser(user)">

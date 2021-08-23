@@ -303,4 +303,7 @@ th {
 .table-responsive {
   max-height: 400px;
 }
+th {
+  background-color: black !important;
+}
 </style>

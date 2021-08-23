@@ -68,84 +68,88 @@
       </div>
 
       <!-- My Components List -->
-      <div class="row   m-0">
-        <div class="col m-4">
-          <div class=" my-5">
-            <div class=" table-responsive">
-              <table
-                class="table table-responsive table-bordered table-sm text-center  my-5"
-              >
-                <thead class="bg-dark text-white">
-                  <tr class="">
-                    <th scope="col" v-if="!isMobile">Unit type</th>
-                    <th scope="col">License</th>
-                    <th scope="col">Discipline</th>
-                    <th scope="col">Age group</th>
-                    <th scope="col" v-if="!isMobile">Class</th>
+      <!--   Table -->
 
-                    <th scope="col" v-if="!isMobile">Title</th>
-                    <th scope="col" v-if="!isMobile">Start</th>
-                    <th scope="col" v-if="!isMobile">End</th>
-                    <th scope="col" v-if="!isMobile">Stars</th>
-                    <th scope="col" v-if="!isMobile">Hall</th>
-                    <th scope="col" v-if="!isMobile">Price</th>
-                    <th scope="col">Save</th>
-                    <th scope="col">Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in myCompetitions" :key="item.id">
-                    <td v-if="!isMobile">{{ item.desc_unit_type }}</td>
-                    <td>{{ item.license }}</td>
-                    <td>{{ item.desc_discipline }}</td>
-                    <td>{{ item.age_group }}</td>
-                    <td v-if="!isMobile">{{ item.classe }}</td>
+      <!--  Fine Table -->
 
-                    <td v-if="!isMobile" class=" ">
-                      <input type="text" v-model="item.title" />
-                    </td>
+      <!--   Table New  -->
 
-                    <td v-if="!isMobile">
-                      <input type="date" v-model="item.start_competition" />
-                    </td>
+      <base-card class="mt-md-16 py-10 ">
+        <v-card class="pa-2 mb-10">
+          <h4 class="text-center text-deep-purple accent-4">
+            My Competition List
+          </h4></v-card
+        >
 
-                    <td v-if="!isMobile">
-                      <input type="date" v-model="item.end_competition" />
-                    </td>
-                    <td v-if="!isMobile">
-                      <input type="checkbox" v-model.number="item.stars" />
-                    </td>
-                    <td v-if="!isMobile">
-                      <input type="text" v-model="item.hall" />
-                    </td>
-                    <td v-if="!isMobile">
-                      <input type="number" v-model.number="item.price" />
-                    </td>
+        <div class=" table-responsive  ">
+          <table class="table  table-bordered table-sm text-center my-5">
+            <thead class="bg-dark text-white">
+              <tr class="">
+                <th scope="col" v-if="!isMobile">Unit type</th>
+                <th scope="col">License</th>
+                <th scope="col">Discipline</th>
+                <th scope="col">Age group</th>
+                <th scope="col" v-if="!isMobile">Class</th>
 
-                    <td>
-                      <div
-                        class=" cursor-pointer"
-                        @click="saveCompetition(item)"
-                      >
-                        <i class="fas fa-save"></i>
-                      </div>
-                    </td>
+                <th scope="col" v-if="!isMobile">Title</th>
+                <th scope="col" v-if="!isMobile">Start</th>
+                <th scope="col" v-if="!isMobile">End</th>
+                <th scope="col" v-if="!isMobile">Stars</th>
+                <th scope="col" v-if="!isMobile">Hall</th>
+                <th scope="col" v-if="!isMobile">Price</th>
+                <th scope="col">Save</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in myCompetitions" :key="item.id">
+                <td v-if="!isMobile">{{ item.desc_unit_type }}</td>
+                <td>{{ item.license }}</td>
+                <td>{{ item.desc_discipline }}</td>
+                <td>{{ item.age_group }}</td>
+                <td v-if="!isMobile">{{ item.classe }}</td>
 
-                    <td>
-                      <div
-                        class=" cursor-pointer"
-                        @click="confirmDeletion(item.id, item.license)"
-                      >
-                        <i class="fas fa-trash-alt"></i>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                <td v-if="!isMobile" class=" ">
+                  <input type="text" v-model="item.title" />
+                </td>
+
+                <td v-if="!isMobile">
+                  <input type="date" v-model="item.start_competition" />
+                </td>
+
+                <td v-if="!isMobile">
+                  <input type="date" v-model="item.end_competition" />
+                </td>
+                <td v-if="!isMobile">
+                  <input type="checkbox" v-model.number="item.stars" />
+                </td>
+                <td v-if="!isMobile">
+                  <input type="text" v-model="item.hall" />
+                </td>
+                <td v-if="!isMobile">
+                  <input type="number" v-model.number="item.price" />
+                </td>
+
+                <td>
+                  <div class=" cursor-pointer" @click="saveCompetition(item)">
+                    <i class="fas fa-save"></i>
+                  </div>
+                </td>
+
+                <td>
+                  <div
+                    class=" cursor-pointer"
+                    @click="confirmDeletion(item.id, item.license)"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
+      </base-card>
+      <!--  Fine Table New -->
     </div>
   </div>
 </template>
@@ -162,6 +166,9 @@ export default {
   props: ["eventId"],
   data() {
     return {
+      //
+
+      //
       typeDialog: null,
       selected: "A",
       checkItems: [],

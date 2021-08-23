@@ -62,7 +62,7 @@
       >
         <v-icon left icon="mdi-theme-light-dark"></v-icon>
 
-        <span>Theme</span>
+        <span>Dark</span>
       </v-btn>
     </v-app-bar>
 
@@ -218,4 +218,9 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+th {
+  background-color: #673ab7 !important;
+}
+
 </style>

@@ -50,9 +50,9 @@
               Password is required!!
             </p>
 
-            <p class="w3-padding but">
+            <p class="w3-padding ">
               <button
-                class="w3-button w3-block  w3-round-xlarge  bg-deep-purple accent-4 "
+                class="w3-button w3-block  w3-round-xlarge text-white  bg-deep-purple accent-4 "
               >
                 Login
               </button>

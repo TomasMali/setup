@@ -100,7 +100,7 @@ dialog {
 
 header {
   /** background-color: #3a0061; */
-  background-color: #0082e6;
+  background-color: #673bb6;
   color: white;
   width: 100%;
   padding: 1rem;
@@ -112,7 +112,9 @@ header h2 {
 
 section {
   padding: 1rem;
-  height: 490px;
+
+  max-height: 520px;
+  overflow: auto;
 }
 
 menu {

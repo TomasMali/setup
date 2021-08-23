@@ -19,7 +19,7 @@
           </thead>
           <tbody>
             <tr v-for="(role, index) in roles" :key="role.id">
-              <th scope="row">{{ index + 1 }}</th>
+              <td scope="row">{{ index + 1 }}</td>
 
               <td class="text-center mx-0 px-0 ">
                 <input type="text" v-model="role.name" class="text-center" />

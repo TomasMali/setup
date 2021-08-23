@@ -214,30 +214,42 @@
               </label>
             </div>
 
-            <div class="d-grid col-md-4 mx-auto">
-              <button type="submit" class="btn btn-primary mt-4">
+            <div class="fill-height">
+              <v-btn
+                type="submit"
+                variant="outlined"
+                block
+                color="deep-purple text-white"
+              >
                 Create Event
-              </button>
+              </v-btn>
             </div>
           </form>
         </div>
       </div>
     </create-dialog>
 
-    <div class="row p-0 m-0">
-      <div class="col col-sm-2 m-4">
-        <button
-          class="btn btn-md btn-primary no_board"
-          @click="openDialogEventCreation = true"
-        >
-          Create event
-        </button>
+    <base-card class="mt-md-16 py-10 ">
+      <v-card class="pa-2 mb-10">
+        <h4 class="text-center text-deep-purple accent-4">
+          My Created Events
+        </h4></v-card
+      >
+      <div class="row p-0 m-0">
+        <div class="col col-sm-2 m-4">
+          <a
+            class="btn  btn-outline-secondary mb-1"
+            @click="openDialogEventCreation = true"
+          >
+            Create event
+          </a>
+        </div>
       </div>
 
-      <div class="col col-sm-10 m-4">
-        <table class="w3-table-all w3-small mb-4">
-          <thead class="">
-            <tr class="w3-blue p-0">
+      <div class=" table-responsive  ">
+        <table class="table  table-bordered table-sm text-center my-5">
+          <thead class="bg-dark text-white">
+            <tr class="">
               <th class="">Name</th>
               <th class="">Begin date</th>
               <th class="">End date</th>
@@ -255,7 +267,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="w3-hover-grey p-0" v-for="item in events" :key="item.id">
+            <tr class="" v-for="item in events" :key="item.id">
               <td @click="openCompetition(item.id)">{{ item.name }}</td>
               <td @click="openCompetition(item.id)">
                 {{ dateConverter(item.begin_date) }}
@@ -287,30 +299,17 @@
 
               <td>
                 <div
-                  class="px-4 cursor-pointer"
+                  class=" cursor-pointer"
                   @click="confirmDeletion(item.name, item.id)"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
+                  <i class="fas fa-trash-alt"></i>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
+    </base-card>
   </div>
 </template>
 

@@ -17,7 +17,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in judgesDisciplines" :key="index">
-              <th scope="row">{{ index + 1 }}</th>
+              <td scope="row">{{ index + 1 }}</td>
 
               <td class=" mx-0 px-0 ">
                 <input type="text" v-model="item.id" />

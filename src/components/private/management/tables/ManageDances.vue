@@ -18,7 +18,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in dances" :key="item.id">
-              <th scope="row">{{ index + 1 }}</th>
+              <td scope="row">{{ index + 1 }}</td>
 
               <td class="mx-0 px-0 ">
                 <input type="text" v-model="item.id" />
