@@ -11,16 +11,14 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <div class="w3-row margin-all">
-      <div class="w3-quarter w3-container"></div>
-
-      <div class="w3-half w3-container max-width">
-        <div class="w3-margin w3-card-4">
-          <div class="w3-container w3-blue w3-center w3-padding-16">
-            <h3>Login</h3>
-          </div>
-
-          <form class="w3-container w3-margin" @submit.prevent="formSubmit">
+    <div>
+      <v-card :max-width="500" class="mx-auto mt-5 mt-md-16">
+        <v-card-title class="text-deep-purple accent-4">
+          Login area
+        </v-card-title>
+        <v-divider class="bg-grey"> </v-divider>
+        <v-card-text>
+          <form class="w3-container w3-margin " @submit.prevent="formSubmit">
             <p>
               <label for="email">E-mail</label>
               <input
@@ -53,13 +51,15 @@
             </p>
 
             <p class="w3-padding but">
-              <button class="w3-button w3-block w3-blue w3-round-xlarge">
+              <button
+                class="w3-button w3-block  w3-round-xlarge  bg-deep-purple accent-4 "
+              >
                 Login
               </button>
             </p>
             <h6 class="w3-padding">
               If not yet,
-              <router-link class="w3-text-blue" to="/register"
+              <router-link class="text-deep-purple accent-4" to="/register"
                 >Register</router-link
               >
               to signup!
@@ -71,20 +71,22 @@
               >
             </h6>
           </form>
-        </div>
-      </div>
-
-      <div class="w3-quarter w3-container"></div>
+        </v-card-text>
+      </v-card>
     </div>
   </div>
 </template>
 
-
-
-
-
 <script>
+import { useDisplay } from "vuetify/lib/composables/display";
+
 export default {
+  setup() {
+    // Destructure only the keys we want to use
+    const { xs, mdAndUp } = useDisplay();
+
+    return { xs, mdAndUp };
+  },
   data() {
     return {
       email: {
@@ -158,12 +160,6 @@ export default {
   },
 };
 </script>
-
-
-
-
-
-
 
 <style scoped>
 @media screen and (min-width: 800px) {
