@@ -13,6 +13,7 @@ const competitions = require("./api/routes/competitions");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use("/uploads", express.static("uploads"));
 
 // security
 app.use(cors({ origin: "*" }));
