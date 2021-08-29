@@ -98,7 +98,7 @@
 
 <script>
 export default {
-  emits: ["triggerMenuMobile"],
+  emits: ["triggerMenuMobile", "cleanPic"],
   data() {
     return {
       clicked: false,
@@ -151,6 +151,7 @@ export default {
       this.$router.replace("/public");
       // chiudi il menu se aperto
       this.clickSubmit();
+      this.$emit("clearPic");
     },
     clickSubmit() {
       this.clicked = false;
