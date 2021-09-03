@@ -165,7 +165,7 @@ getPic(){
         }
 
       console.log("il nome è: ",this.selectedFile.name)
-      const link = cred.getLinkType().url_get_pic;
+      const link = cred.getLinkType().url_upload_pic;
       axios.post(link, data,profileData )
       .then(res => {
   
