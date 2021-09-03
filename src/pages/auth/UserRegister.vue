@@ -11,15 +11,15 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <div class="w3-row">
-      <div class="w3-quarter w3-container"></div>
-      <div class="w3-half w3-container max-width">
-        <div class="w3-margin w3-card-4">
-          <div class="w3-container w3-blue w3-center w3-padding-16">
-            <h3>Register</h3>
-          </div>
+    <div>
+      <v-card :max-width="500" class="mx-auto mt-5 mt-md-16">
+        <v-card-title class="text-deep-purple accent-4 mt-4 ml-5">
+          Signup area
+        </v-card-title>
 
-          <form class="w3-container w3-margin" @submit.prevent="formSubmit">
+        <v-divider class="bg-grey"> </v-divider>
+        <v-card-text>
+          <form class="p-4" @submit.prevent="formSubmit">
             <label for="name">Name</label>
             <input
               class="w3-input"
@@ -83,22 +83,19 @@
               The password doesn't match!
             </p>
 
-            <p class="but">
-              <button class="w3-button w3-block w3-blue w3-round-xlarge">
+            <p class="mt-6">
+              <button
+                class="w3-button w3-block  w3-round-xlarge text-white  bg-deep-purple accent-4 "
+              >
                 Register
               </button>
             </p>
           </form>
-        </div>
-      </div>
-      <div class="w3-quarter w3-container"></div>
+        </v-card-text>
+      </v-card>
     </div>
   </div>
 </template>
-
-
-
-
 
 <script>
 export default {
@@ -218,12 +215,6 @@ export default {
 };
 </script>
 
-
-
-
-
-
-
 <style scoped>
 @media screen and (min-width: 800px) {
   .max-width {
@@ -238,9 +229,5 @@ export default {
 .alert {
   color: red;
   font-size: 13px;
-}
-
-.but {
-  margin: 40px 0px;
 }
 </style>

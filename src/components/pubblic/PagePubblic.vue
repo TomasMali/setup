@@ -7,7 +7,7 @@
       <div class="w3-row-padding w3-content" style="max-width: 1400px">
         <div class="w3-twothird">
           <img
-            src="https://avante.biz/wp-content/uploads/Beautiful-Wallpapers/Beautiful-Wallpapers-001.jpg"
+            src="https://avante.biz/wp-content/uploads/Dancer-Wallpapers/Dancer-Wallpapers-004.jpg"
             alt="Notebook"
             style="width: 100%"
           />

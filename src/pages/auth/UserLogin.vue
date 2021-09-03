@@ -13,13 +13,13 @@
 
     <div>
       <v-card :max-width="500" class="mx-auto mt-5 mt-md-16">
-        <v-card-title class="text-deep-purple accent-4">
+        <v-card-title class="text-deep-purple accent-4 mt-4 ml-5">
           Login area
         </v-card-title>
         <v-divider class="bg-grey"> </v-divider>
         <v-card-text>
-          <form class="w3-container w3-margin " @submit.prevent="formSubmit">
-            <p>
+          <form class="p-4 " @submit.prevent="formSubmit">
+            <div class="mb-8">
               <label for="email">E-mail</label>
               <input
                 class="w3-input"
@@ -29,13 +29,12 @@
                 @blur="emailValidation"
                 :class="{ error: !email.isValid }"
               />
-            </p>
+            </div>
 
             <p v-if="!email.isValid" class="w3-text-red">
               Please enter a valid email
             </p>
-
-            <p>
+            <div class="mb-8">
               <label for="password">Password</label>
               <input
                 class="w3-input"
@@ -45,7 +44,7 @@
                 @blur="passwordValidation"
                 :class="{ error: !password.isValid }"
               />
-            </p>
+            </div>
             <p v-if="!password.isValid" class="w3-text-red">
               Password is required!!
             </p>
@@ -171,17 +170,5 @@ export default {
 
 .error {
   border-color: red;
-}
-
-.login {
-  padding: 10px 154px;
-}
-
-.but {
-  margin-top: 40px;
-}
-
-.margin-all {
-  margin-top: 20px;
 }
 </style>

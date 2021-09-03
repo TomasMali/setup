@@ -1,5 +1,3 @@
-
-
 <template>
   <div>
     <base-dialog
@@ -13,15 +11,14 @@
       <base-spinner></base-spinner>
     </base-dialog>
 
-    <div class="w3-row">
-      <div class="w3-third w3-container"></div>
-      <div class="w3-third w3-container">
-        <div class="w3-margin w3-card-4">
-          <div class="w3-container w3-blue w3-center">
-            <h3>Change Password</h3>
-          </div>
-
-          <form class="w3-container" @submit.prevent="submitForm">
+    <div>
+      <v-card :max-width="500" class="mx-auto mt-5 mt-md-16">
+        <v-card-title class="text-deep-purple accent-4 mt-4 ml-5">
+          Change Password
+        </v-card-title>
+        <v-divider class="bg-grey"> </v-divider>
+        <v-card-text>
+          <form class="p-4" @submit.prevent="submitForm">
             <p>
               <label for="email">Enter your new password</label>
               <input
@@ -51,16 +48,19 @@
             <p v-else-if="!isValidConfirm" class="w3-text-red">
               The passwords doesn't match
             </p>
-            <p><button class="w3-button w3-block w3-blue">Change</button></p>
+            <p>
+              <button
+                class="w3-button w3-block  w3-round-xlarge text-white  bg-deep-purple accent-4 mt-10"
+              >
+                Change
+              </button>
+            </p>
           </form>
-        </div>
-      </div>
-      <div class="w3-third w3-container"></div>
+        </v-card-text>
+      </v-card>
     </div>
   </div>
 </template>
-
-
 
 <script>
 export default {
@@ -123,7 +123,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .error {
