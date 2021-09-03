@@ -5,7 +5,7 @@ export default {
         url_reset_password: "https://tomasmali.it/myapi/resetPassword",
         url_change_password: "https://tomasmali.it/myapi/changePassword",
         url_get_users: "https://tomasmali.it/myapi/user/getUsers",
-        url_upload_pic: "https://tomasmali.it/myapi/uploadProfilePic",
+        url_upload_pic: "https://tomasmali.it/myapi/user/uploadProfilePic",
 
         url_get_pic: "https://tomasmali.it/myapi/uploadsresized",
 
