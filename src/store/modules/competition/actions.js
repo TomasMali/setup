@@ -127,6 +127,7 @@ export default {
                 competition_type: payload.competition_type,
                 judging_systems: payload.judging_systems,
                 rounds: payload.rounds,
+                user: payload.user,
 
                 age_group: "8/9",
                 judging_system_preliminary: "test",

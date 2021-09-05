@@ -19,9 +19,9 @@
                 @click="loadTable('Events')"
               >
                 <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected id="text-color"
-                  >Choose the event</option
-                >
+                <option value="" disabled selected id="text-color">
+                  Choose the event
+                </option>
                 <option
                   v-for="item in events.tab"
                   :key="item.id"
@@ -116,7 +116,7 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.id }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
@@ -139,7 +139,7 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.id }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
@@ -162,7 +162,7 @@
                   :key="item.id"
                   :value="item.id"
                 >
-                  {{ item.id }}
+                  {{ item.id }} - {{ item.description }}
                 </option>
               </select>
             </div>
@@ -331,7 +331,12 @@
             <!-- ------------------- -->
 
             <p>
-              <button type="submit" class="btn btn-primary mt-4">Create</button>
+              <button
+                type="submit"
+                class="w3-button w3-block  w3-round-xlarge text-white  bg-deep-purple accent-4 mt-4"
+              >
+                Create
+              </button>
             </p>
           </form>
         </div>
@@ -342,8 +347,8 @@
 
 <script>
 export default {
-  emits: ["close"],
-  props: ["open"],
+  emits: ["close", "insertFidsCompleated"],
+  props: ["open", "eventName"],
   data() {
     return {
       events: { value: "", isValid: true, tab: [] },
@@ -379,7 +384,7 @@ export default {
         license: "FREE",
         events: this.events.value,
         dances: this.dances.value,
-        disciplines: this.disciplines.value,
+        disciplines: this.disciplines.value === "" ? 0 : this.disciplines.value,
         judges_disciplines: this.judges_disciplines.value,
         judges_licenses: this.judges_licenses.value,
         officials_licenses: this.officials_licenses.value,
@@ -391,6 +396,7 @@ export default {
         competition_type: this.competition_type.value,
         judging_systems: this.judging_systems.value,
         rounds: this.rounds.value,
+        user: this.$store.getters["auth/userId"],
       };
       // console.log(this.form);
       // do the post
@@ -399,30 +405,30 @@ export default {
           "competition/addMyCompetition",
           actionPayload
         );
-        this.loadMyCompetitions();
+        this.$emit("insertFidsCompleated");
+        this.$emit("close");
         //
       } catch (error) {
         this.error = error.message || "Failed to authenticate";
       }
       this.isLoading = false;
       // clean the fields
-      /*
-      this.dances.value = null;
-      this.events.value = null;
-      this.disciplines.value = null;
-      this.judges_disciplines.value = null;
-      this.judges_licenses.value = null;
-      this.officials_licenses.value = null;
-      this.officials_roles.value = null;
-      this.sectors_discipline.value = null;
-      this.unit_type.value = null;
-      this.classe.value = null;
-      this.age_category.value = null;
-      this.competition_type.value = null;
-      this.judging_systems.value = null;
-      this.rounds.value = null;
-      */
+
+      //  (this.events = this.eventName),
+      (this.disciplines = { value: "", isValid: true, tab: [] }),
+        (this.judges_disciplines = { value: "", isValid: true, tab: [] }),
+        (this.judges_licenses = { value: "", isValid: true, tab: [] }),
+        (this.officials_licenses = { value: "", isValid: true, tab: [] }),
+        (this.officials_roles = { value: "", isValid: true, tab: [] }),
+        (this.sectors_discipline = { value: "", isValid: true, tab: [] }),
+        (this.unit_type = { value: "", isValid: true, tab: [] }),
+        (this.classe = { value: "", isValid: true, tab: [] }),
+        (this.age_category = { value: "", isValid: true, tab: [] }),
+        (this.competition_type = { value: "", isValid: true, tab: [] }),
+        (this.judging_systems = { value: "", isValid: true, tab: [] }),
+        (this.rounds = { value: "", isValid: true, tab: [] });
     },
+
     async loadTable(tabName) {
       try {
         switch (tabName) {
@@ -431,7 +437,7 @@ export default {
               user: this.$store.getters["auth/userId"],
             });
             this.events.tab = this.$store.getters["event/getEvents"];
-
+            // console.log("event: ", this.events.tab);
             break;
           case "Dances":
             await this.$store.dispatch("tab/getTabs", tabName);
@@ -474,7 +480,7 @@ export default {
             break;
           case "Age_category":
             await this.$store.dispatch("tab/getTabs", tabName);
-            this.age_category = this.$store.getters["tab/get" + tabName];
+            this.age_category.tab = this.$store.getters["tab/get" + tabName];
             break;
           //
           case "Classe":
@@ -529,7 +535,7 @@ export default {
 select {
   width: 100%;
   padding: 5px;
-  border-radius: 10px;
+  border-radius: 0px;
 }
 select option {
   color: red;

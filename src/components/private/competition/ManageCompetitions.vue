@@ -26,6 +26,7 @@
     <new-competition
       :open="!!openDialogCompetitionCreation"
       @close="openDialogCompetitionCreation = null"
+      @insertFidsCompleated="loadMyCompetitions()"
     >
     </new-competition>
 
@@ -34,7 +35,7 @@
       v-if="!!openDialogCompetitionCreationFromFids"
       @close="openDialogCompetitionCreationFromFids = null"
       @insertFidsCompleated="loadMyCompetitions()"
-      :eventId="getParamEventId"
+      :eventId="event"
     >
     </load-fids>
 

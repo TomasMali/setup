@@ -192,9 +192,11 @@ router.post("/addMyRelation", (req, res, next) => {
     const music_required = req.body.music_required;
     const alias = req.body.alias;
     const dances = req.body.dances;
-
+    const user = req.body.user;
+    console.log(user);
     pool.query(
-        "SELECT MAX(id) FROM competitions WHERE license = $1 AND event = $2", [license, event],
+        'SELECT MAX(id) FROM competitions WHERE license = $1 AND event = $2 AND "user" = $3', [license, event, user],
+
         (error, results) => {
             if (error) {
                 return res.status(500).json({
@@ -208,7 +210,7 @@ router.post("/addMyRelation", (req, res, next) => {
             } else maxId = 1;
 
             pool.query(
-                "INSERT INTO competitions (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group,perc_fq_age,perc_fq_class,members_min,members_max,exclusive_gender,music_required,alias,dances,event) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22, $23)", [
+                'INSERT INTO competitions (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group,perc_fq_age,perc_fq_class,members_min,members_max,exclusive_gender,music_required,alias,dances,event,"user" ) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24)', [
                     maxId,
                     license,
                     discipline,
@@ -232,6 +234,7 @@ router.post("/addMyRelation", (req, res, next) => {
                     alias,
                     dances,
                     event,
+                    user,
                 ],
                 (error, results) => {
                     if (error) {
