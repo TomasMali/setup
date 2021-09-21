@@ -1,5 +1,58 @@
 <template>
   <div>
+    <teleport to="body">
+      <!-- Modal -->
+      <div
+        class="modal  fade"
+        id="loadFidsModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl ">
+          <div class="modal-content">
+            <div class="modal-header purple">
+              <h5 class="modal-title" id="exampleModalLabel">Load Fids Data</h5>
+              <button
+                type="button"
+                class="btn-close bg-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!--------------------------------------------------  Load FIDS  -->
+              <load-fids
+                :eventId="event"
+                :start_dat="start_dat"
+                :end_dat="end_dat"
+                @dataUpdated="updateSelectedFids"
+                ref="fids"
+              >
+              </load-fids>
+              <!--------------------------------------------------  Load FIDS  -->
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                @click="insertFromFids"
+              >
+                Insert
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </teleport>
     <error-dialog
       dialogType="warning"
       :show="!!warning"
@@ -30,15 +83,6 @@
     >
     </new-competition>
 
-    <!--  Load FIDS  -->
-    <load-fids
-      v-if="!!openDialogCompetitionCreationFromFids"
-      @close="openDialogCompetitionCreationFromFids = null"
-      @insertFidsCompleated="loadMyCompetitions()"
-      :eventId="event"
-    >
-    </load-fids>
-
     <!-- ----------------------------------------------------------------------------------------------------------------------- -->
     <div class="row_padding">
       <div class="row p-0 m-0">
@@ -50,7 +94,11 @@
             >
               Create new competition
             </a>
-            <a class="btn btn-outline-secondary mb-1 " @click="openFids">
+            <a
+              class="btn btn-outline-secondary mb-1 "
+              data-bs-toggle="modal"
+              data-bs-target="#loadFidsModal"
+            >
               Create from Fids
             </a>
           </div>
@@ -111,24 +159,24 @@
                 <td v-if="!isMobile">{{ item.classe }}</td>
 
                 <td v-if="!isMobile" class=" ">
-                  <input type="text" v-model="item.title" />
+                  {{ item.title }}
                 </td>
 
                 <td v-if="!isMobile">
-                  <input type="date" v-model="item.start_competition" />
+                  {{ item.start_competition }}
                 </td>
 
                 <td v-if="!isMobile">
-                  <input type="date" v-model="item.end_competition" />
+                  {{ item.end_competition }}
                 </td>
                 <td v-if="!isMobile">
-                  <input type="checkbox" v-model.number="item.stars" />
+                  {{ item.stars }}
                 </td>
                 <td v-if="!isMobile">
-                  <input type="text" v-model="item.hall" />
+                  {{ item.hall }}
                 </td>
                 <td v-if="!isMobile">
-                  <input type="number" v-model.number="item.price" />
+                  {{ item.price }}
                 </td>
 
                 <td>
@@ -169,6 +217,7 @@ export default {
     return {
       //
 
+      checkItem: [],
       //
       typeDialog: null,
       selected: "A",
@@ -177,6 +226,8 @@ export default {
       myCompetitions: [],
       //
       event: null,
+      start_dat: "",
+      end_dat: "",
       events: null,
       id: "",
       license: "",
@@ -185,7 +236,6 @@ export default {
       isLoading: false,
       error: null,
       warning: null,
-      openDialogCompetitionCreationFromFids: null,
       openDialogCompetitionCreation: null,
       isMobile: false,
     };
@@ -202,12 +252,42 @@ export default {
         query: {
           user: this.$store.getters["auth/userId"],
           eventId: newVal,
+          start_dat: this.start_dat,
+          end_dat: this.end_dat,
         },
       });
       this.loadMyCompetitions();
     },
   },
   methods: {
+    async insertFromFids() {
+      try {
+        await this.$store.dispatch("competition/insertFromFidsCompetitions", {
+          competitionsIdArray: this.checkItems,
+          start_dat: this.start_dat,
+          end_dat: this.end_dat,
+          event: this.event,
+          user: this.$store.getters["auth/userId"],
+        });
+      } catch (error) {
+        this.error = error.message || "Failed to authenticate";
+      }
+      setTimeout(() => {
+        this.loadMyCompetitions();
+      }, 1000);
+
+      this.$refs.fids.clearArr();
+    },
+
+    updateSelectedFids(items, start, end) {
+      //  console.log("Dentro View: ", items);
+      //  console.log("Dentro View Start: ", start);
+      //  console.log("Dentro End: ", end);
+      this.checkItems = items;
+      this.start_dat = start;
+      this.end_dat = end;
+    },
+
     async saveCompetition(competiton) {
       try {
         await this.$store.dispatch(
@@ -222,7 +302,6 @@ export default {
 
     async loadMyCompetitions() {
       this.isLoading = true;
-      this.openDialogCompetitionCreationFromFids = null;
 
       try {
         await this.$store.dispatch("competition/getMyCompetitions", {
@@ -256,9 +335,6 @@ export default {
             this.events = this.$store.getters["event/getEvents"];
             break;
           default:
-
-          //   await this.$store.dispatch("tab/getTabs", tabName);
-          //  this.tab = this.$store.getters["tab/get" + tabName];
         }
         // console.log(this.tab[0]);
       } catch (error) {
@@ -299,30 +375,26 @@ export default {
     handleWarning() {
       this.warning = null;
     },
-
-    manageDialogCompetitionFromFids() {
-      this.openDialogCompetitionCreationFromFids = null;
-
-      // this.form.events.value = null;
-    },
-
-    openFids() {
-      if (typeof this.$route.query.eventId === "undefined") {
-        //alert("No event selected. Please select an event from the Event page");
-        this.typeDialog = "Error";
-        this.error =
-          "No event selected. Please select an event from the Event page";
-        return;
-      }
-
-      this.openDialogCompetitionCreationFromFids = true;
-    },
   },
   created() {
     this.loadMyCompetitions();
 
     this.loadTable("Events");
     this.event = this.$route.query.eventId;
+    this.start_dat = this.$route.query.start_dat;
+    this.end_dat = this.$route.query.end_dat;
+
+    this.$router.replace({
+      path: "competitions",
+      query: {
+        user: this.$store.getters["auth/userId"],
+        eventId: this.event,
+        start_dat: this.start_dat,
+        end_dat: this.end_dat,
+      },
+    });
+
+    //console.log("Query", this.start_dat);
 
     if (screen.width <= 760) {
       this.isMobile = true;
@@ -361,5 +433,24 @@ tr {
 input {
   background-color: white;
   text-align: center;
+}
+
+button {
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  font: inherit;
+  background-color: #673ab7;
+  border: 1px solid #673ab7;
+  color: white;
+  cursor: pointer;
+
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+button:hover,
+button:active {
+  background-color: #270041;
+  border-color: #270041;
 }
 </style>

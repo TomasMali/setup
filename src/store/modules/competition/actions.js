@@ -207,6 +207,8 @@ export default {
             referrerPolicy: "no-referrer",
             enctype: "mutipart/form-data",
             body: JSON.stringify({
+                start_dat: payload.start_dat,
+                end_dat: payload.end_dat,
                 competitionsIdArray: payload.competitionsIdArray,
                 event: payload.event,
                 user: payload.user,

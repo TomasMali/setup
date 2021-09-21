@@ -268,32 +268,36 @@
           </thead>
           <tbody>
             <tr class="" v-for="item in events" :key="item.id">
-              <td @click="openCompetition(item.id)">{{ item.name }}</td>
-              <td @click="openCompetition(item.id)">
+              <td
+                @click="openCompetition2(item.id, item.begin_date_registration)"
+              >
+                {{ item.name }}
+              </td>
+              <td @click="openCompetition(item)">
                 {{ dateConverter(item.begin_date) }}
               </td>
-              <td @click="openCompetition(item.id)">
+              <td @click="openCompetition(item)">
                 {{ dateConverter(item.end_date) }}
               </td>
 
-              <td @click="openCompetition(item.id)" v-if="!isMobile">
+              <td @click="openCompetition(item)" v-if="!isMobile">
                 {{ dateConverter(item.begin_date_registration) }}
               </td>
-              <td @click="openCompetition(item.id)" v-if="!isMobile">
+              <td @click="openCompetition(item)" v-if="!isMobile">
                 {{ dateConverter(item.end_date_registration) }}
               </td>
 
-              <td @click="openCompetition(item.id)" class="">
+              <td @click="openCompetition(item)" class="">
                 {{ item.place }}
               </td>
 
-              <td @click="openCompetition(item.id)" v-if="!isMobile" class="">
+              <td @click="openCompetition(item)" v-if="!isMobile" class="">
                 {{ item.organizer_name }}
               </td>
-              <td @click="openCompetition(item.id)" v-if="!isMobile" class="">
+              <td @click="openCompetition(item)" v-if="!isMobile" class="">
                 {{ item.organizer_mail }}
               </td>
-              <td @click="openCompetition(item.id)" v-if="!isMobile" class="">
+              <td @click="openCompetition(item)" v-if="!isMobile" class="">
                 {{ item.organizer_phone }}
               </td>
 
@@ -549,10 +553,16 @@ export default {
     manageDialogEvent() {
       this.openDialogEventCreation = null;
     },
-    openCompetition(eventId) {
+
+    openCompetition(event) {
       this.$router.push({
         path: "competitions",
-        query: { user: this.$store.getters["auth/userId"], eventId: eventId },
+        query: {
+          user: this.$store.getters["auth/userId"],
+          eventId: event.id,
+          start_dat: this.dateConverter(event.begin_date_registration),
+          end_dat: this.dateConverter(event.end_date_registration),
+        },
       });
     },
   },

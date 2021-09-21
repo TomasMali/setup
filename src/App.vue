@@ -275,4 +275,14 @@ body {
 th {
   background-color: #673ab7 !important;
 }
+
+.purple {
+  color: #673ab7;
+}
+.modal-header {
+  
+  background-color: #673ab7 !important;
+color:white
+}
+
 </style>

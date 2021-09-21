@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import PagePubblic from "./components/pubblic/PagePubblic.vue";
 import CreateEvents from "./components/private/event/CreateEvents.vue";
-import ManageCompetitions from "./components/private/competition/ManageCompetitions.vue";
+import ViewCompetitions from "./components/private/competition/ViewCompetitions.vue";
 import UserRegister from "./pages/auth/UserRegister.vue";
 import UserLogin from "./pages/auth/UserLogin.vue";
 import NotFound from "./pages/NotFound.vue";
@@ -24,7 +24,7 @@ const router = createRouter({
         },
         {
             path: "/competitions",
-            component: ManageCompetitions,
+            component: ViewCompetitions,
             meta: { privateProtection: true },
         },
 
