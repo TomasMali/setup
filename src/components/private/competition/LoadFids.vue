@@ -124,11 +124,7 @@
             </tr>
             <!-- DStart Table--->
 
-            <tr
-              class="w3-hover-grey"
-              v-for="(item, ind) in filterFids"
-              :key="item.id"
-            >
+            <tr class="w3-hover-grey" v-for="item in filterFids" :key="item.id">
               <td>
                 <div class="form-check">
                   <input
@@ -140,7 +136,7 @@
                   />
                 </div>
               </td>
-              <td>{{ item.desc_discipline }} - {{ ind }}</td>
+              <td>{{ item.desc_discipline }}</td>
               <td>{{ item.age_group }}</td>
 
               <td>
@@ -191,22 +187,25 @@ export default {
     filterFidsAll(event) {
       var arr = [];
       var status = event.target.checked;
-      arr = this.fidsCompetitions.filter((row) => {
-        return (
-          (row.desc_discipline + "")
-            .toLowerCase()
-            .includes(this.search.discipline.toLowerCase().toLowerCase()) &&
-          (row.age_group + "")
-            .toLowerCase()
-            .includes(this.search.ageGroup.toLowerCase().toLowerCase()) &&
-          (row.desc_unit_type + "")
-            .toLowerCase()
-            .includes(this.search.unitType.toLowerCase().toLowerCase()) &&
-          (row.classe + "")
-            .toLowerCase()
-            .includes(this.search.class.toLowerCase().toLowerCase())
-        );
-      });
+      arr = this.fidsCompetitions
+        .filter((row) => {
+          return (
+            (row.desc_discipline + "")
+              .toLowerCase()
+              .includes(this.search.discipline.toLowerCase().toLowerCase()) &&
+            (row.age_group + "")
+              .toLowerCase()
+              .includes(this.search.ageGroup.toLowerCase().toLowerCase()) &&
+            (row.desc_unit_type + "")
+              .toLowerCase()
+              .includes(this.search.unitType.toLowerCase().toLowerCase()) &&
+            (row.classe + "")
+              .toLowerCase()
+              .includes(this.search.class.toLowerCase().toLowerCase())
+          );
+        })
+        .splice(0, 100);
+      this.fidsCompetitions = arr;
       if (status) {
         arr.forEach((el) => {
           if (!this.checkItems.includes(el.id)) {
@@ -304,22 +303,24 @@ export default {
 
   computed: {
     filterFids() {
-      return this.fidsCompetitions.filter((row) => {
-        return (
-          (row.desc_discipline + "")
-            .toLowerCase()
-            .includes(this.search.discipline.toLowerCase().toLowerCase()) &&
-          (row.age_group + "")
-            .toLowerCase()
-            .includes(this.search.ageGroup.toLowerCase().toLowerCase()) &&
-          (row.desc_unit_type + "")
-            .toLowerCase()
-            .includes(this.search.unitType.toLowerCase().toLowerCase()) &&
-          (row.classe + "")
-            .toLowerCase()
-            .includes(this.search.class.toLowerCase().toLowerCase())
-        );
-      });
+      return this.fidsCompetitions
+        .filter((row) => {
+          return (
+            (row.desc_discipline + "")
+              .toLowerCase()
+              .includes(this.search.discipline.toLowerCase().toLowerCase()) &&
+            (row.age_group + "")
+              .toLowerCase()
+              .includes(this.search.ageGroup.toLowerCase().toLowerCase()) &&
+            (row.desc_unit_type + "")
+              .toLowerCase()
+              .includes(this.search.unitType.toLowerCase().toLowerCase()) &&
+            (row.classe + "")
+              .toLowerCase()
+              .includes(this.search.class.toLowerCase().toLowerCase())
+          );
+        })
+        .splice(0, 100);
     },
   },
   created() {

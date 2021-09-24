@@ -1,0 +1,175 @@
+{
+  "count": 90,
+  "data": [
+    { "dance_id": "AS", "dance_description": "Afro Show", "notes": "" },
+    { "dance_id": "BA", "dance_description": "Bachata", "notes": "" },
+    { "dance_id": "BAS", "dance_description": "Bachata Shine", "notes": "" },
+    { "dance_id": "BW", "dance_description": "Boogie Woogie", "notes": "" },
+    {
+      "dance_id": "BWL",
+      "dance_description": "Boogie Woogie Lento",
+      "notes": ""
+    },
+    {
+      "dance_id": "BWV",
+      "dance_description": "Boogie Woogie Veloce",
+      "notes": ""
+    },
+    { "dance_id": "BD", "dance_description": "Break Dance", "notes": "" },
+    {
+      "dance_id": "CSD",
+      "dance_description": "Caribbean Show Dance",
+      "notes": ""
+    },
+    { "dance_id": "CC", "dance_description": "Cha Cha Cha", "notes": "" },
+    { "dance_id": "CG", "dance_description": "Cheerleading", "notes": "" },
+    { "dance_id": "CW", "dance_description": "Country Dance", "notes": "" },
+    {
+      "dance_id": "CWS",
+      "dance_description": "Country Show Dance",
+      "notes": ""
+    },
+    { "dance_id": "CS", "dance_description": "Country Synchro", "notes": "" },
+    { "dance_id": "CU", "dance_description": "Cuban", "notes": "" },
+    { "dance_id": "CL", "dance_description": "Danza Classica", "notes": "" },
+    { "dance_id": "AL", "dance_description": "Danze Afro Latine", "notes": "" },
+    { "dance_id": "DD", "dance_description": "Disco Dance", "notes": "" },
+    {
+      "dance_id": "DDF",
+      "dance_description": "Disco Dance Freestyle",
+      "notes": ""
+    },
+    { "dance_id": "DF", "dance_description": "Disco Fox", "notes": "" },
+    { "dance_id": "DS", "dance_description": "Disco Show", "notes": "" },
+    { "dance_id": "F2", "dance_description": "Due Fruste", "notes": "" },
+    { "dance_id": "EB", "dance_description": "Electric Boogie", "notes": "" },
+    { "dance_id": "FC", "dance_description": "Flamenco", "notes": "" },
+    {
+      "dance_id": "FOD",
+      "dance_description": "Folk Oriental Dance",
+      "notes": ""
+    },
+    { "dance_id": "FSD", "dance_description": "Folk Show Dance", "notes": "" },
+    { "dance_id": "FST", "dance_description": "Folk Show Team", "notes": "" },
+    { "dance_id": "FL", "dance_description": "Formazione Latin", "notes": "" },
+    {
+      "dance_id": "FS",
+      "dance_description": "Formazione Standard",
+      "notes": ""
+    },
+    { "dance_id": "FT", "dance_description": "Foxtrot", "notes": "" },
+    {
+      "dance_id": "FSB",
+      "dance_description": "Free Style Battle",
+      "notes": ""
+    },
+    {
+      "dance_id": "FSC",
+      "dance_description": "Free Style Coreografico",
+      "notes": ""
+    },
+    { "dance_id": "FSH", "dance_description": "Free Style Show", "notes": "" },
+    {
+      "dance_id": "FSS",
+      "dance_description": "Free Style Sincronizzato",
+      "notes": ""
+    },
+    {
+      "dance_id": "FSN",
+      "dance_description": "Free Style Tecnica",
+      "notes": ""
+    },
+    { "dance_id": "FY", "dance_description": "Free Style", "notes": "" },
+    { "dance_id": "FR", "dance_description": "Frusta Romagnola", "notes": "" },
+    { "dance_id": "HH", "dance_description": "Hip Hop", "notes": "" },
+    { "dance_id": "HHB", "dance_description": "Hip Hop Battle", "notes": "" },
+    { "dance_id": "HU", "dance_description": "Hustle", "notes": "" },
+    { "dance_id": "JD", "dance_description": "Jazz Dance", "notes": "" },
+    { "dance_id": "JI", "dance_description": "Jive", "notes": "" },
+    { "dance_id": "KI", "dance_description": "Kizomba", "notes": "" },
+    { "dance_id": "KIF", "dance_description": "Kizomba Fusion", "notes": "" },
+    {
+      "dance_id": "LSC",
+      "dance_description": "Latin Style Coreografico",
+      "notes": ""
+    },
+    { "dance_id": "LSH", "dance_description": "Latin Style Show", "notes": "" },
+    {
+      "dance_id": "LSS",
+      "dance_description": "Latin Style Sincronizzato",
+      "notes": ""
+    },
+    { "dance_id": "LI", "dance_description": "Lilt", "notes": "" },
+    { "dance_id": "MA", "dance_description": "Mazurca", "notes": "" },
+    { "dance_id": "ME", "dance_description": "Merengue", "notes": "" },
+    { "dance_id": "MI", "dance_description": "Milonga", "notes": "" },
+    {
+      "dance_id": "MC",
+      "dance_description": "Modern Contemporary",
+      "notes": ""
+    },
+    { "dance_id": "NO", "dance_description": "Novelty", "notes": "" },
+    { "dance_id": "O", "dance_description": "Obbligatorio", "notes": "" },
+    { "dance_id": "OD", "dance_description": "Oriental Dance", "notes": "" },
+    {
+      "dance_id": "OSD",
+      "dance_description": "Oriental Show Dance",
+      "notes": ""
+    },
+    { "dance_id": "PD", "dance_description": "Paso Doble", "notes": "" },
+    { "dance_id": "PC", "dance_description": "Polca", "notes": "" },
+    { "dance_id": "QS", "dance_description": "Quick Step", "notes": "" },
+    { "dance_id": "RF", "dance_description": "Rise and Fall", "notes": "" },
+    { "dance_id": "R", "dance_description": "Rock", "notes": "" },
+    { "dance_id": "RA", "dance_description": "Rock Acrobatico", "notes": "" },
+    { "dance_id": "RR", "dance_description": "Rock And Roll", "notes": "" },
+    {
+      "dance_id": "RCS",
+      "dance_description": "Rock Contact Style",
+      "notes": ""
+    },
+    {
+      "dance_id": "RCD",
+      "dance_description": "Rock Couple Dance",
+      "notes": ""
+    },
+    { "dance_id": "RFS", "dance_description": "Rock Free Style", "notes": "" },
+    { "dance_id": "RL", "dance_description": "Rock Ladies", "notes": "" },
+    { "dance_id": "RT", "dance_description": "Rock Tecnico", "notes": "" },
+    { "dance_id": "RD", "dance_description": "Rueda", "notes": "" },
+    { "dance_id": "RU", "dance_description": "Rumba", "notes": "" },
+    { "dance_id": "SC", "dance_description": "Salsa Cuban Style", "notes": "" },
+    { "dance_id": "S2", "dance_description": "Salsa On 2", "notes": "" },
+    { "dance_id": "SS", "dance_description": "Salsa Shine", "notes": "" },
+    { "dance_id": "SA", "dance_description": "Samba ", "notes": "" },
+    { "dance_id": "SFK", "dance_description": "Segue Folk", "notes": "" },
+    { "dance_id": "SE", "dance_description": "Semba", "notes": "" },
+    { "dance_id": "SD", "dance_description": "Show Dance", "notes": "" },
+    {
+      "dance_id": "SFL",
+      "dance_description": "Show Freestyle Latin",
+      "notes": ""
+    },
+    {
+      "dance_id": "SFS",
+      "dance_description": "Show Freestyle Standard",
+      "notes": ""
+    },
+    { "dance_id": "SF", "dance_description": "Slow Foxtrot", "notes": "" },
+    { "dance_id": "SM", "dance_description": "Smooth", "notes": "" },
+    {
+      "dance_id": "SDS",
+      "dance_description": "Street Dance Show",
+      "notes": ""
+    },
+    { "dance_id": "TA", "dance_description": "Tango", "notes": "" },
+    { "dance_id": "TE", "dance_description": "Tango Escenario", "notes": "" },
+    { "dance_id": "TD", "dance_description": "Tap Dance", "notes": "" },
+    { "dance_id": "TS", "dance_description": "Two Step", "notes": "" },
+    { "dance_id": "VS", "dance_description": "Vals", "notes": "" },
+    { "dance_id": "VA", "dance_description": "Valzer", "notes": "" },
+    { "dance_id": "VL", "dance_description": "Valzer Lento", "notes": "" },
+    { "dance_id": "VV", "dance_description": "Valzer Viennese", "notes": "" },
+    { "dance_id": "WCS", "dance_description": "West Coast Swing", "notes": "" }
+  ]
+}

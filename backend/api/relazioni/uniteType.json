@@ -1,0 +1,158 @@
+{
+    "count": 22,
+    "data": [{
+            "UnitTypeId": 1,
+            "Description": "Coppia",
+            "MembersMin": "2",
+            "MembersMax": "2",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 2,
+            "Description": "Solo Misto",
+            "MembersMin": "1",
+            "MembersMax": "1",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 3,
+            "Description": "Bgirl",
+            "MembersMin": "1",
+            "MembersMax": "1",
+            "Gender": "F"
+        },
+        {
+            "UnitTypeId": 4,
+            "Description": "Bboy",
+            "MembersMin": "1",
+            "MembersMax": "1",
+            "Gender": "M"
+        },
+        {
+            "UnitTypeId": 5,
+            "Description": "SOLO Femminile",
+            "MembersMin": "1",
+            "MembersMax": "1",
+            "Gender": "F"
+        },
+        {
+            "UnitTypeId": 6,
+            "Description": "SOLO Maschile",
+            "MembersMin": "1",
+            "MembersMax": "1",
+            "Gender": "M"
+        },
+        {
+            "UnitTypeId": 7,
+            "Description": "Duo Misto",
+            "MembersMin": "2",
+            "MembersMax": "2",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 8,
+            "Description": "Duo Femminile",
+            "MembersMin": "2",
+            "MembersMax": "2",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 9,
+            "Description": "Duo Mix",
+            "MembersMin": "2",
+            "MembersMax": "2",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 10,
+            "Description": "Combi",
+            "MembersMin": "2",
+            "MembersMax": "2",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 11,
+            "Description": "Trio",
+            "MembersMin": "3",
+            "MembersMax": "3",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 12,
+            "Description": "Gruppo",
+            "MembersMin": "3",
+            "MembersMax": "24",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 13,
+            "Description": "Piccolo gruppo",
+            "MembersMin": "3",
+            "MembersMax": "7",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 14,
+            "Description": "Gruppo danza",
+            "MembersMin": "8",
+            "MembersMax": "24",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 16,
+            "Description": "Formazione",
+            "MembersMin": "7",
+            "MembersMax": "14",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 17,
+            "Description": "Production",
+            "MembersMin": "25",
+            "MembersMax": "99",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 19,
+            "Description": "Duo Maschile",
+            "MembersMin": "2",
+            "MembersMax": "2",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 20,
+            "Description": "Gruppo Mix",
+            "MembersMin": "3",
+            "MembersMax": "99",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 21,
+            "Description": "Gruppo Para (Para)",
+            "MembersMin": "3",
+            "MembersMax": "20",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 22,
+            "Description": "Crew",
+            "MembersMin": "3",
+            "MembersMax": "7",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 23,
+            "Description": "Formation",
+            "MembersMin": "8",
+            "MembersMax": "24",
+            "Gender": ""
+        },
+        {
+            "UnitTypeId": 127,
+            "Description": "Gruppo Paralimpico (Para)",
+            "MembersMin": "3",
+            "MembersMax": "20",
+            "Gender": ""
+        }
+    ]
+}

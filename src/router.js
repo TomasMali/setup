@@ -13,40 +13,40 @@ import ManageData from "./components/private/management/ManageData.vue";
 
 const router = createRouter({
     history: createWebHistory(),
-    base: "/tomi/",
+    // base: "/tomi/",
     routes: [
-        { path: "/", redirect: "/public" },
-        { path: "/public", component: PagePubblic },
+        { path: "/", redirect: "/public/" },
+        { path: "/public/", component: PagePubblic },
         {
-            path: "/events",
+            path: "/events/",
             component: CreateEvents,
             meta: { privateProtection: true },
         },
         {
-            path: "/competitions",
+            path: "/competitions/",
             component: ViewCompetitions,
             meta: { privateProtection: true },
         },
 
         {
-            path: "/register",
+            path: "/register/",
             component: UserRegister,
             meta: { registerProtection: true },
         },
-        { path: "/login", component: UserLogin, meta: { loginProtection: true } },
+        { path: "/login/", component: UserLogin, meta: { loginProtection: true } },
         {
-            path: "/resetPassword",
+            path: "/resetPassword/",
             component: ResetPassword,
             meta: { resetProtection: true },
         },
         {
-            path: "/changePassword",
+            path: "/changePassword/",
             component: ChangePassword,
             meta: { changeProtection: true },
         },
 
         {
-            path: "/manage",
+            path: "/manage/",
             component: ManageData,
             meta: { privateProtection: true },
         },

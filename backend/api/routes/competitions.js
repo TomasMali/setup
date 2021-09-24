@@ -282,7 +282,7 @@ router.post("/insertRelationFromAPI", async(req, res, next) => {
 
             var data_array = JSON.parse(
                 fs.readFileSync(
-                    "/Users/tomas/Desktop/setup/backend/api/routes/relazioni.json",
+                    "/Users/tomas/Documents/setup/backend/api/routes/relazioni.json",
                     "utf8"
                 )
             );
@@ -364,6 +364,7 @@ router.post("/insertRelationFromAPI", async(req, res, next) => {
     );
 
     // qui ritorna che tutto è andato ok
+
     await res.status(201).json({
         message: "All Relations imported successfully",
         result: 1,

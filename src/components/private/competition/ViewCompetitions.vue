@@ -38,6 +38,7 @@
                 class="btn btn-primary"
                 data-bs-dismiss="modal"
                 @click="insertFromFids"
+                :disabled="getCheckItems"
               >
                 Insert
               </button>
@@ -244,6 +245,9 @@ export default {
     getParamEventId() {
       return this.$route.query.eventId;
     },
+    getCheckItems() {
+      return this.checkItems.length <= 0;
+    },
   },
   watch: {
     event: function(newVal) {
@@ -280,7 +284,7 @@ export default {
     },
 
     updateSelectedFids(items, start, end) {
-      //  console.log("Dentro View: ", items);
+      // console.log("Dentro View: ", items);
       //  console.log("Dentro View Start: ", start);
       //  console.log("Dentro End: ", end);
       this.checkItems = items;
