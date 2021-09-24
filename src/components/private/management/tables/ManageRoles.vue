@@ -2,7 +2,7 @@
   <div>
     <div class="container my-5">
       <div class="table-responsive ">
-        <table class="table table-hover table-responsive  table-sm text-center">
+        <table class="table table-hover  table-sm text-center">
           <thead class="bg-dark text-white">
             <tr class="">
               <th scope="col">#</th>
@@ -87,3 +87,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.table-responsive {
+  height: 560px;
+}
+</style>

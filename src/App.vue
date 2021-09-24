@@ -12,9 +12,15 @@
         class="text-white"
         color="deep-purple accent-4"
       >
-        <v-list-item class="ml-5">
+
+
+
+
+
+
+        <div class="mt-5">
           <v-list-item-content>
-            <div class="ml-16 mt-8 mb-5">
+            <div class="text-center">
               <v-avatar size="large">
                 <img @click="$refs.fileInput.click()"
                   :src="pic"
@@ -24,29 +30,38 @@
               </v-avatar>
               <v-list-item-title >
                         <div v-show="getUserLogedIn != null && selectedFile != null">
-          <input type="file" style="display:none" name="pic" accept="image/*" @change="onFileSelected" ref="fileInput" />
+                       <input type="file" style="display:none" name="pic" accept="image/*" @change="onFileSelected" ref="fileInput" />
         
-            <v-btn 
-              variant="outlined"
-               rounded="pill"
-           size="x-small"
-          @click="onUpload"
-          class=""
-        >
-        SAVE
-        </v-btn>
+                    <v-btn 
+                          variant="outlined"
+                           rounded="pill"
+                           size="x-small"
+                          @click="onUpload"
+                        class=""
+                       >
+                     SAVE
+                   </v-btn>
 
-        </div>
-              </v-list-item-title>
-            </div>
-            <v-list-item-title class="text-h6 ml-12">
-              {{ isEmail ? "Username" : "No user" }}
+                     </div>
             </v-list-item-title>
-            <v-list-item-subtitle class="ml-5" v-if="isEmail">
-              {{ isEmail }}
-            </v-list-item-subtitle>
+
+
+      </div>
+            <div class="text-h7 text-center mt-4 ">
+             <h7>  {{ isEmail ? "Username" : "No user" }} </h7> 
+            </div>
+            <div class="email text-center username" v-if="isEmail">
+            {{ isEmail }}
+            </div>
           </v-list-item-content>
-        </v-list-item>
+        </div>
+
+
+
+
+
+
+
         <v-divider class="bg-white"> </v-divider>
 
 
@@ -280,9 +295,15 @@ th {
   color: #673ab7;
 }
 .modal-header {
-  
   background-color: #673ab7 !important;
 color:white
+}
+
+
+.username{
+    font-size: 12px;
+    font-style: italic;
+    color: rgb(149, 144, 194);
 }
 
 </style>

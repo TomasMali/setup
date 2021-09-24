@@ -6,7 +6,7 @@
 
     <div class="container my-5">
       <div class="table-responsive ">
-        <table class="table table-hover table-responsive  table-sm ">
+        <table class="table table-hover table-sm ">
           <thead class="bg-dark text-white">
             <tr class="">
               <th scope="col">#</th>
@@ -63,6 +63,6 @@ export default {
 
 <style scoped>
 .table-responsive {
-  max-height: 400px;
+  height: 560px;
 }
 </style>

@@ -77,6 +77,6 @@ export default {
 
 <style scoped>
 .table-responsive {
-  max-height: 400px;
+  height: 560px;
 }
 </style>

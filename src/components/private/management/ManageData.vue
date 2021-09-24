@@ -13,7 +13,7 @@
         </select>
       </div>
 
-      <component :is="selected"></component>
+      <component class="table-content" :is="selected"></component>
     </base-card>
   </div>
 </template>
@@ -129,3 +129,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.table-responsive {
+  height: 560px;
+}
+</style>

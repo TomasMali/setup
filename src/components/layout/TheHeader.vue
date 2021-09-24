@@ -1,97 +1,91 @@
 <template>
   <div>
     <v-list dense nav class="mt-12">
-      <v-list-item link>
-        <v-list-item-icon class="ml-4 mr-3">
-          <v-icon>{{ home.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <router-link
-          @click="clickSubmit"
-          to="/public"
-          class="routerLink "
-          tag="span"
-        >
+      <router-link
+        @click="clickSubmit"
+        to="/public"
+        class="routerLink "
+        tag="span"
+      >
+        <v-list-item class="hover" link>
+          <v-icon class="text-white item-route mr-2">{{ home.icon }}</v-icon>
           <v-list-item-content>
             <v-list-item-title class="text-white">
               {{ home.title }}
             </v-list-item-title>
           </v-list-item-content>
-        </router-link>
-      </v-list-item>
+        </v-list-item>
+      </router-link>
 
-      <v-list-item link v-if="isLoggedIn">
-        <v-list-item-icon class="ml-4 mr-3">
-          <v-icon>{{ events.icon }}</v-icon>
-        </v-list-item-icon>
-
-        <router-link
-          @click="clickSubmit"
-          to="/events"
-          class="routerLink "
-          tag="span"
-        >
+      <router-link
+        v-if="isLoggedIn"
+        @click="clickSubmit"
+        to="/events"
+        class="routerLink "
+        tag="span"
+      >
+        <v-list-item class="hover" link>
+          <v-icon class="text-white item-route mr-2">{{ events.icon }}</v-icon>
           <v-list-item-content>
             <v-list-item-title class="text-white">
               {{ events.title }}
             </v-list-item-title>
           </v-list-item-content>
-        </router-link>
-      </v-list-item>
-      <v-list-item link v-if="isLoggedIn">
-        <v-list-item-icon class="ml-4 mr-3">
-          <v-icon>{{ manage.icon }}</v-icon>
-        </v-list-item-icon>
+        </v-list-item>
+      </router-link>
 
-        <router-link
-          @click="clickSubmit"
-          to="/manage"
-          class="routerLink "
-          tag="span"
-        >
+      <router-link
+        v-if="isLoggedIn"
+        @click="clickSubmit"
+        to="/manage"
+        class="routerLink "
+        tag="span"
+      >
+        <v-list-item class="hover" link>
+          <v-icon class="text-white item-route mr-2">{{ manage.icon }}</v-icon>
           <v-list-item-content>
             <v-list-item-title class="text-white">
               {{ manage.title }}
             </v-list-item-title>
           </v-list-item-content>
-        </router-link>
-      </v-list-item>
-      <v-list-item link v-if="!isLoggedIn">
-        <v-list-item-icon class="ml-4 mr-3">
-          <v-icon>{{ login.icon }}</v-icon>
-        </v-list-item-icon>
+        </v-list-item>
+      </router-link>
 
-        <router-link
-          @click="clickSubmit"
-          to="/login"
-          class="routerLink "
-          tag="span"
-        >
+      <router-link
+        v-if="!isLoggedIn"
+        @click="clickSubmit"
+        to="/login"
+        class="routerLink "
+        tag="span"
+      >
+        <v-list-item class="hover" link>
+          <v-icon class="text-white item-route mr-2">{{ login.icon }}</v-icon>
           <v-list-item-content>
             <v-list-item-title class="text-white">
               {{ login.title }}
             </v-list-item-title>
           </v-list-item-content>
-        </router-link>
-      </v-list-item>
-      <v-list-item link v-if="isLoggedIn">
-        <v-list-item-icon class="ml-4 mr-3">
-          <v-icon>{{ logoutRoute.icon }}</v-icon>
-        </v-list-item-icon>
+        </v-list-item>
+      </router-link>
 
-        <router-link
-          @click="logout"
-          to="/public"
-          class="routerLink "
-          tag="span"
-        >
+      <router-link
+        v-if="isLoggedIn"
+        @click="logout"
+        to="/public"
+        class="routerLink "
+        tag="span"
+      >
+        <v-list-item class="hover" link>
+          <v-icon class="text-white item-route mr-2">{{
+            logoutRoute.icon
+          }}</v-icon>
           <v-list-item-content>
             <v-list-item-title class="text-white">
               {{ logoutRoute.title }}
             </v-list-item-title>
           </v-list-item-content>
-        </router-link>
-      </v-list-item>
+        </v-list-item>
+      </router-link>
     </v-list>
   </div>
 </template>
@@ -169,6 +163,14 @@ export default {
 <style scoped>
 body {
   font-family: montserrat;
+}
+
+.item-route {
+  margin-left: 65px;
+}
+
+.hover:hover {
+  background-color: rgb(149, 144, 194);
 }
 
 * {

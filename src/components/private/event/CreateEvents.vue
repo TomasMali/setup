@@ -560,8 +560,8 @@ export default {
         query: {
           user: this.$store.getters["auth/userId"],
           eventId: event.id,
-          start_dat: this.dateConverter(event.begin_date_registration),
-          end_dat: this.dateConverter(event.end_date_registration),
+          start_dat: this.dateConverter(event.begin_date),
+          end_dat: this.dateConverter(event.end_date),
         },
       });
     },
