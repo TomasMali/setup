@@ -70,7 +70,7 @@
           <tbody>
             <tr class="text-primary">
               <td>
-                <div class=" ml-4 my-2">
+                <div class=" ml-4 my-1">
                   <input
                     @click="filterFidsAll"
                     v-model="allSelected"
@@ -78,6 +78,9 @@
                     class="form-check-input select-all"
                     id="exampleCheck1"
                   />
+                  <span @click="cleanFilter">
+                    <i class="fas fa-filter ml-5 mt-2 cursor-pointer "></i>
+                  </span>
                 </div>
               </td>
               <td>
@@ -381,5 +384,9 @@ th {
 
 .color_spinner {
   color: #673ab7;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 </style>

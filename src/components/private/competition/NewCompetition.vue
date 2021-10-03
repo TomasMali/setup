@@ -1,378 +1,168 @@
 <template>
   <div>
     <!-- Manual Components Creation  -->
-    <create-dialog
-      :show="open"
-      title="Create new competition"
-      @close="$emit('close')"
-    >
-      <div class="card text-dark bg-light px-5  mb-0 scroll">
-        <div class="card-body">
-          <form class="" @submit.prevent="formSubmit">
-            <!--    Events   -->
-            <div class="p-2">
-              <select
-                v-model="events.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Events')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected id="text-color">
-                  Choose the event
-                </option>
-                <option
-                  v-for="item in events.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.name }}
-                </option>
-              </select>
-            </div>
-            <!--    Dances   -->
 
-            <div class="p-2">
-              <select
-                v-model="dances.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Dances')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the dance</option>
-                <option
-                  v-for="item in dances.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-            <!--    Disciplines   -->
-
-            <div class="p-2">
-              <select
-                v-model="disciplines.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Disciplines')"
-              >
-                <option value="" disabled class="">
-                  Choose the disciplines
-                </option>
-                <option
-                  v-for="item in disciplines.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.sector }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Select judges disciplines   -->
-            <div class="p-2">
-              <select
-                v-model="judges_disciplines.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Judges_disciplines')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose judges disciplines
-                </option>
-                <option
-                  v-for="item in judges_disciplines.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Judges licenses   -->
-            <div class="p-2">
-              <select
-                v-model="judges_licenses.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Judges_licenses')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the judges licenses
-                </option>
-                <option
-                  v-for="item in judges_licenses.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Official licenses  -->
-            <div class="p-2">
-              <select
-                v-model="officials_licenses.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Officials_licenses')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the official licenses
-                </option>
-                <option
-                  v-for="item in officials_licenses.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose official roles -->
-            <div class="p-2">
-              <select
-                v-model="officials_roles.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Officials_roles')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose Officials_roles
-                </option>
-                <option
-                  v-for="item in officials_roles.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!-- ------------------- -->
-
-            <!--    Sectors discipline-->
-            <div class="p-2">
-              <select
-                v-model="sectors_discipline.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Sectors_discipline')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the Sectors discipline
-                </option>
-                <option
-                  v-for="item in sectors_discipline.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Unit type<-->
-            <div class="p-2">
-              <select
-                v-model="unit_type.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Unit_type')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the unit type</option>
-                <option
-                  v-for="item in unit_type.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose age category  -->
-            <div class="p-2">
-              <select
-                v-model="age_category.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Age_category')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose age category</option>
-                <option
-                  v-for="item in age_category.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Classe -->
-            <div class="p-2">
-              <select
-                v-model="classe.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Classe')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>Choose the classe</option>
-                <option
-                  v-for="item in classe.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Competition type -->
-            <div class="p-2">
-              <select
-                v-model="competition_type.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Competition_type')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose the competition type
-                </option>
-                <option
-                  v-for="item in competition_type.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose judging systems-->
-            <div class="p-2">
-              <select
-                v-model="judging_systems.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Judging_systems')"
-              >
-                <optgroup disabled hidden></optgroup>
-                <option value="" disabled selected>
-                  Choose judging systems
-                </option>
-                <option
-                  v-for="item in judging_systems.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <!--    Choose rounds-->
-            <div class="p-2">
-              <select
-                v-model="rounds.value"
-                class="  form-select form-select-sm "
-                aria-label=".form-select-sm example"
-                name="option"
-                @click="loadTable('Rounds')"
-              >
-                <optgroup disabled hidden> </optgroup>
-                <option value="" disabled selected>
-                  <div style="color: red;">Choose rounds</div>
-                </option>
-                <option
-                  v-for="item in rounds.tab"
-                  :key="item.id"
-                  :value="item.id"
-                >
-                  {{ item.id }} - {{ item.description }}
-                </option>
-              </select>
-            </div>
-
-            <div class="">
-              <h6 class="mt-2">Other fields goes here ....</h6>
-            </div>
-
-            <!-- ------------------- -->
-
-            <p>
-              <button
-                type="submit"
-                class="w3-button w3-block  w3-round-xlarge text-white  bg-deep-purple accent-4 mt-4"
-              >
-                Create
-              </button>
-            </p>
-          </form>
-        </div>
+    <div>
+      <!--    Events   -->
+      <div class="p-2">
+        <select
+          v-model="events.value"
+          class="  form-select form-select-sm "
+          aria-label=".form-select-sm example"
+          name="option"
+          @click="loadTable('Events')"
+        >
+          <optgroup disabled hidden></optgroup>
+          <option value="" disabled selected id="text-color">
+            Choose the event
+          </option>
+          <option v-for="item in events.tab" :key="item.id" :value="item.id">
+            {{ item.name }}
+          </option>
+        </select>
       </div>
-    </create-dialog>
+      <!--    Disciplines   -->
+
+      <div class="p-2">
+        <select
+          v-model="disciplines.value"
+          class="  form-select form-select-sm "
+          aria-label=".form-select-sm example"
+          name="option"
+          @click="loadTable('Disciplines')"
+        >
+          <option value="" disabled class="">
+            Choose the disciplines
+          </option>
+          <option
+            v-for="item in disciplines.tab"
+            :key="item.id"
+            :value="item.id"
+          >
+            {{ item.description }} - {{ item.sector }}
+          </option>
+        </select>
+      </div>
+
+      <!--    Classe -->
+      <div class="p-2">
+        <select
+          v-model="classe.value"
+          class="  form-select form-select-sm "
+          aria-label=".form-select-sm example"
+          name="option"
+          @click="loadTable('Classe')"
+        >
+          <optgroup disabled hidden></optgroup>
+          <option value="" disabled selected>Choose the classe</option>
+          <option v-for="item in classe.tab" :key="item.id" :value="item.id">
+            {{ item.description }} - {{ item.id }}
+          </option>
+        </select>
+      </div>
+
+      <!--    Choose age group/category  -->
+      <div class="p-2">
+        <select
+          v-model="age_category.value"
+          class="  form-select form-select-sm "
+          aria-label=".form-select-sm example"
+          name="option"
+          @click="loadTable('Age_category')"
+        >
+          <optgroup disabled hidden></optgroup>
+          <option value="" disabled selected>Choose age group</option>
+          <option
+            v-for="item in age_category.tab"
+            :key="item.id"
+            :value="item.id"
+          >
+            {{ item.description }} - {{ item.id }}
+          </option>
+        </select>
+      </div>
+
+      <!--    Dances   -->
+
+      <div class="p-2">
+        <select
+          v-model="dances.value"
+          class="  form-select form-select-sm "
+          aria-label=".form-select-sm example"
+          name="option"
+          @click="loadTable('Dances')"
+        >
+          <optgroup disabled hidden></optgroup>
+          <option value="" disabled selected>Choose the dance</option>
+          <option v-for="item in dances.tab" :key="item.id" :value="item.id">
+            {{ item.description }} - {{ item.id }}
+          </option>
+        </select>
+      </div>
+
+      <!--    Unit type<-->
+      <div class="p-2">
+        <select
+          v-model="unit_type.value"
+          class="  form-select form-select-sm "
+          aria-label=".form-select-sm example"
+          name="option"
+          @click="loadTable('Unit_type')"
+        >
+          <optgroup disabled hidden></optgroup>
+          <option value="" disabled selected>Choose the unit type</option>
+          <option v-for="item in unit_type.tab" :key="item.id" :value="item.id">
+            {{ item.description }} - {{ item.id }}
+          </option>
+        </select>
+      </div>
+
+      <!--    Choose rounds-->
+
+      <div class="">
+        <h6 class="mt-2">Other fields goes here ....</h6>
+      </div>
+
+      <!-- ------------------- -->
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  emits: ["close", "insertFidsCompleated"],
-  props: ["open", "eventName"],
+  emits: ["insertFidsCompleated"],
+  props: ["obj"],
   data() {
     return {
       events: { value: "", isValid: true, tab: [] },
-      dances: { value: "", isValid: true, tab: [] },
       disciplines: { value: "", isValid: true, tab: [] },
-      judges_disciplines: { value: "", isValid: true, tab: [] },
-      judges_licenses: { value: "", isValid: true, tab: [] },
-      officials_licenses: { value: "", isValid: true, tab: [] },
-      officials_roles: { value: "", isValid: true, tab: [] },
-      sectors_discipline: { value: "", isValid: true, tab: [] },
-      unit_type: { value: "", isValid: true, tab: [] },
-      classe: { value: "", isValid: true, tab: [] },
       age_category: { value: "", isValid: true, tab: [] },
-      competition_type: { value: "", isValid: true, tab: [] },
-      judging_systems: { value: "", isValid: true, tab: [] },
-      rounds: { value: "", isValid: true, tab: [] },
+      classe: { value: "", isValid: true, tab: [] },
+      unit_type: { value: "", isValid: true, tab: [] },
+      dances: { value: "", isValid: true, tab: [] },
+      judgingSystemPreliminary: { value: "", isValid: true, tab: [] },
+      judgingSystemFinal: { value: "", isValid: true, tab: [] },
+      calculationType: { value: "", isValid: true, tab: [] },
+      FirstAgeMIN: { value: "", isValid: true, tab: [] },
+      FirstAgeMAX: { value: "", isValid: true, tab: [] },
+      SecondAgeMIN: { value: "", isValid: true, tab: [] },
+      SecondAgeMAX: { value: "", isValid: true, tab: [] },
+      AlternativeAgeGroup: { value: "", isValid: true, tab: [] },
+      PercFQAge: { value: "", isValid: true, tab: [] },
+      PercFQClass: { value: "", isValid: true, tab: [] },
+      MembersMIN: { value: "", isValid: true, tab: [] },
+      MembersMAX: { value: "", isValid: true, tab: [] },
+      ExclusiveGender: { value: "", isValid: true, tab: [] },
+      MusicRequired: { value: "", isValid: true, tab: [] },
+      AliasRequired: { value: "", isValid: true, tab: [] },
 
       myCompetitions: [],
       isFormValid: true,
       isLoading: false,
       error: null,
       tab: null,
-      openDialogCompetitionCreation: null,
       isMobile: false,
+      competition: {},
     };
   },
   methods: {
@@ -383,19 +173,26 @@ export default {
       const actionPayload = {
         license: "FREE",
         events: this.events.value,
-        dances: this.dances.value,
         disciplines: this.disciplines.value === "" ? 0 : this.disciplines.value,
-        judges_disciplines: this.judges_disciplines.value,
-        judges_licenses: this.judges_licenses.value,
-        officials_licenses: this.officials_licenses.value,
-        officials_roles: this.officials_roles.value,
-        sectors_discipline: this.sectors_discipline.value,
-        unit_type: this.unit_type.value,
-        classe: this.classe.value,
         age_category: this.age_category.value,
-        competition_type: this.competition_type.value,
-        judging_systems: this.judging_systems.value,
-        rounds: this.rounds.value,
+        classe: this.classe.value,
+        unit_type: this.unit_type.value,
+        dances: this.dances.value,
+
+        judgingSystemPreliminary: this.judgingSystemPreliminary.value,
+        judgingSystemFinal: this.judgingSystemFinal.value,
+        calculationType: this.calculationType.value,
+        FirstAgeMAX: this.FirstAgeMAX.value,
+        SecondAgeMIN: this.SecondAgeMIN.value,
+        SecondAgeMAX: this.SecondAgeMAX.value,
+        AlternativeAgeGroup: this.AlternativeAgeGroup.value,
+        PercFQAge: this.PercFQAge.value,
+        PercFQClass: this.PercFQClass.value,
+        MembersMIN: this.MembersMIN.value,
+        MembersMAX: this.MembersMAX.value,
+        ExclusiveGender: this.ExclusiveGender.value,
+        MusicRequired: this.MusicRequired.value,
+        AliasRequired: this.AliasRequired.value,
         user: this.$store.getters["auth/userId"],
       };
       // console.log(this.form);
@@ -406,27 +203,12 @@ export default {
           actionPayload
         );
         this.$emit("insertFidsCompleated");
-        this.$emit("close");
         //
       } catch (error) {
         this.error = error.message || "Failed to authenticate";
       }
       this.isLoading = false;
       // clean the fields
-
-      //  (this.events = this.eventName),
-      (this.disciplines = { value: "", isValid: true, tab: [] }),
-        (this.judges_disciplines = { value: "", isValid: true, tab: [] }),
-        (this.judges_licenses = { value: "", isValid: true, tab: [] }),
-        (this.officials_licenses = { value: "", isValid: true, tab: [] }),
-        (this.officials_roles = { value: "", isValid: true, tab: [] }),
-        (this.sectors_discipline = { value: "", isValid: true, tab: [] }),
-        (this.unit_type = { value: "", isValid: true, tab: [] }),
-        (this.classe = { value: "", isValid: true, tab: [] }),
-        (this.age_category = { value: "", isValid: true, tab: [] }),
-        (this.competition_type = { value: "", isValid: true, tab: [] }),
-        (this.judging_systems = { value: "", isValid: true, tab: [] }),
-        (this.rounds = { value: "", isValid: true, tab: [] });
     },
 
     async loadTable(tabName) {
@@ -437,70 +219,30 @@ export default {
               user: this.$store.getters["auth/userId"],
             });
             this.events.tab = this.$store.getters["event/getEvents"];
-            // console.log("event: ", this.events.tab);
-            break;
-          case "Dances":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.dances.tab = this.$store.getters["tab/get" + tabName];
             break;
           case "Disciplines":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.disciplines.tab = this.$store.getters["tab/get" + tabName];
             break;
-          case "Judges_disciplines":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.judges_disciplines.tab = this.$store.getters[
-              "tab/get" + tabName
-            ];
-            break;
-          case "Judges_licenses":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.judges_licenses.tab = this.$store.getters["tab/get" + tabName];
-            break;
-          case "Officials_licenses":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.officials_licenses.tab = this.$store.getters[
-              "tab/get" + tabName
-            ];
-            break;
-          case "Officials_roles":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.officials_roles.tab = this.$store.getters["tab/get" + tabName];
-            break;
-          //
-          case "Sectors_discipline":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.sectors_discipline.tab = this.$store.getters[
-              "tab/get" + tabName
-            ];
-            break;
-          case "Unit_type":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.unit_type.tab = this.$store.getters["tab/get" + tabName];
-            break;
           case "Age_category":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.age_category.tab = this.$store.getters["tab/get" + tabName];
             break;
-          //
           case "Classe":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.classe.tab = this.$store.getters["tab/get" + tabName];
             break;
-          case "Competition_type":
+
+          case "Unit_type":
             await this.$store.dispatch("tab/getTabs", tabName);
-            this.competition_type.tab = this.$store.getters[
-              "tab/get" + tabName
-            ];
+            this.unit_type.tab = this.$store.getters["tab/get" + tabName];
             break;
-          case "Judging_systems":
+          case "Dances":
             await this.$store.dispatch("tab/getTabs", tabName);
-            this.judging_systems.tab = this.$store.getters["tab/get" + tabName];
+            this.dances.tab = this.$store.getters["tab/get" + tabName];
             break;
-          case "Rounds":
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.rounds.tab = this.$store.getters["tab/get" + tabName];
-            break;
+          //
+
           default:
             await this.$store.dispatch("tab/getTabs", tabName);
             this.tab = this.$store.getters["tab/get" + tabName];
@@ -510,13 +252,16 @@ export default {
         //   console.log(error);
       }
     },
-    manageDialogCompetition() {
-      this.openDialogCompetitionCreation = null;
-    },
   },
   computed: {},
-
+  watch: {
+    obj: function(newVal) {
+      this.competition = this.obj;
+      console.log("Compet: ", newVal);
+    },
+  },
   created() {
+    this.competition = this.obj;
     if (screen.width <= 760) {
       this.isMobile = true;
     } else {
