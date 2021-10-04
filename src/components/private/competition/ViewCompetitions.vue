@@ -101,7 +101,6 @@
                   <span class="input-group-text" id="basic-addon1"
                     >Age group</span
                   >
-
                   <input
                     disabled
                     type="text"
@@ -122,6 +121,41 @@
                       :value="item.id"
                     >
                       {{ item.description }} - {{ item.id }}
+                    </option>
+                  </select>
+                </div>
+
+                <!--    Choose age group/category  -->
+                <!--    United type   -->
+                <div class="input-group input-group-sm  p-2">
+                  <span class="input-group-text" id="basic-addon1"
+                    >Judging_system_preliminary</span
+                  >
+                  <select
+                    v-model="getClickedCompetition.judging_system_preliminary"
+                    class="  form-select form-select-sm "
+                  >
+                    <option
+                      v-for="item in judging_systems.tab"
+                      :key="item.id"
+                      :value="item.judging_systems_id"
+                    >
+                      {{ item.description }} - {{ item.judging_systems_id }}
+                    </option>
+                  </select>
+                  <span class="input-group-text ml-1" id="basic-addon1"
+                    >Judging_system_final</span
+                  >
+                  <select
+                    v-model="getClickedCompetition.judging_system_final"
+                    class="  form-select form-select-sm "
+                  >
+                    <option
+                      v-for="item in judging_systems.tab"
+                      :key="item.id"
+                      :value="item.judging_systems_id"
+                    >
+                      {{ item.description }} - {{ item.judging_systems_id }}
                     </option>
                   </select>
                 </div>
@@ -619,8 +653,7 @@ export default {
       classe: { value: "", isValid: true, tab: [] },
       unit_type: { value: "", isValid: true, tab: [] },
       dances: { value: "", isValid: true, tab: [] },
-      judgingSystemPreliminary: { value: "", isValid: true, tab: [] },
-      judgingSystemFinal: { value: "", isValid: true, tab: [] },
+      judging_systems: { value: "", isValid: true, tab: [] },
       calculationType: { value: "", isValid: true, tab: [] },
       FirstAgeMIN: { value: "", isValid: true, tab: [] },
       FirstAgeMAX: { value: "", isValid: true, tab: [] },
@@ -741,6 +774,12 @@ export default {
             await this.$store.dispatch("tab/getTabs", tabName);
             this.unit_type.tab = this.$store.getters["tab/get" + tabName];
             break;
+
+          case "Judging_systems":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.judging_systems.tab = this.$store.getters["tab/get" + tabName];
+            break;
+
           case "Dances":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.dances.tab = this.$store.getters["tab/get" + tabName];
@@ -826,6 +865,7 @@ export default {
     this.loadTable("Events");
     this.loadTable("Disciplines");
     this.loadTable("Unit_type");
+    this.loadTable("Judging_systems");
     this.event = this.$route.query.eventId;
     this.start_dat = this.$route.query.start_dat;
     this.end_dat = this.$route.query.end_dat;
