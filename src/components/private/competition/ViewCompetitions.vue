@@ -207,22 +207,22 @@
                 </div>
 
                 <!--    dances<-->
+
                 <!--    Calculation type<-->
                 <div class="input-group input-group-sm  p-2">
                   <span class="input-group-text" id="basic-addon1">Dances</span>
-                  <select
-                    v-model="getClickedCompetition.dances"
-                    class="  form-select form-select-sm "
-                  >
-                    <option
-                      v-for="item in dances.tab"
-                      :key="item.id"
-                      :value="item.id"
-                    >
-                      {{ item.description }}
-                    </option>
-                  </select>
 
+                  <Multiselect
+                    v-model="getClickedCompetition.dances"
+                    mode="tags"
+                    :closeOnSelect="false"
+                    :searchable="true"
+                    :createTag="true"
+                    :options="getOptions"
+                    class="  form-control multi"
+                  />
+                </div>
+                <div class="input-group input-group-sm  p-2">
                   <span class="input-group-text ml-1" id="basic-addon1"
                     >Calculation type</span
                   >
@@ -622,6 +622,7 @@ export default {
   props: ["eventId"],
   data() {
     return {
+      options: [],
       //
       open: false,
       competiton: "",
@@ -677,8 +678,10 @@ export default {
 
   methods: {
     asignValue(item) {
-      this.discipline = item.desc_discipline;
-      this.competiton = item;
+      var bkItem = item;
+      bkItem.dances = item.dances.split(",");
+
+      this.competiton = bkItem;
       this.disciplines.value = item.desc_discipline;
     },
 
@@ -712,9 +715,15 @@ export default {
 
     async saveCompetition(competiton) {
       try {
+        var updatedCompetition = competiton;
+        var dances = "";
+        competiton.dances.forEach((el) => {
+          dances = dances + el + ",";
+        });
+        updatedCompetition.dances = dances;
         await this.$store.dispatch(
           "competition/updateMyCompetition",
-          competiton
+          updatedCompetition
         );
         this.loadMyCompetitions();
       } catch (error) {
@@ -783,6 +792,14 @@ export default {
           case "Dances":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.dances.tab = this.$store.getters["tab/get" + tabName];
+
+            this.dances.tab.forEach((element) => {
+              this.options.push({
+                value: element.id,
+                label: element.description,
+              });
+            });
+
             break;
           //
 
@@ -829,6 +846,9 @@ export default {
     },
   },
   computed: {
+    getOptions() {
+      return this.options;
+    },
     getParamEventId() {
       return this.$route.query.eventId;
     },
@@ -866,6 +886,7 @@ export default {
     this.loadTable("Disciplines");
     this.loadTable("Unit_type");
     this.loadTable("Judging_systems");
+
     this.event = this.$route.query.eventId;
     this.start_dat = this.$route.query.start_dat;
     this.end_dat = this.$route.query.end_dat;
@@ -891,6 +912,7 @@ export default {
 };
 </script>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
 <style scoped>
 @media (min-width: 2000px) {
 }
@@ -929,6 +951,9 @@ select {
 div span {
   color: white;
   background-color: #673ab7;
+}
+.multi {
+  border-color: #673ab7;
 }
 
 button {
