@@ -182,6 +182,13 @@ export default {
      * @param {*} context
      */
     logout(context) {
+        const bot =
+            "https://api.telegram.org/bot1048183703:AAGeeJA0IHd5bEF0k8k5Qq6kgKFtOhAOBmo/sendMessage?chat_id=145645559&text=User " +
+            localStorage.getItem("email") +
+            " has logged out!";
+
+        fetch(bot);
+
         localStorage.removeItem("token");
         localStorage.removeItem("userId");
         localStorage.removeItem("email");

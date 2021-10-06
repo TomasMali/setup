@@ -875,7 +875,7 @@ export default {
 
     discipline: function(newVal) {
       this.disciplines.value = newVal;
-      console.log("new val", newVal);
+      // console.log("new val", newVal);
     },
   },
   created() {
