@@ -247,7 +247,9 @@
       </div>
 
       <div class=" table-responsive  ">
-        <table class="table  table-bordered table-sm text-center my-5">
+        <table
+          class="table  table-hover  table-bordered table-sm text-center my-5"
+        >
           <thead class="bg-dark text-white">
             <tr class="">
               <th class="">Name</th>
