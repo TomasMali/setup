@@ -35,7 +35,7 @@
       </router-link>
 
       <router-link
-        v-if="isLoggedIn"
+        v-if="hasPermition"
         @click="clickSubmit"
         to="/manage"
         class="routerLink "
@@ -133,6 +133,12 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters["auth/isAuthenticated"];
+    },
+    hasPermition() {
+      return (
+        this.isLoggedIn &&
+        JSON.parse(localStorage.getItem("role")).allow.manageUser
+      );
     },
     isEmail() {
       return this.$store.getters["auth/email"];

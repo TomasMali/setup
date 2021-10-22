@@ -39,10 +39,14 @@ export default {
         // gets the time in milliseconds
         const expirationDate = new Date().getTime() + expiresIn;
 
+        console.log(responseData.role);
+
         localStorage.setItem("token", responseData.token);
         localStorage.setItem("email", responseData.email);
         localStorage.setItem("userId", responseData.user);
         localStorage.setItem("tokenExpiration", expirationDate);
+        localStorage.setItem("rolename", responseData.rolename);
+        localStorage.setItem("role", JSON.stringify(responseData.role));
 
         // dopo questo tempo 'expiresIn', la funzione viene eseguita
         // Una volta logout, pulisco il timer con clearTimeout
@@ -55,6 +59,8 @@ export default {
             token: responseData.token,
             userId: responseData.user,
             email: responseData.email,
+            role: responseData.role,
+            rolename: responseData.rolename,
         });
     },
 
@@ -193,6 +199,7 @@ export default {
         localStorage.removeItem("userId");
         localStorage.removeItem("email");
         localStorage.removeItem("tokenExpiration");
+        localStorage.removeItem("role");
 
         clearTimeout(timer);
 
@@ -200,6 +207,7 @@ export default {
             token: null,
             userId: null,
             email: null,
+            role: null,
         });
     },
     autoLogOut(context) {

@@ -9,6 +9,15 @@
       ></edit-competition>
     </teleport>
 
+    <!-- Modal New Components -->
+    <teleport to="body">
+      <!-- Modal -->
+      <new-competition
+        :eventOut="$route.query.eventId"
+        @doCreate="createCompetition"
+      ></new-competition>
+    </teleport>
+
     <!-- Modal Load Components -->
     <teleport to="body">
       <!-- Modal -->
@@ -92,7 +101,8 @@
           <div>
             <a
               class="btn  btn-outline-secondary mb-1"
-              @click="openDialogCompetitionCreation = true"
+              data-bs-toggle="modal"
+              data-bs-target="#newCompetitionModal"
             >
               Create new competition
             </a>
@@ -214,11 +224,13 @@
 //import NewCompetition from "./NewCompetition.vue";
 import LoadFids from "./LoadFids.vue";
 import EditCompetition from "./EditCompetition.vue";
+import NewCompetition from "./NewCompetition.vue";
 export default {
   components: {
     // NewCompetition,
     LoadFids,
     EditCompetition,
+    NewCompetition,
   },
   props: ["eventId"],
   // emits: ["doSave"],
@@ -294,14 +306,39 @@ export default {
       this.end_dat = end;
     },
 
+    async createCompetition(competiton) {
+      // console.log("Dances", competiton.dances);
+      try {
+        var updatedCompetition = competiton;
+        var dances = "";
+        if (competiton.dances != undefined)
+          competiton.dances.forEach((el) => {
+            dances = dances + el + ",";
+          });
+        updatedCompetition.dances = dances;
+        updatedCompetition.event = this.$route.query.eventId;
+        updatedCompetition.user = this.$store.getters["auth/userId"];
+
+        console.log(updatedCompetition);
+        await this.$store.dispatch(
+          "competition/addMyCompetition",
+          updatedCompetition
+        );
+        this.loadMyCompetitions();
+      } catch (error) {
+        this.error = error.message || "Failed to authenticate";
+      }
+    },
+
     async saveCompetition(competiton) {
       console.log(competiton);
       try {
         var updatedCompetition = competiton;
         var dances = "";
-        competiton.dances.forEach((el) => {
-          dances = dances + el + ",";
-        });
+        if (competiton.dances != undefined)
+          competiton.dances.forEach((el) => {
+            dances = dances + el + ",";
+          });
         updatedCompetition.dances = dances;
         await this.$store.dispatch(
           "competition/updateMyCompetition",
@@ -468,7 +505,7 @@ tr {
 }
 
 .table-responsive {
-  max-height: 400px;
+  max-height: 450px;
 }
 
 input {

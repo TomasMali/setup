@@ -1,147 +1,424 @@
 <template>
-  <div>
-    <!-- Manual Components Creation  -->
+  <!-- Modal -->
+  <div
+    class="modal  fade "
+    id="newCompetitionModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable modal-xl ">
+      <div class="modal-content">
+        <!--
+          <div class="modal-header purple">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Edit Competition
+              </h5>
+              <button
+                type="button"
+                class="btn-close bg-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+              -->
+        <div class="modal-body mx-5 mt-4">
+          <!--------------------------------------------------  Load FIDS  -->
+          <!--    Disciplines   -    
+          DDDD: {{ getClickedCompetition }}
+              -->
 
-    <div>
-      <!--    Events   -->
-      <div class="p-2">
-        <select
-          v-model="events.value"
-          class="  form-select form-select-sm "
-          aria-label=".form-select-sm example"
-          name="option"
-          @click="loadTable('Events')"
-        >
-          <optgroup disabled hidden></optgroup>
-          <option value="" disabled selected id="text-color">
-            Choose the event
-          </option>
-          <option v-for="item in events.tab" :key="item.id" :value="item.id">
-            {{ item.name }}
-          </option>
-        </select>
-      </div>
-      <!--    Disciplines   -->
+          <div class="px-5 mt-2">
+            <!--    Events   -->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1">Event</span>
+              <select
+                disabled
+                v-model="$route.query.eventId"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
+                name="option"
+              >
+                <option value="" selected id="text-color">
+                  Choose the event
+                </option>
+                <option
+                  v-for="item in events.tab"
+                  :key="item.id"
+                  :value="item.id"
+                >
+                  {{ item.name }}
+                </option>
+              </select>
 
-      <div class="p-2">
-        <select
-          v-model="disciplines.value"
-          class="  form-select form-select-sm "
-          aria-label=".form-select-sm example"
-          name="option"
-          @click="loadTable('Disciplines')"
-        >
-          <option value="" disabled class="">
-            Choose the disciplines
-          </option>
-          <option
-            v-for="item in disciplines.tab"
-            :key="item.id"
-            :value="item.id"
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >License</span
+              >
+
+              <input
+                type="text"
+                v-model="getClickedCompetition.license"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!--    Discipline   -->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text " id="basic-addon1"
+                >Discipline</span
+              >
+              <select
+                v-model="getClickedCompetition.discipline"
+                class="  form-select form-select-sm "
+                aria-label=".form-select-sm example"
+                name="option"
+              >
+                <option
+                  v-for="item in disciplines.tab"
+                  :key="item.id"
+                  :value="item.id"
+                >
+                  {{ item.description }}
+                </option>
+              </select>
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >Classe</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.classe"
+                class="  form-control text-left"
+              />
+            </div>
+
+            <!--    Choose age group/category  -->
+            <!--    United type   -->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1">Age group</span>
+              <input
+                type="text"
+                v-model="getClickedCompetition.age_group"
+                class="text-left form-control"
+              />
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >United type</span
+              >
+              <select
+                v-model="getClickedCompetition.unit_type"
+                class="  form-select form-select-sm "
+              >
+                <option
+                  v-for="item in unit_type.tab"
+                  :key="item.id"
+                  :value="item.id"
+                >
+                  {{ item.description }} - {{ item.id }}
+                </option>
+              </select>
+            </div>
+
+            <!--    Choose age group/category  -->
+            <!--    United type   -->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1"
+                >Judging_system_preliminary</span
+              >
+              <select
+                v-model="getClickedCompetition.judging_system_preliminary"
+                class="  form-select form-select-sm "
+              >
+                <option
+                  v-for="item in judging_systems.tab"
+                  :key="item.id"
+                  :value="item.judging_systems_id"
+                >
+                  {{ item.description }} - {{ item.judging_systems_id }}
+                </option>
+              </select>
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >Judging_system_final</span
+              >
+              <select
+                v-model="getClickedCompetition.judging_system_final"
+                class="  form-select form-select-sm "
+              >
+                <option
+                  v-for="item in judging_systems.tab"
+                  :key="item.id"
+                  :value="item.judging_systems_id"
+                >
+                  {{ item.description }} - {{ item.judging_systems_id }}
+                </option>
+              </select>
+            </div>
+
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text " id="basic-addon1">Title</span>
+              <input
+                type="text"
+                v-model="getClickedCompetition.title"
+                class="  form-control text-left"
+              />
+              <span class="input-group-text ml-1" id="basic-addon1">Hall</span>
+
+              <input
+                type="text"
+                class="  form-control text-left"
+                v-model="getClickedCompetition.hall"
+              />
+            </div>
+
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text " id="basic-addon1">Price</span>
+              <input
+                type="number"
+                v-model="getClickedCompetition.price"
+                class="  form-control text-left"
+              />
+            </div>
+
+            <!--    Start/End   -->
+
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text " id="basic-addon1">Start</span>
+              <input
+                v-model="getClickedCompetition.start_competition"
+                class="  form-control text-left"
+                type="date"
+              />
+              <span class="input-group-text ml-1" id="basic-addon1">End</span>
+              <input
+                v-model="getClickedCompetition.end_competition"
+                class="  form-control text-left"
+                type="date"
+              />
+            </div>
+
+            <!--    dances<-->
+
+            <!--    Calculation type<-->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1">Dances</span>
+
+              <Multiselect
+                v-model="getClickedCompetition.dances"
+                mode="tags"
+                :closeOnSelect="false"
+                :searchable="true"
+                :createTag="true"
+                :options="getOptions"
+                class="  form-control multi"
+              />
+            </div>
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >Calculation type</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.calculation_type"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!--  First  Age  max min<-->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1"
+                >First age min</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.first_age_min"
+                class="text-left form-control"
+              />
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >First age max</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.first_age_max"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!-- Second  Age  max min<-->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1"
+                >Second age min</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.second_age_min"
+                class="text-left form-control"
+              />
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >Second age max</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.second_age_max"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!-- Alternative age group-->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1"
+                >Alternative age group</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.alternative_age_group"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!-- perc_fq_age-->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1"
+                >Perc_fq_age</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.perc_fq_age"
+                class="text-left form-control "
+              />
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >Perc_fq_class</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.perc_fq_class"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!-- members_min-->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1"
+                >Members min</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.members_min"
+                class="text-left form-control "
+              />
+              <span class="input-group-text ml-1" id="basic-addon1"
+                >Members max</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.members_max"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!-- exclusive_gender-->
+            <div class="input-group input-group-sm  p-2">
+              <span class="input-group-text" id="basic-addon1"
+                >Exclusive gender</span
+              >
+              <input
+                type="text"
+                v-model="getClickedCompetition.exclusive_gender"
+                class="text-left form-control"
+              />
+            </div>
+
+            <!-- music_required-->
+            <!-- alias_required-->
+            <div class="input-group input-group-sm  p-2">
+              <div class="form-check purple">
+                <label class="form-check-label" for="musicRequired">
+                  Music required
+                </label>
+                <input
+                  id="musicRequired"
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="getClickedCompetition.music_required"
+                />
+              </div>
+              <div class="form-check purple ml-5">
+                <label class="form-check-label" for="aliasRequired">
+                  Alias required
+                </label>
+                <input
+                  id="aliasRequired"
+                  class="form-check-input"
+                  type="checkbox"
+                  v-model="getClickedCompetition.alias_required"
+                />
+              </div>
+
+              <div class="form-check purple ml-5">
+                <label class="form-check-label" for="stars">
+                  Stars
+                </label>
+
+                <input
+                  id="stars"
+                  type="checkbox"
+                  v-model="getClickedCompetition.stars"
+                  class=" form-check-input   "
+                />
+              </div>
+            </div>
+
+            <!-- ------------------- -->
+          </div>
+
+          <!--------------------------------------------------  Load FIDS  -->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            @click="callDoCreate"
           >
-            {{ item.description }} - {{ item.sector }}
-          </option>
-        </select>
-      </div>
-
-      <!--    Classe -->
-      <div class="p-2">
-        <select
-          v-model="classe.value"
-          class="  form-select form-select-sm "
-          aria-label=".form-select-sm example"
-          name="option"
-          @click="loadTable('Classe')"
-        >
-          <optgroup disabled hidden></optgroup>
-          <option value="" disabled selected>Choose the classe</option>
-          <option v-for="item in classe.tab" :key="item.id" :value="item.id">
-            {{ item.description }} - {{ item.id }}
-          </option>
-        </select>
-      </div>
-
-      <!--    Choose age group/category  -->
-      <div class="p-2">
-        <select
-          v-model="age_category.value"
-          class="  form-select form-select-sm "
-          aria-label=".form-select-sm example"
-          name="option"
-          @click="loadTable('Age_category')"
-        >
-          <optgroup disabled hidden></optgroup>
-          <option value="" disabled selected>Choose age group</option>
-          <option
-            v-for="item in age_category.tab"
-            :key="item.id"
-            :value="item.id"
+            Save
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
           >
-            {{ item.description }} - {{ item.id }}
-          </option>
-        </select>
+            Close
+          </button>
+        </div>
       </div>
-
-      <!--    Dances   -->
-
-      <div class="p-2">
-        <select
-          v-model="dances.value"
-          class="  form-select form-select-sm "
-          aria-label=".form-select-sm example"
-          name="option"
-          @click="loadTable('Dances')"
-        >
-          <optgroup disabled hidden></optgroup>
-          <option value="" disabled selected>Choose the dance</option>
-          <option v-for="item in dances.tab" :key="item.id" :value="item.id">
-            {{ item.description }} - {{ item.id }}
-          </option>
-        </select>
-      </div>
-
-      <!--    Unit type<-->
-      <div class="p-2">
-        <select
-          v-model="unit_type.value"
-          class="  form-select form-select-sm "
-          aria-label=".form-select-sm example"
-          name="option"
-          @click="loadTable('Unit_type')"
-        >
-          <optgroup disabled hidden></optgroup>
-          <option value="" disabled selected>Choose the unit type</option>
-          <option v-for="item in unit_type.tab" :key="item.id" :value="item.id">
-            {{ item.description }} - {{ item.id }}
-          </option>
-        </select>
-      </div>
-
-      <!--    Choose rounds-->
-
-      <div class="">
-        <h6 class="mt-2">Other fields goes here ....</h6>
-      </div>
-
-      <!-- ------------------- -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  emits: ["insertFidsCompleated"],
-  props: ["obj"],
+  props: ["eventOut"],
+  emits: ["doSave"],
   data() {
     return {
+      competiton: {},
+      options: [],
+      //
+      open: false,
+
+      checkItem: [],
+      //
+      event: null,
       events: { value: "", isValid: true, tab: [] },
+
+      license: "",
+      //
+      isMobile: false,
+
+      discipline: "",
       disciplines: { value: "", isValid: true, tab: [] },
       age_category: { value: "", isValid: true, tab: [] },
       classe: { value: "", isValid: true, tab: [] },
       unit_type: { value: "", isValid: true, tab: [] },
       dances: { value: "", isValid: true, tab: [] },
-      judgingSystemPreliminary: { value: "", isValid: true, tab: [] },
-      judgingSystemFinal: { value: "", isValid: true, tab: [] },
+      judging_systems: { value: "", isValid: true, tab: [] },
       calculationType: { value: "", isValid: true, tab: [] },
       FirstAgeMIN: { value: "", isValid: true, tab: [] },
       FirstAgeMAX: { value: "", isValid: true, tab: [] },
@@ -155,60 +432,12 @@ export default {
       ExclusiveGender: { value: "", isValid: true, tab: [] },
       MusicRequired: { value: "", isValid: true, tab: [] },
       AliasRequired: { value: "", isValid: true, tab: [] },
-
-      myCompetitions: [],
-      isFormValid: true,
-      isLoading: false,
-      error: null,
-      tab: null,
-      isMobile: false,
-      competition: {},
     };
   },
   methods: {
-    ////////////////////////////
-    async formSubmit() {
-      this.isLoading = true;
-      //console.log(this.form.events.value);
-      const actionPayload = {
-        license: "FREE",
-        events: this.events.value,
-        disciplines: this.disciplines.value === "" ? 0 : this.disciplines.value,
-        age_category: this.age_category.value,
-        classe: this.classe.value,
-        unit_type: this.unit_type.value,
-        dances: this.dances.value,
-
-        judgingSystemPreliminary: this.judgingSystemPreliminary.value,
-        judgingSystemFinal: this.judgingSystemFinal.value,
-        calculationType: this.calculationType.value,
-        FirstAgeMAX: this.FirstAgeMAX.value,
-        SecondAgeMIN: this.SecondAgeMIN.value,
-        SecondAgeMAX: this.SecondAgeMAX.value,
-        AlternativeAgeGroup: this.AlternativeAgeGroup.value,
-        PercFQAge: this.PercFQAge.value,
-        PercFQClass: this.PercFQClass.value,
-        MembersMIN: this.MembersMIN.value,
-        MembersMAX: this.MembersMAX.value,
-        ExclusiveGender: this.ExclusiveGender.value,
-        MusicRequired: this.MusicRequired.value,
-        AliasRequired: this.AliasRequired.value,
-        user: this.$store.getters["auth/userId"],
-      };
-      // console.log(this.form);
-      // do the post
-      try {
-        await this.$store.dispatch(
-          "competition/addMyCompetition",
-          actionPayload
-        );
-        this.$emit("insertFidsCompleated");
-        //
-      } catch (error) {
-        this.error = error.message || "Failed to authenticate";
-      }
-      this.isLoading = false;
-      // clean the fields
+    callDoCreate() {
+      this.$emit("doCreate", this.getClickedCompetition);
+      this.competiton = {};
     },
 
     async loadTable(tabName) {
@@ -220,6 +449,7 @@ export default {
             });
             this.events.tab = this.$store.getters["event/getEvents"];
             break;
+
           case "Disciplines":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.disciplines.tab = this.$store.getters["tab/get" + tabName];
@@ -237,15 +467,27 @@ export default {
             await this.$store.dispatch("tab/getTabs", tabName);
             this.unit_type.tab = this.$store.getters["tab/get" + tabName];
             break;
+
+          case "Judging_systems":
+            await this.$store.dispatch("tab/getTabs", tabName);
+            this.judging_systems.tab = this.$store.getters["tab/get" + tabName];
+            break;
+
           case "Dances":
             await this.$store.dispatch("tab/getTabs", tabName);
             this.dances.tab = this.$store.getters["tab/get" + tabName];
+
+            this.dances.tab.forEach((element) => {
+              this.options.push({
+                value: element.id,
+                label: element.description,
+              });
+            });
+
             break;
           //
 
           default:
-            await this.$store.dispatch("tab/getTabs", tabName);
-            this.tab = this.$store.getters["tab/get" + tabName];
         }
         // console.log(this.tab[0]);
       } catch (error) {
@@ -253,15 +495,29 @@ export default {
       }
     },
   },
-  computed: {},
-  watch: {
-    obj: function(newVal) {
-      this.competition = this.obj;
-      console.log("Compet: ", newVal);
+  computed: {
+    getOptions() {
+      return this.options;
+    },
+    getClickedCompetition() {
+      return this.competiton;
     },
   },
+  watch: {},
   created() {
-    this.competition = this.obj;
+    this.loadTable("Dances");
+    //this.loadMyCompetitions();
+    this.loadTable("Classe");
+    this.loadTable("Events");
+    this.loadTable("Disciplines");
+    this.loadTable("Unit_type");
+    this.loadTable("Judging_systems");
+
+    this.competiton.start_competition = this.$route.query.start_dat;
+    this.competiton.end_competition = this.$route.query.end_dat;
+
+    //console.log("Query", this.start_dat);
+
     if (screen.width <= 760) {
       this.isMobile = true;
     } else {
@@ -271,18 +527,55 @@ export default {
 };
 </script>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
+
 <style scoped>
-.scroll {
-  height: 420px;
-  overflow-y: scroll;
+@media (min-width: 2000px) {
+}
+
+.selected {
+  background-color: cornflowerblue;
+}
+
+.my_checkbox {
+  width: 5px;
+  height: 5px;
+}
+
+input {
+  background-color: white;
+  text-align: center;
+  border-color: #673ab7;
 }
 
 select {
-  width: 100%;
-  padding: 5px;
-  border-radius: 0px;
+  border-color: #673ab7;
 }
-select option {
-  color: red;
+
+div span {
+  color: white;
+  background-color: #77619b;
+}
+.multi {
+  border-color: #673ab7;
+}
+
+button {
+  text-decoration: none;
+
+  font: inherit;
+  background-color: #673ab7;
+  border: 1px solid #673ab7;
+  color: white;
+  cursor: pointer;
+
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+button:hover,
+button:active {
+  background-color: #270041;
+  border-color: #270041;
 }
 </style>

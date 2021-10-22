@@ -3,7 +3,8 @@ export default {
         state.token = payload.token;
         state.userId = payload.userId;
         state.email = payload.email;
-        state.didAutoLogout = false;
+        state.rolename = payload.rolename;
+        (state.role = payload.role), (state.didAutoLogout = false);
     },
     // serve solo per cambiare pagina, solo quando si fa autologout, cioe quando finisce il tempo
     setAutoLogout(state) {

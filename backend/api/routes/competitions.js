@@ -176,32 +176,12 @@ router.post("/insertFromFidsCompetitions", async(req, res, next) => {
 });
 
 router.post("/addMyRelation", (req, res, next) => {
-    const license = req.body.license;
-    const event = req.body.events;
-    const discipline = req.body.disciplines;
-    const age_group = req.body.age_group;
-    const classe = req.body.classe;
-    const unit_type = req.body.unit_type;
-    const judging_system_preliminary = req.body.judging_system_preliminary;
-    const judging_system_final = req.body.judging_system_final;
-    const calculation_type = req.body.calculation_type;
-    const first_age_min = req.body.first_age_min;
-    const first_age_max = req.body.first_age_max;
-    const second_age_min = req.body.second_age_min;
-    const second_age_max = req.body.second_age_max;
-    const alternative_age_group = req.body.alternative_age_group;
-    const perc_fq_age = req.body.perc_fq_age;
-    const perc_fq_class = req.body.perc_fq_class;
-    const members_min = req.body.members_min;
-    const members_max = req.body.members_max;
-    const exclusive_gender = req.body.exclusive_gender;
-    const music_required = req.body.music_required;
-    const alias = req.body.alias_required;
-    const dances = req.body.dances;
-    const user = req.body.user;
+    const c = req.body.competition;
+
+    console.log(c);
 
     pool.query(
-        'SELECT MAX(id) FROM competitions WHERE license = $1 AND event = $2 AND "user" = $3', [license, event, user],
+        'SELECT MAX(id) FROM competitions WHERE event = $1 AND "user" = $2', [c.event, c.user],
 
         (error, results) => {
             if (error) {
@@ -216,31 +196,37 @@ router.post("/addMyRelation", (req, res, next) => {
             } else maxId = 1;
 
             pool.query(
-                'INSERT INTO competitions (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group,perc_fq_age,perc_fq_class,members_min,members_max,exclusive_gender,music_required,alias_required,dances,event,"user" ) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24)', [
+                'INSERT INTO competitions (id,license, discipline,age_group,classe,unit_type,judging_system_preliminary,judging_system_final,calculation_type,first_age_min,first_age_max,second_age_min,second_age_max,alternative_age_group, perc_fq_age, perc_fq_class, members_min, members_max, exclusive_gender, music_required, alias_required, dances, start_competition, end_competition, title, stars, hall, price, event, "user") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25,$26,$27,$28,$29,$30)', [
                     maxId,
-                    license,
-                    discipline,
-                    age_group,
-                    classe,
-                    unit_type,
-                    judging_system_preliminary,
-                    judging_system_final,
-                    calculation_type,
-                    first_age_min,
-                    first_age_max,
-                    second_age_min,
-                    second_age_max,
-                    alternative_age_group,
-                    perc_fq_age,
-                    perc_fq_class,
-                    members_min,
-                    members_max,
-                    exclusive_gender,
-                    music_required,
-                    alias,
-                    dances,
-                    event,
-                    user,
+                    c.license,
+                    c.discipline,
+                    c.age_group,
+                    c.classe,
+                    c.unit_type,
+                    c.judging_system_preliminary,
+                    c.judging_system_final,
+                    c.calculation_type,
+                    c.first_age_min,
+                    c.first_age_max,
+                    c.second_age_min,
+                    c.second_age_max,
+                    c.alternative_age_group,
+                    c.perc_fq_age,
+                    c.perc_fq_class,
+                    c.members_min,
+                    c.members_max,
+                    c.exclusive_gender,
+                    c.music_required,
+                    c.alias,
+                    c.dances,
+                    c.start_competition,
+                    c.end_competition,
+                    c.title,
+                    c.stars,
+                    c.hall,
+                    c.price,
+                    c.event,
+                    c.user,
                 ],
                 (error, results) => {
                     if (error) {
@@ -254,6 +240,7 @@ router.post("/addMyRelation", (req, res, next) => {
                                 "Generic network error!",
                         });
                     }
+                    console.log("Ok insertion", c);
                     // qui ritorna che tutto è andato ok
                     return res.status(201).json({
                         message: "Relation created successfully",

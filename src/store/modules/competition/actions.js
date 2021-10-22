@@ -99,7 +99,7 @@ export default {
     async addMyCompetition(_, payload) {
         let url = cred.getLinkType().url_my_competition_add;
 
-        //  console.log(payload)
+        // console.log(payload);
 
         const response = await fetch(url, {
             method: "POST",
@@ -112,39 +112,7 @@ export default {
             referrerPolicy: "no-referrer",
             enctype: "mutipart/form-data",
             body: JSON.stringify({
-                license: payload.license,
-                events: payload.events,
-                dances: payload.dances,
-                disciplines: payload.disciplines,
-                judges_disciplines: payload.judges_disciplines,
-                judges_licenses: payload.judges_licenses,
-                officials_licenses: payload.officials_licenses,
-                officials_roles: payload.officials_roles,
-                sectors_discipline: payload.sectors_discipline,
-                unit_type: payload.unit_type,
-                classe: payload.classe,
-                age_category: payload.age_category,
-                competition_type: payload.competition_type,
-                judging_systems: payload.judging_systems,
-                rounds: payload.rounds,
-                user: payload.user,
-
-                age_group: "8/9",
-                judging_system_preliminary: "test",
-                judging_system_final: "RTTT",
-                calculation_type: "sdf",
-                first_age_min: 23,
-                first_age_max: 34,
-                second_age_min: 23,
-                second_age_max: 45,
-                alternative_age_group: 45,
-                perc_fq_age: "sd",
-                perc_fq_class: "df",
-                members_min: "34",
-                members_max: "33",
-                exclusive_gender: "F",
-                music_required: "No",
-                alias: "al",
+                competition: payload,
             }),
         });
 

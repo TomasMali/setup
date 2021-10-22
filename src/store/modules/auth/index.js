@@ -10,6 +10,8 @@ export default {
             userId: null,
             email: null,
             token: null,
+            role: null,
+            rolename: null,
             didAutoLogout: false,
             competitions: null,
         };
