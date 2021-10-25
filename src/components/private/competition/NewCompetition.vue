@@ -54,11 +54,12 @@
               <span class="input-group-text ml-1" id="basic-addon1"
                 >License</span
               >
-
               <input
                 type="text"
                 v-model="getClickedCompetition.license"
                 class="text-left form-control"
+                :class="{ error: !license_v.isValid }"
+                @blur="licenseValidation"
               />
             </div>
 
@@ -72,6 +73,8 @@
                 class="  form-select form-select-sm "
                 aria-label=".form-select-sm example"
                 name="option"
+                :class="{ error: !discipline_v.isValid }"
+                @blur="disciplineValidation"
               >
                 <option
                   v-for="item in disciplines.tab"
@@ -88,6 +91,8 @@
                 type="text"
                 v-model="getClickedCompetition.classe"
                 class="  form-control text-left"
+                :class="{ error: !classe_v.isValid }"
+                @blur="classeValidation"
               />
             </div>
 
@@ -99,6 +104,8 @@
                 type="text"
                 v-model="getClickedCompetition.age_group"
                 class="text-left form-control"
+                :class="{ error: !age_group_v.isValid }"
+                @blur="age_groupValidation"
               />
               <span class="input-group-text ml-1" id="basic-addon1"
                 >United type</span
@@ -106,6 +113,8 @@
               <select
                 v-model="getClickedCompetition.unit_type"
                 class="  form-select form-select-sm "
+                :class="{ error: !unit_type_v.isValid }"
+                @blur="unit_typeValidation"
               >
                 <option
                   v-for="item in unit_type.tab"
@@ -376,6 +385,7 @@
             class="btn btn-primary"
             data-bs-dismiss="modal"
             @click="callDoCreate"
+            :disabled="formIsValid"
           >
             Save
           </button>
@@ -432,12 +442,107 @@ export default {
       ExclusiveGender: { value: "", isValid: true, tab: [] },
       MusicRequired: { value: "", isValid: true, tab: [] },
       AliasRequired: { value: "", isValid: true, tab: [] },
+
+      //
+      license_v: {
+        isValid: true,
+      },
+      discipline_v: {
+        isValid: true,
+      },
+      classe_v: {
+        isValid: true,
+      },
+      age_group_v: {
+        isValid: true,
+      },
+      unit_type_v: {
+        isValid: true,
+      },
+      isFormValid: true,
     };
   },
   methods: {
+    licenseValidation() {
+      this.isFormValid = true;
+      this.license_v.isValid = true;
+      if (
+        this.competiton.license === "" ||
+        this.competiton.license === undefined
+      ) {
+        this.isFormValid = false;
+        this.license_v.isValid = false;
+      }
+    },
+    disciplineValidation() {
+      this.isFormValid = true;
+      this.discipline_v.isValid = true;
+      if (
+        this.competiton.discipline === "" ||
+        this.competiton.discipline === undefined
+      ) {
+        this.isFormValid = false;
+        this.discipline_v.isValid = false;
+      }
+    },
+    classeValidation() {
+      this.isFormValid = true;
+      this.classe_v.isValid = true;
+      if (
+        this.competiton.classe === "" ||
+        this.competiton.classe === undefined
+      ) {
+        this.isFormValid = false;
+        this.classe_v.isValid = false;
+      }
+    },
+    age_groupValidation() {
+      this.isFormValid = true;
+      this.age_group_v.isValid = true;
+      if (
+        this.competiton.age_group === "" ||
+        this.competiton.age_group === undefined
+      ) {
+        this.isFormValid = false;
+        this.age_group_v.isValid = false;
+      }
+    },
+
+    unit_typeValidation() {
+      this.isFormValid = true;
+      this.unit_type_v.isValid = true;
+      if (
+        this.competiton.unit_type === "" ||
+        this.competiton.unit_type === undefined
+      ) {
+        this.isFormValid = false;
+        this.unit_type_v.isValid = false;
+      }
+    },
+
     callDoCreate() {
+      this.licenseValidation();
+      this.disciplineValidation();
+      this.classeValidation();
+      this.age_groupValidation();
+      this.unit_typeValidation();
+
+      this.validFields();
+
+      if (!this.isFormValid) {
+        return;
+      }
+
       this.$emit("doCreate", this.getClickedCompetition);
       this.competiton = {};
+    },
+
+    validFields() {
+      this.licenseValidation();
+      this.disciplineValidation();
+      this.classeValidation();
+      this.age_groupValidation();
+      this.unit_typeValidation();
     },
 
     async loadTable(tabName) {
@@ -496,6 +601,21 @@ export default {
     },
   },
   computed: {
+    formIsValid() {
+      return (
+        this.competiton.license === "" ||
+        this.competiton.license === undefined ||
+        this.competiton.discipline === "" ||
+        this.competiton.discipline === undefined ||
+        this.competiton.classe === "" ||
+        this.competiton.classe === undefined ||
+        this.competiton.age_group === "" ||
+        this.competiton.age_group === undefined ||
+        this.competiton.unit_type === "" ||
+        this.competiton.unit_type === undefined
+      );
+    },
+
     getOptions() {
       return this.options;
     },
@@ -577,5 +697,9 @@ button:hover,
 button:active {
   background-color: #270041;
   border-color: #270041;
+}
+
+.error {
+  border-color: red;
 }
 </style>

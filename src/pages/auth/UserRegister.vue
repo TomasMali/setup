@@ -128,11 +128,8 @@ export default {
   },
   methods: {
     async formSubmit() {
-      this.nameValidation();
-      this.surnameValidation();
-      this.emailValidation();
-      this.passwordValidation();
-      this.confirmValidation();
+      this.validFields();
+
       if (!this.isFormValid) {
         return;
       }
@@ -208,10 +205,21 @@ export default {
         this.confirm.isValid = false;
       }
     },
+
+    validFields() {
+      this.nameValidation();
+      this.surnameValidation();
+      this.emailValidation();
+      this.passwordValidation();
+      this.confirmValidation();
+    },
+
     handleError() {
       this.error = null;
     },
   },
+
+  created() {},
 };
 </script>
 

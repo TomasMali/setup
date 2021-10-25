@@ -5,6 +5,18 @@
         <h2 class="w3-jumbo">Muevelo Project</h2>
       </div>
       <div class="w3-row-padding w3-content" style="max-width: 1400px">
+        <v-card title="Ciao lorem" subtitle="Subtitle" class="ma-2">
+          <v-card-text>
+            TomasLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </v-card-text>
+        </v-card>
+
         <div class="w3-twothird">
           <img
             src="https://avante.biz/wp-content/uploads/Dancer-Wallpapers/Dancer-Wallpapers-004.jpg"
@@ -202,7 +214,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      dialog: false,
+    };
   },
   methods: {},
 };
