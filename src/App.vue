@@ -14,10 +14,6 @@
       >
 
 
-
-
-
-
         <div class="mt-5">
           <v-list-item-content>
             <div class="text-center">
@@ -63,9 +59,6 @@
 
 
         <v-divider class="bg-white"> </v-divider>
-
-
-
         <the-header @triggerMenuMobile="triggerMenuMobile" @clearPic="getPic" @loadPic="getPic"  ></the-header>
       </v-navigation-drawer>
 
@@ -78,7 +71,9 @@
 
         <v-app-bar-title>Muevelo</v-app-bar-title>
         <v-spacer></v-spacer>
+        
         <v-divider inset vertical></v-divider>
+
         <v-btn
           @click="toggleTheme"
           class="mr-4 ml-5 text-white"
